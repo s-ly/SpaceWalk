@@ -1,0 +1,30 @@
+//child = other.gameObject.transform.GetChild(0).GetChild(0).gameObject;
+//child.gameObject.GetComponent<MeshRenderer>().enabled = false; // пр€чем
+
+//grandChild = this.gameObject.transform.GetChild(0).GetChild(0).gameObject;
+// Debug.Log(other.gameObject.name);
+//other.gameObject.SetActive(false);
+//other.gameObject.GetComponent<MeshRenderer>().enabled = false; // пр€чем
+// в скрипте healthManager вызываем метод урона
+//FindObjectOfType<healthManager>().Damage();
+
+//Debug.Log("в башню попадание");
+
+//transform.Translate(Vector3.forward * inputZoom, Space.Self);
+//transform.position += new Vector3(0, 0, 0);
+
+//[SerializeField] private healthManager scriptHealthManager;
+
+//text.text = oxygenTime.ToString();
+//Invoke("oxygenTimer", 1);
+
+//text.text = (Mathf.Round(oxygenTime)).ToString();
+
+//text.text = (Mathf.Round(oxygenTime)).ToString();
+
+///////////////////////////////////////TEMP////////////////
+
+[SerializeField] private GameObject ButtnStore; // кнопка активации магазина
+ButtnStore.SetActive(false); // выкл кнопка магазина
+
+SceneManager.LoadScene(2);  // «агрузка GAME OVER
