@@ -20,6 +20,8 @@ public class crystal : MonoBehaviour
     GameObject LOD_2;
     //GameObject LOD_3;
 
+    [SerializeField] AudioSource Crystal_pick; // звук забирания кристалла
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,7 +50,8 @@ public class crystal : MonoBehaviour
             if (hide == false)
             {
                 // в скрипте crystalManager вызываем метод добавление кристалов
-                FindObjectOfType<crystalManager>().AddOne(crystal_value); 
+                FindObjectOfType<crystalManager>().AddOne(crystal_value);
+                Crystal_pick.Play(); // звук
             }
             transform.localScale = new Vector3(0, 0, 0); // размер кристалла = 0
             HideLODs(false); // скрываем кристал
