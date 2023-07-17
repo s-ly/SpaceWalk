@@ -32,5 +32,19 @@ mergeInto(LibraryManager.library, {
       });
       console.log("----->|");
     },
+
+    JS_DeviceInfo: function () 
+    {
+      console.log("----999999999999999999999999999->|");
+      console.log(ysdk.deviceInfo.type);
+      myGameInstance.SendMessage('Manager_DeviceInfo', 'Touch_Keyboard_SetActive', ysdk.deviceInfo.type);
+    },
+
+    JS_MyWebLog: function (my_log) 
+    {
+      console.log("----zzzzzzzzzzzzzzzzz->|");
+      var my_String = UTF8ToString(my_log);
+      console.log(my_String);
+    },
   
   });

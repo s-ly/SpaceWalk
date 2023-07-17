@@ -5,12 +5,10 @@ using UnityEngine;
 
 public class Yandex : MonoBehaviour
 {
-    [DllImport("__Internal")]
-    private static extern void JS_LogUserID();
-    [DllImport("__Internal")]
-    private static extern void JS_Save(string data);
-    [DllImport("__Internal")]
-    private static extern void JS_Load();
+    [DllImport("__Internal")] private static extern void JS_LogUserID();
+    [DllImport("__Internal")] private static extern void JS_Save(string data);
+    [DllImport("__Internal")] private static extern void JS_Load();
+    
 
     [SerializeField] MainMenu script_MainMenu;
 
@@ -23,7 +21,7 @@ public class Yandex : MonoBehaviour
     public void Button_LogUserID()
     {
         JS_LogUserID();
-    }    
+    }
     public void Button_Save()
     {
         string jsonString = JsonUtility.ToJson(ProgressManager.Instance.YandexDataOBJ); // преобразует объект в строку
@@ -52,6 +50,7 @@ public class Yandex : MonoBehaviour
     {
         script_MainMenu.Set_UserID_text_MainMenu(id);
     }
+    
     public void LoadFromJS(string value)
     {
         // Заполняем данные
@@ -69,4 +68,5 @@ public class Yandex : MonoBehaviour
         }
         script_MainMenu.PlayerDataShowInMainMenu();
     }
+
 }

@@ -13,6 +13,9 @@ public class YandexData
     public int TechnicalContainer;
     public int GameState; // Состояние игры
     public float DATA_time_shot_pause; // Пауза выстрела (время между выстрелами винтовки игрока).
+
+    //public string DeviceInfo;
+    //public bool TouchKeyboardActive;
 }
 
 /* 
