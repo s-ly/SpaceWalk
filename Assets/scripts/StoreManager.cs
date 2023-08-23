@@ -115,6 +115,7 @@ public class StoreManager : MonoBehaviour
 
 
     // вкыл/выкл UI магазина
+    // Дополнительно отключем "текущая миссия", что бы не пересекалось с окном магазина.
     public void StoreUIOnOff()
     {
         if (flagStoreUIOn) 
@@ -126,6 +127,7 @@ public class StoreManager : MonoBehaviour
         {
             StoreUI.SetActive(true);
             flagStoreUIOn = true;
+            script_GameManager.Dialog_current_mission.SetActive(false);
         }
         
     }

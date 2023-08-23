@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class player : MonoBehaviour
 {
-
-
     [SerializeField] private Rigidbody rig;
     [SerializeField] private Transform Target;
-    [SerializeField] private float speed = 3.0f;
+    
+    //[SerializeField] private float speed = 22.0f; // скорость перемещения игрока
+    float speed = 22.0f; // скорость перемещения игрока
+    float player_speed; // коэффициент ускорения игрока (прибавка к скорости)
+
     [SerializeField] private float rotSpeed = 6.0f;
     [SerializeField] private float gravity = 2.0f;
     [SerializeField] private float jamp = 2.0f;
@@ -41,6 +43,7 @@ public class player : MonoBehaviour
     {
         script_PlayerRifle = PlayerRifle.GetComponent<Player_Rifle>();
         Engines.SetActive(false);
+        player_speed = ProgressManager.Instance.YandexDataOBJ.DATA_player_speed;
     }
 
     // Update is called once per frame
@@ -93,13 +96,13 @@ public class player : MonoBehaviour
         if ((Input.GetKey(KeyCode.W)) || pressW)
         //if ((Input.GetKey(KeyCode.UpArrow)) || pressW)
         {
-            rig.AddForce(transform.forward * speed);
+            rig.AddForce(transform.forward * speed * player_speed);
             animator.SetBool("run", true);
         }
 
         if (Input.GetKey(KeyCode.S) || pressS)
         {
-            rig.AddForce(-transform.forward * speed);
+            rig.AddForce(-transform.forward * speed * player_speed);
             animator.SetBool("run", true);
         }
 
@@ -115,7 +118,7 @@ public class player : MonoBehaviour
 
         if ((Input.GetKey(KeyCode.A)) || pressQ)
         {
-            rig.AddForce(-transform.right * speed);
+            rig.AddForce(-transform.right * speed * player_speed);
             animator.SetBool("run", true);
         }
 
@@ -123,7 +126,7 @@ public class player : MonoBehaviour
 
         if ((Input.GetKey(KeyCode.D)) || pressE)
         {
-            rig.AddForce(transform.right * speed);
+            rig.AddForce(transform.right * speed * player_speed);
             animator.SetBool("run", true);
         }
 

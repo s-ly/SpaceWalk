@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Windows;
-using Newtonsoft.Json.Linq;
+// using Newtonsoft.Json.Linq;
 
 public class crystalManager : MonoBehaviour
 {

@@ -45,6 +45,8 @@ public class MainMenu : MonoBehaviour
         string TechnicalContainer = ProgressManager.Instance.YandexDataOBJ.TechnicalContainer.ToString();
         string Level = ProgressManager.Instance.YandexDataOBJ.GameState.ToString();
         string Rifle_shot_pause = ProgressManager.Instance.YandexDataOBJ.DATA_time_shot_pause.ToString();
+        string player_speed = ProgressManager.Instance.YandexDataOBJ.DATA_player_speed.ToString();
+        string player_health = ProgressManager.Instance.YandexDataOBJ.DATA_player_health.ToString();
 
         string PlayerDataString = (
             "Игровой прогресс: " + "\n" +
@@ -52,9 +54,32 @@ public class MainMenu : MonoBehaviour
             "Кислород: " + Oxygen + "\n" +
             "Тех-контейнеры: " + TechnicalContainer + "\n" +
             "Задание: " + Level + "\n" +
-            "Время перезарядки: " + Rifle_shot_pause);
+            "Время перезарядки: " + Rifle_shot_pause + "\n" +
+            "Скорость игрока: " + player_speed + "\n" +
+            "Здоровье игрока: " + player_health);
 
         PlayerDataText.text = PlayerDataString;
+    }
+
+    // Увеличивает скорость игрока
+    public void DEV_BUTTON_speed_player()
+    {
+        ProgressManager.Instance.YandexDataOBJ.DATA_player_speed = 3.0f;
+        PlayerDataShowInMainMenu();
+    }
+
+    // Увеличивает кислород игрока
+    public void DEV_BUTTON_oxygen_player()
+    {
+        ProgressManager.Instance.YandexDataOBJ.Oxygen = 20000.0f;
+        PlayerDataShowInMainMenu();
+    }
+
+    // Увеличивает здоровье игрока
+    public void DEV_BUTTON_health_player()
+    {
+        ProgressManager.Instance.YandexDataOBJ.DATA_player_health = 100000;
+        PlayerDataShowInMainMenu();
     }
 
     // Меняет строку с типом девайса в mainMenu

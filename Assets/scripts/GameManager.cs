@@ -30,6 +30,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI Text_Dialog_current_mission;
     [SerializeField] public GameObject Dialog_current_mission;
 
+    //[SerializeField] GameManager StoreManager;
+    [SerializeField] StoreManager script_StoreManager;
+    [SerializeField] GameObject StoreButton; 
+    [SerializeField] GameObject SpacePodZone;
+    [SerializeField] GameObject Store;
+
     // Триггер-терминалы (для их включения)
     [SerializeField] private GameObject Trigger_Terminal_key;
     [SerializeField] private GameObject Trigger_Terminal_fuel;
@@ -227,12 +233,20 @@ public class GameManager : MonoBehaviour
             Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_6;
         }
         Dialog.SetActive(true);
+        if (StoreButton.activeSelf) StoreButton.SetActive(false); // скрыть кнопку магазина
+        if (Store.activeSelf) 
+        { 
+            Store.SetActive(false); // скрыть Магазин
+            script_StoreManager.flagStoreUIOn = false; // значит сам магазин не открыт
+        } 
+
         Time.timeScale = 0; // Пауза
     }
     
     // Закрывает Диалог
     public void CloseDialog(){
         Dialog.SetActive(false);
+        if (SpacePodZone.activeSelf) StoreButton.SetActive(true); // показать кнопку магазина
         Time.timeScale = 1; // Убираем паузу
     }
 
@@ -274,11 +288,17 @@ public class GameManager : MonoBehaviour
     public void OpenDialog_menu()
     {
         Dialog_Menu.SetActive(true);
+        Dialog.SetActive(false);
+        Store.SetActive(false);
+        StoreButton.SetActive(false);
+        script_StoreManager.flagStoreUIOn = false; // значит сам магазин не открыт
+        Dialog_current_mission.SetActive(false);
         Time.timeScale = 0; // Пауза
     }
     public void CloseDialog_menu()
     {
         Dialog_Menu.SetActive(false);
+        if (SpacePodZone.activeSelf) StoreButton.SetActive(true); // показать кнопку магазина
         Time.timeScale = 1; // Убираем паузу
     }
     

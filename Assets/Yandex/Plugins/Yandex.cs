@@ -33,14 +33,17 @@ public class Yandex : MonoBehaviour
     {
         JS_Load();
     }
-    // не сохраняет
-    public void Button_Reset()
+    
+    // Играть с начала (не сохраняет)
+    public void Reset_Game()
     {
         ProgressManager.Instance.YandexDataOBJ.Crystal = 0;
         ProgressManager.Instance.YandexDataOBJ.Oxygen = 20f;
         ProgressManager.Instance.YandexDataOBJ.TechnicalContainer = 0;
         ProgressManager.Instance.YandexDataOBJ.GameState = 0;
         ProgressManager.Instance.YandexDataOBJ.DATA_time_shot_pause = 0.3f;
+        ProgressManager.Instance.YandexDataOBJ.DATA_player_speed = 1.0f;
+        ProgressManager.Instance.YandexDataOBJ.DATA_player_health = 100;
 
         script_MainMenu.PlayerDataShowInMainMenu();
     }
@@ -62,6 +65,8 @@ public class Yandex : MonoBehaviour
             // Задаём стартовые значения, так-как они стали нулевыми после загрузки с Яндекса.
             ProgressManager.Instance.YandexDataOBJ.DATA_time_shot_pause = 0.3f;
             ProgressManager.Instance.YandexDataOBJ.Oxygen = 20;
+            ProgressManager.Instance.YandexDataOBJ.DATA_player_speed = 1.0f;
+            ProgressManager.Instance.YandexDataOBJ.DATA_player_health = 100;
 
             // Скрываем кнопку загрузки игры
             script_MainMenu.Button_LoadGame_hide();

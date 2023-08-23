@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class healthManager : MonoBehaviour
 {
-    [SerializeField] public int healthPlayer; // кол-во здоровья игрока
+    int healthPlayer; // кол-во здоровья игрока
     [SerializeField] private int bulletDamage; // урон от пули
     [SerializeField] private TextMeshProUGUI textHealthPlayer; // текст кол-ва здоровья игрока
     [SerializeField] private GameObject DamageRedImage; // красная картинка повреждения
@@ -25,6 +25,7 @@ public class healthManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        healthPlayer = ProgressManager.Instance.YandexDataOBJ.DATA_player_health;
         healthPlayerRestart();        
         DamageRedImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f);
 
