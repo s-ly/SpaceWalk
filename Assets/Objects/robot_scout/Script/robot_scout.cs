@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 // Управляет врагом, роботом разведчиком.
 public class robot_scout : MonoBehaviour
-{
+{    
+    [SerializeField] TextMeshProUGUI robot_scout_canvas_text;
+    [SerializeField] GameObject robot_scout_canvas;
+    int robot_scout_health = 100; // здоровье
     GameObject ground; // Луна
     Transform target_ground; 
     Rigidbody rigid;
@@ -16,13 +20,18 @@ public class robot_scout : MonoBehaviour
     float speed_rot_robot_scout = 1.5f;
     float speed_walk = 10f;
     bool rot_robot_scout = false;
+    GameObject myCamera;
 
     // Start is called before the first frame update
     void Start()
     {
         rigid = transform.GetComponent<Rigidbody>();
         ground = GameObject.Find("/ground");
+        myCamera = GameObject.FindGameObjectWithTag("MainCamera"); // ссылка на камеру
         target_ground = ground.GetComponent<Transform>();
+        robot_scout_canvas_text.text = robot_scout_health.ToString(); // показываем здоровье
+        robot_scout_canvas_text.enabled = false;
+
     }
 
     // Update is called once per frame
@@ -31,6 +40,7 @@ public class robot_scout : MonoBehaviour
         if (rot_robot_scout)
         {
             Direction_robot_scout();
+            CanvasTurretLookAt();
         }
     }
 
@@ -56,33 +66,35 @@ public class robot_scout : MonoBehaviour
     // в зону турели что-то входит
     private void OnTriggerEnter(Collider other)
     {
-        // В зону вошёл игрок и турель жива
+        // В зону вошёл игрок 
         if (other.gameObject.CompareTag("Player"))
         {
             player_collider = other.gameObject; // ссылка на игрока
             rot_robot_scout = true;
             Debug.Log(debug_obj_name + "Нашёл цель");
+            robot_scout_canvas_text.enabled = true;
         }
     }
 
     // из зоны турели что-то вышло
     private void OnTriggerExit(Collider other)
     {
-        // В зону вошёл игрок и турель жива
+        // В зону вошёл игрок 
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log(debug_obj_name + "Потерял цель");
             rot_robot_scout = false;
+            robot_scout_canvas_text.enabled = false;
         }
     }
     // в зоне что-то находится
     private void OnTriggerStay(Collider other)
     {
-        // В зону вошёл игрок и турель жива
+        // В зону вошёл игрок 
         if (other.gameObject.CompareTag("Player"))
         {            
             distance_player = Vector3.Distance(other.transform.position, transform.position); // определяю расстояние до игрока
-            rot_robot_scout = true;
+            // rot_robot_scout = true;
             Debug.Log(debug_obj_name + "Наблюдаю цель, до игрока: " + distance_player.ToString());
         }
     }
@@ -93,5 +105,13 @@ public class robot_scout : MonoBehaviour
         Quaternion rot = Quaternion.FromToRotation(transform.forward, pos);  // кватернион, поворачивающий робота по вектору кигроку
         Quaternion new_rot = rot * transform.rotation;                   // новый кватернион поворота робота к игроку
         transform.rotation = Quaternion.Lerp(transform.rotation, new_rot, speed_rot_robot_scout * Time.deltaTime); // плавно поворачиваем
+    }
+    
+    // выравнивает холст робота по камере
+    private void CanvasTurretLookAt()
+    {
+        robot_scout_canvas.transform.LookAt(myCamera.transform);
+        float y = robot_scout_canvas.transform.localEulerAngles.y;
+        robot_scout_canvas.transform.localEulerAngles = new Vector3(0, y, 0);
     }
 }
