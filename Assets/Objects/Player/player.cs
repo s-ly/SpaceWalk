@@ -9,7 +9,7 @@ public class player : MonoBehaviour {
 
     //[SerializeField] private float speed = 22.0f; // скорость перемещения игрока
     float speed = 22.0f; // скорость перемещения игрока
-    float player_speed; // коэффициент ускорения игрока (прибавка к скорости)
+    float player_speed = 1.0f; // коэффициент ускорения игрока (прибавка к скорости)
 
     [SerializeField] private float rotSpeed = 6.0f;
     [SerializeField] private float gravity = 2.0f;

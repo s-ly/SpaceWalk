@@ -54,6 +54,9 @@ public class Yandex : MonoBehaviour {
         // Если первое обращение в Yandex, ещё нет данных, и всё понулям.
         if (ProgressManager.Instance.YandexDataOBJ.DATA_time_shot_pause == 0) {
             // Задаём стартовые значения, так-как они стали нулевыми после загрузки с Яндекса.
+            ProgressManager.Instance.YandexDataOBJ.Crystal = 0;
+            ProgressManager.Instance.YandexDataOBJ.TechnicalContainer = 0;
+            ProgressManager.Instance.YandexDataOBJ.GameState = 0;
             ProgressManager.Instance.YandexDataOBJ.DATA_time_shot_pause = 0.3f;
             ProgressManager.Instance.YandexDataOBJ.Oxygen = 20;
             ProgressManager.Instance.YandexDataOBJ.DATA_player_speed = 1.0f;
