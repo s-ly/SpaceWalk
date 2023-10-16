@@ -4,8 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_Rifle : MonoBehaviour
-{
+public class Player_Rifle : MonoBehaviour {
     [SerializeField] private GameObject playerBullet; //префаб пули игрока
 
     // Пауза выстрела (время между выстрелами винтовки игрока).
@@ -21,49 +20,40 @@ public class Player_Rifle : MonoBehaviour
     private bool lookOnEnemy = false;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         UpdateTimeFireTemp();
     }
 
     // Update is called once per frame
-    void Update()
-    {        
+    void Update() {
         FirePeriodPause();
     }
 
-    public void UpdateTimeFireTemp()
-    {
+    public void UpdateTimeFireTemp() {
         time_shot_pause = ProgressManager.Instance.YandexDataOBJ.DATA_time_shot_pause;
         TEMP_time_shot_pause = time_shot_pause;
     }
 
     // в зону что-то вошло
-    private void OnTriggerEnter(Collider other)
-    {
+    private void OnTriggerEnter(Collider other) {
         // В прицеле игрока появился враг
-        if (other.gameObject.CompareTag("Enemy"))
-        {
+        if (other.gameObject.CompareTag("Enemy")) {
             lookOnEnemy = true; // враг в прицеле появился
         }
     }
 
     // в зоне что-то находится
-    private void OnTriggerStay(Collider other)
-    {
+    private void OnTriggerStay(Collider other) {
         // В прицеле игрока находится враг
-        if (other.gameObject.CompareTag("Enemy"))
-        {
+        if (other.gameObject.CompareTag("Enemy")) {
             lookOnEnemy = true; // враг в прицеле
         }
     }
 
     // из зоны что-то вышло
-    private void OnTriggerExit(Collider other)
-    {
+    private void OnTriggerExit(Collider other) {
         // Из прицела игрока вышел враг
-        if(other.gameObject.CompareTag("Enemy"))
-        {
+        if (other.gameObject.CompareTag("Enemy")) {
             lookOnEnemy = false; // враг вышел из прицела
         }
     }
@@ -71,33 +61,27 @@ public class Player_Rifle : MonoBehaviour
     /* Таймер перезарядки. Запускаем каждый кадр.
     Как только время истекло, то флаг TimeFireFlag = true.
     Временный (убывающий) счётчик сбрасываем. */
-    void FirePeriodPause()
-    {
-        if (TimeFireFlag == false)
-        {
+    void FirePeriodPause() {
+        if (TimeFireFlag == false) {
             TEMP_time_shot_pause -= Time.deltaTime;
-            if (TEMP_time_shot_pause <= 0)
-            {
+            if (TEMP_time_shot_pause <= 0) {
                 TimeFireFlag = true;
-                TEMP_time_shot_pause = time_shot_pause; 
+                TEMP_time_shot_pause = time_shot_pause;
             }
         }
     }
 
     // стреляет если оружее как-бы перезарядилось
     // и в прицеле есть враг
-    public void FirePlayer()
-    {        
-        if (TimeFireFlag && lookOnEnemy)
-        {
+    public void FirePlayer() {
+        if (TimeFireFlag && lookOnEnemy) {
             GenerateBulletPlayer();
             TimeFireFlag = false;
         }
     }
 
     // генерация пули
-    public void GenerateBulletPlayer()
-    {
+    public void GenerateBulletPlayer() {
         clonePlayerBullet = Instantiate(playerBullet, transform.position, transform.rotation);
         Destroy(clonePlayerBullet, 10f); // уничтожение через 10 сек
 

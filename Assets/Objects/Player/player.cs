@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class player : MonoBehaviour
-{
+public class player : MonoBehaviour {
     [SerializeField] private Rigidbody rig;
     [SerializeField] private Transform Target;
-    
+
     //[SerializeField] private float speed = 22.0f; // скорость перемещения игрока
     float speed = 22.0f; // скорость перемещения игрока
     float player_speed; // коэффициент ускорения игрока (прибавка к скорости)
@@ -39,21 +38,18 @@ public class player : MonoBehaviour
     private bool pressSpace = false;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         script_PlayerRifle = PlayerRifle.GetComponent<Player_Rifle>();
         Engines.SetActive(false);
         player_speed = ProgressManager.Instance.YandexDataOBJ.DATA_player_speed;
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
 
         /* Прыжок. Так-как он должен сработать только в момент отпускания клавиши, 
        * то помощаю его в Update(). Иначе, может не всегда сработать. */
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
+        if (Input.GetKeyDown(KeyCode.UpArrow)) {
             jumpPlayer();
         }
 
@@ -63,28 +59,23 @@ public class player : MonoBehaviour
             script_PlayerRifle.FirePlayer();
         }
 
-        if (Input.GetKeyUp(KeyCode.W))
-        {
+        if (Input.GetKeyUp(KeyCode.W)) {
             animator.SetBool("run", false);
         }
 
-        if (Input.GetKeyUp(KeyCode.S))
-        {
+        if (Input.GetKeyUp(KeyCode.S)) {
             animator.SetBool("run", false);
         }
 
-        if (Input.GetKeyUp(KeyCode.A))
-        {
+        if (Input.GetKeyUp(KeyCode.A)) {
             animator.SetBool("run", false);
         }
-        if (Input.GetKeyUp(KeyCode.D))
-        {
+        if (Input.GetKeyUp(KeyCode.D)) {
             animator.SetBool("run", false);
         }
     }
 
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
         // Выравнивание игрока к центру планеты.
         Vector3 pos = (Target.position - transform.position).normalized; // нормальный вектор направление к планете от игрока
         Quaternion rot = Quaternion.FromToRotation(-transform.up, pos);  // кватернион, поворачивающий игрока по вектору к центру планеты
@@ -100,32 +91,27 @@ public class player : MonoBehaviour
             animator.SetBool("run", true);
         }
 
-        if (Input.GetKey(KeyCode.S) || pressS)
-        {
+        if (Input.GetKey(KeyCode.S) || pressS) {
             rig.AddForce(-transform.forward * speed * player_speed);
             animator.SetBool("run", true);
         }
 
-        if ((Input.GetKey(KeyCode.LeftArrow)) || pressA)
-        {
+        if ((Input.GetKey(KeyCode.LeftArrow)) || pressA) {
             rig.AddTorque(-transform.up * rotSpeed);
         }
 
-        if ((Input.GetKey(KeyCode.RightArrow)) || pressD)
-        {
+        if ((Input.GetKey(KeyCode.RightArrow)) || pressD) {
             rig.AddTorque(transform.up * rotSpeed);
         }
 
-        if ((Input.GetKey(KeyCode.A)) || pressQ)
-        {
+        if ((Input.GetKey(KeyCode.A)) || pressQ) {
             rig.AddForce(-transform.right * speed * player_speed);
             animator.SetBool("run", true);
         }
 
 
 
-        if ((Input.GetKey(KeyCode.D)) || pressE)
-        {
+        if ((Input.GetKey(KeyCode.D)) || pressE) {
             rig.AddForce(transform.right * speed * player_speed);
             animator.SetBool("run", true);
         }
@@ -133,103 +119,86 @@ public class player : MonoBehaviour
 
     }
 
+
+
+
     // Прижок игрока
-    public void jumpPlayer()
-    {
-        if (PlayerOnGround && PlayerJumpBase_enter==false && PlayerJumpEngine_enter==false)
-        {
+    public void jumpPlayer() {
+        if (PlayerOnGround && PlayerJumpBase_enter == false && PlayerJumpEngine_enter == false) {
             rig.AddForce(transform.up * speed * jamp);
             animator.SetTrigger("jump");
-            PlayerJumpBase_enter= true;
-            PlayerJumpEngine_enter= false;
-        }      
-        else if (PlayerJumpBase_enter==true && PlayerJumpEngine_enter == false)
-        {
-            rig.AddForce(transform.up * speed * (jamp*1.0f));
+            PlayerJumpBase_enter = true;
+            PlayerJumpEngine_enter = false;
+        }
+        else if (PlayerJumpBase_enter == true && PlayerJumpEngine_enter == false) {
+            rig.AddForce(transform.up * speed * (jamp * 1.0f));
             //rig.AddForce(transform.forward * speed * jamp);
             //animator.SetTrigger("jump");
             PlayerJumpBase_enter = true;
             PlayerJumpEngine_enter = true;
             Engines.SetActive(true);
         }
-        
+
     }
 
-    public void pressSpaceTrue()
-    {
+    public void pressSpaceTrue() {
         pressSpace = true;
     }
-    public void pressSpaceFalse()
-    {
+    public void pressSpaceFalse() {
         pressSpace = false;
     }
-    public void PressATrue()
-    {
+    public void PressATrue() {
         pressA = true;
     }
-    public void PressAFalse()
-    {
+    public void PressAFalse() {
         pressA = false;
     }
-    public void PressSTrue()
-    {
+    public void PressSTrue() {
         pressS = true;
     }
-    public void PressSFalse()
-    {
+    public void PressSFalse() {
         pressS = false;
         animator.SetBool("run", false);
     }
-    public void PressDTrue()
-    {
+    public void PressDTrue() {
         pressD = true;
     }
-    public void PressDFalse()
-    {
+    public void PressDFalse() {
         pressD = false;
     }
-    public void PressWTrue()
-    {
+    public void PressWTrue() {
         pressW = true;
     }
-    public void PressWFalse()
-    {
+    public void PressWFalse() {
         pressW = false;
         animator.SetBool("run", false);
     }
-    public void PressQTrue()
-    {
+    public void PressQTrue() {
         pressQ = true;
     }
-    public void PressQFalse()
-    {
+    public void PressQFalse() {
         pressQ = false;
         animator.SetBool("run", false);
     }
-    public void PressETrue()
-    {
+    public void PressETrue() {
         pressE = true;
     }
-    public void PressEFalse()
-    {
+    public void PressEFalse() {
         pressE = false;
         animator.SetBool("run", false);
     }
 
     ///////////////////////////// РАСПОЗНАНИЕ СТЛОЛКНОВЕНИЯ С ТВЁРДЫМИ ТЕЛАМИ /////////////////////
-    void OnCollisionEnter(Collision collision)
-    {
+    void OnCollisionEnter(Collision collision) {
         print("--------------------------------- Collision detected");
         Engines.SetActive(false);
         PlayerJumpBase_enter = false;
-        PlayerJumpEngine_enter= false;
+        PlayerJumpEngine_enter = false;
     }
-    void OnCollisionStay(Collision collision)
-    {
+    void OnCollisionStay(Collision collision) {
         PlayerOnGround = true;
     }
-    void OnCollisionExit(Collision collision)
-    {
+    void OnCollisionExit(Collision collision) {
         PlayerOnGround = false;
         //Engines.SetActive(true);
     }

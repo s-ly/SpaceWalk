@@ -4,16 +4,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenu : MonoBehaviour
-{
+public class MainMenu : MonoBehaviour {
     [SerializeField] TextMeshProUGUI UserID_text_MainMenu;
     [SerializeField] TextMeshProUGUI PlayerDataText;
     [SerializeField] Yandex script_Yandex;
     [SerializeField] GameObject ButtonLoadGame;
     //[SerializeField] TextMeshProUGUI Text_DeviceInfo;
 
-    void Start()
-    {
+    void Start() {
         Set_UserID_text_MainMenu("none");
         PlayerDataShowInMainMenu();
         //Set_Text_DeviceInfo();
@@ -26,20 +24,17 @@ public class MainMenu : MonoBehaviour
 #endif
     }
 
-    public void Set_UserID_text_MainMenu(string id_text)
-    {
+    public void Set_UserID_text_MainMenu(string id_text) {
         UserID_text_MainMenu.text = "Ваш id: " + id_text;
     }
 
     // Скрывает кнопку "Загрузить сохранённую игру"
-    public void Button_LoadGame_hide()
-    {
+    public void Button_LoadGame_hide() {
         ButtonLoadGame.GetComponent<Button>().interactable = false;
     }
 
     // Показывает данные игрока в главном меню.
-    public void PlayerDataShowInMainMenu()
-    {
+    public void PlayerDataShowInMainMenu() {
         string Crystal = ProgressManager.Instance.YandexDataOBJ.Crystal.ToString();
         string Oxygen = ProgressManager.Instance.YandexDataOBJ.Oxygen.ToString();
         string TechnicalContainer = ProgressManager.Instance.YandexDataOBJ.TechnicalContainer.ToString();
@@ -62,22 +57,19 @@ public class MainMenu : MonoBehaviour
     }
 
     // Увеличивает скорость игрока
-    public void DEV_BUTTON_speed_player()
-    {
+    public void DEV_BUTTON_speed_player() {
         ProgressManager.Instance.YandexDataOBJ.DATA_player_speed = 3.0f;
         PlayerDataShowInMainMenu();
     }
 
     // Увеличивает кислород игрока
-    public void DEV_BUTTON_oxygen_player()
-    {
+    public void DEV_BUTTON_oxygen_player() {
         ProgressManager.Instance.YandexDataOBJ.Oxygen = 20000.0f;
         PlayerDataShowInMainMenu();
     }
 
     // Увеличивает здоровье игрока
-    public void DEV_BUTTON_health_player()
-    {
+    public void DEV_BUTTON_health_player() {
         ProgressManager.Instance.YandexDataOBJ.DATA_player_health = 100000;
         PlayerDataShowInMainMenu();
     }
