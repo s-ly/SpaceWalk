@@ -20,7 +20,7 @@ public class robot_scout : MonoBehaviour {
     GameObject player_collider;
     float speed_rot_robot_scout = 1.5f;
     float speed_walk = 10f;
-    bool rot_robot_scout = false;
+    public bool rot_robot_scout = false;
     GameObject myCamera;
 
     //Player 
@@ -111,13 +111,20 @@ public class robot_scout : MonoBehaviour {
     private void OnTriggerExit(Collider other) {
         // В зону вошёл игрок 
         if (other.gameObject.CompareTag("Player")) {
-            Debug.Log(debug_obj_name + "Потерял цель");
-            rot_robot_scout = false;
-            robot_scout_canvas_text.enabled = false;
+            // дополнительная проверка растояния между игроком и роботом.
+            // потому-то были ложные срабатывания при их столкновении
+            Vector3 playerPosition = Player.transform.position;
+            Vector3 robotPosition = transform.position;
+            float distance = Vector3.Distance(playerPosition, robotPosition);
+            if (distance >= 5f) {
+                Debug.Log(debug_obj_name + "Потерял цель");
+                rot_robot_scout = false;
+                robot_scout_canvas_text.enabled = false;
 
-            // ДЕактивация режима игрока (бой)
-            animatorPlayer.SetBool("Attack_mode", false);
-            script_player.PlayerModeAttack = false;
+                // ДЕактивация режима игрока (бой)
+                animatorPlayer.SetBool("Attack_mode", false);
+                script_player.PlayerModeAttack = false;
+            }
         }
     }
     // в зоне что-то находится
