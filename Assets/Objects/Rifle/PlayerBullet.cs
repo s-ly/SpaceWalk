@@ -11,10 +11,14 @@ public class PlayerBullet : MonoBehaviour
     private Turret turret_script;
     private GameObject clone_Explosion_Bullet; // клон взрыва пули
 
+    // так как колаидер, по которому стреляет игрок ниже в ирархии робота
+    // при попадании в коллидер мы используем его родителя, это будет основной объект робота.
+    robot_scout robot_scout_SCRIPT;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -34,6 +38,21 @@ public class PlayerBullet : MonoBehaviour
             turret = other.gameObject.transform.GetChild(0).gameObject;
             turret_script = turret.GetComponent<Turret>();
             turret_script.TakesDamage();
+
+            // взрыв пули
+            clone_Explosion_Bullet = Instantiate(Explosion_Bullet, transform.position, transform.rotation);
+            Destroy(clone_Explosion_Bullet, 2f); // уничтожение через 2 сек
+
+            Destroy(gameObject); // убиваем пулю игрока
+        }
+
+        // Пуля попала в Робота
+        if (other.gameObject.CompareTag("Enemy_2")) {
+
+            // получаем родителя, то-есть самого робота
+            robot_scout_SCRIPT = other.gameObject.GetComponentInParent<robot_scout>();
+            robot_scout_SCRIPT.Damage();
+
 
             // взрыв пули
             clone_Explosion_Bullet = Instantiate(Explosion_Bullet, transform.position, transform.rotation);

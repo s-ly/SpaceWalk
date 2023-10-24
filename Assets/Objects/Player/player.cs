@@ -115,12 +115,7 @@ public class player : MonoBehaviour {
             rig.AddForce(transform.right * speed * player_speed);
             animator.SetBool("run", true);
         }
-
-
     }
-
-
-
 
     // Прижок игрока
     public void jumpPlayer() {
@@ -138,7 +133,6 @@ public class player : MonoBehaviour {
             PlayerJumpEngine_enter = true;
             Engines.SetActive(true);
         }
-
     }
 
     public void pressSpaceTrue() {

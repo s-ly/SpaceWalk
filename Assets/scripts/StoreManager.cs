@@ -38,7 +38,7 @@ public class StoreManager : MonoBehaviour
     {
         // в магазине выводим текущее время перезарядки
         time_shot_pause = ProgressManager.Instance.YandexDataOBJ.DATA_time_shot_pause;
-        GUI_TEXT_nowTimeShotPause.text = "Текущее время перезарядки: " + time_shot_pause.ToString() + " сек";
+        GUI_TEXT_nowTimeShotPause.text = "Время перезарядки: " + time_shot_pause.ToString() + " сек";
 
         // ссылки на скрипты:
         script_crystalManager = crystalManager.GetComponent<crystalManager>();
@@ -107,7 +107,7 @@ public class StoreManager : MonoBehaviour
                 SCRIPT_TechnicalContainerManager.SaveDataTechnicalContainerManager();
                 SCRIPT_TechnicalContainerManager.UpdateUITechnicalContainer();
                 SCRIPT_Player_Rifle.UpdateTimeFireTemp();
-                GUI_TEXT_nowTimeShotPause.text = "Текущее время перезарядки: " + TEMP_DATA_time_shot_pause.ToString() + " сек";
+                GUI_TEXT_nowTimeShotPause.text = "Время перезарядки: " + TEMP_DATA_time_shot_pause.ToString() + " сек";
                 Off_Button_Bay_TimeShotPause();
             }
         }        
