@@ -37,8 +37,11 @@ public class robot_scout : MonoBehaviour {
     float TimeFire  = 0.3f; // время между выстрелами
     float TimeFireTemp;
 
+    GameObject RADIUS_robot_scout;
+
     // Start is called before the first frame update
     void Start() {
+        RADIUS_robot_scout = transform.parent.gameObject;
         rigid = transform.GetComponent<Rigidbody>();
         ground = GameObject.Find("/ground");
         myCamera = GameObject.FindGameObjectWithTag("MainCamera"); // ссылка на камеру
@@ -176,6 +179,6 @@ public class robot_scout : MonoBehaviour {
         Explosion_CLONE = Instantiate(Explosion, transform.position, transform.rotation);
         Explosion_CLONE.SetActive(true);
         Destroy(Explosion_CLONE, 1.18f); // уничтожение через 2 сек
-        Destroy(gameObject);
+        Destroy(RADIUS_robot_scout);
     }
 }

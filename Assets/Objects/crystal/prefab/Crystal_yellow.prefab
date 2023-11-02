@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2312301296324992913}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7422073020122999781}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &2311522635314567445
 AudioSource:
@@ -41,7 +41,7 @@ AudioSource:
   m_GameObject: {fileID: 2312301296324992913}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: a9f8767fd4027974a80646c4069149af, type: 2}
   m_audioClip: {fileID: 8300000, guid: d36b6066892c14041a9bb05da6eaa25c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -154,6 +154,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2670049239909011018}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 199.8, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
@@ -163,7 +164,6 @@ Transform:
   - {fileID: 1318334105948471958}
   - {fileID: 6464633512637152935}
   m_Father: {fileID: 7422073020122999781}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &8383264513912307040
 SphereCollider:
@@ -173,9 +173,17 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2670049239909011018}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Radius: 2.2994266
   m_Center: {x: 0.029174328, y: 2.0348334, z: 0.07087755}
 --- !u!114 &4927393350245209632
@@ -243,6 +251,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5549118966962111823}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.020593435, y: 0, z: 0, w: 0.999788}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -251,14 +260,13 @@ Transform:
   - {fileID: 2386645201372751861}
   - {fileID: 2497645912160263969}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 2.36, y: 0, z: 0}
 --- !u!1001 &1567552420637713789
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 2386645201372751861}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 6210f88c5f61b70468cd85677ad27a34, type: 3}
@@ -326,7 +334,9 @@ PrefabInstance:
       value: crystal_v1_med
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6210f88c5f61b70468cd85677ad27a34, type: 3}
 --- !u!23 &144261693106076153 stripped
 MeshRenderer:
@@ -343,7 +353,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 2386645201372751861}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: b6fb29f667943d9499f1cf1d5f5902d0, type: 3}
@@ -411,7 +421,9 @@ PrefabInstance:
       value: crystal_v1_hi
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6fb29f667943d9499f1cf1d5f5902d0, type: 3}
 --- !u!23 &5040024376470727361 stripped
 MeshRenderer:
@@ -428,7 +440,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 2386645201372751861}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 7c15504492615b74084de3324f32872f, type: 3}
@@ -496,7 +508,9 @@ PrefabInstance:
       value: crystal_v1_low_new
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c15504492615b74084de3324f32872f, type: 3}
 --- !u!23 &5331647542659466696 stripped
 MeshRenderer:

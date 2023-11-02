@@ -11,6 +11,8 @@ mergeInto(LibraryManager.library, {
 
     JS_LogUserID: async function () {
       console.log("-----> User ID:");
+      await YaGames.init(); // Ожидание инициализации Yandex SDK
+      console.log('Yandex SDK initialized (Unity log)');
       await initPlayer(); // Ожидание инициализации player
       if (player !== undefined) {
         console.log(player.getUniqueID());
@@ -47,6 +49,8 @@ mergeInto(LibraryManager.library, {
     // который висит на объекте Yandex.
     JS_Load: async function () {
       console.log("-----> Load");
+      await YaGames.init(); // Ожидание инициализации Yandex SDK
+      console.log('Yandex SDK initialized (Unity log)');
       await initPlayer(); // Ожидание инициализации player
       if (player !== undefined) {
         player.getData().then(_data => {
