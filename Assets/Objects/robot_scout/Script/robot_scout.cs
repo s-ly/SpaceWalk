@@ -18,7 +18,7 @@ public class robot_scout : MonoBehaviour {
     string debug_obj_name = "bot_scout: ";
     float distance_player;
     GameObject player_collider;
-    float speed_rot_robot_scout = 1.5f;
+    float speed_rot_robot_scout = 2.5f; // было 1.5
     float speed_walk = 10f;
     public bool rot_robot_scout = false;
     GameObject myCamera;
