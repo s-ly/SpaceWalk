@@ -5,7 +5,7 @@ using UnityEngine;
 // Вращение антены радара
 public class Radar_antenna_rot : MonoBehaviour
 {
-    float speed_rot = 45f;
+    float speed_rot = 45f; //45
     // Update is called once per frame
     void Update()
     {

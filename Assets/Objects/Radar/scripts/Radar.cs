@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
-public class Radar : MonoBehaviour
-{
+public class Radar : MonoBehaviour {
     GameObject RadarMap;
     GameObject map_point_player;
+    GameObject map_point_player_orient;
     GameObject map_point_current_mission;
     GameObject Player;
 
@@ -23,67 +23,77 @@ public class Radar : MonoBehaviour
     float current_mission_z;
     GameObject current_mission_base;
 
-    void Start()
-    {
+    void Start() {
         Player = GameObject.FindWithTag("Player");
         RadarMap = transform.GetChild(0).gameObject;
         map_point_player = RadarMap.transform.GetChild(0).gameObject;
+        map_point_player_orient = map_point_player.transform.GetChild(0).gameObject;
         map_point_current_mission = RadarMap.transform.GetChild(1).gameObject;
         RadarMap.SetActive(false);
-        
+
         GameManager = GameObject.Find("/GameManager");
         script_GameManager = GameManager.GetComponent<GameManager>();
     }
-    
-    void Update()
-    {
-        
-    }
-    
-    private void OnTriggerEnter(Collider other)
-    {
 
-        if (other.gameObject.CompareTag("Player"))
-        {
-            RadarMap.SetActive(true);
+    void Update() {
+        if (RadarMap.activeSelf) {
             FindPlayer();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) {
+
+        if (other.gameObject.CompareTag("Player")) {
+            RadarMap.SetActive(true);
+            // FindPlayer();
             script_GameManager.Dialog_current_mission.SetActive(true);
             map_point_current_mission.SetActive(true);
             current_mission_activate();
         }
     }
-    
-    private void OnTriggerExit(Collider other)
-    {
 
-        if (other.gameObject.CompareTag("Player"))
-        {
+    private void OnTriggerExit(Collider other) {
+
+        if (other.gameObject.CompareTag("Player")) {
             RadarMap.SetActive(false);
             script_GameManager.Dialog_current_mission.SetActive(false);
         }
     }
 
-    void FindPlayer()
-    {
+    void FindPlayer() {
         Player_x = Player.transform.localEulerAngles.x;
         Player_y = Player.transform.localEulerAngles.y;
         Player_z = Player.transform.localEulerAngles.z;
-        Vector3 newRotation = new Vector3(Player_x, Player_y, Player_z);
+
+        Vector3 newRotation = new Vector3(Player_x, Player_y, Player_z);        
         map_point_player.transform.localEulerAngles = newRotation;
+
+        map_point_player_orient.transform.rotation = Quaternion.identity;
+        Quaternion Player_orient = Player.transform.rotation; // Получить кватернион ориентации исходного объекта
+        map_point_player_orient.transform.rotation = Player_orient; // Применить кватернион к целевому объекту
+
+        //float orient_y = map_point_player_orient.transform.localEulerAngles.y;
+        //Vector3 newRotation_orient_player = new Vector3(0f, orient_y, 0f);
+        //map_point_player_orient.transform.localEulerAngles = newRotation_orient_player;
+
+
+        // Применить кватернион к целевому объекту
+        //map_point_player_orient.transform.rotation = Quaternion.Euler(0, Player_orient.eulerAngles.y, 0); 
+
+
     }
-    
+
     // показывает на радаре текущую миссию
-    void current_mission_activate()
-    {
+    void current_mission_activate() {
         current_mission = ProgressManager.Instance.YandexDataOBJ.GameState;
-        
+
         string base_name_1 = "pivot (SpacePod)";
         string base_name_2 = "space_shuttle_POINT";
         string base_name_3 = "BASES/Fuel_Base";
         string base_name_4 = "BASES/Energy_Base";
         string base_name_5 = "Trigger_Terminal_POINT (key)";
         string current_mission_base_name = "pivot (SpacePod)";
-        
+
         if (current_mission == 0 && current_mission == 1) current_mission_base_name = base_name_1;
         if (current_mission == 2) current_mission_base_name = base_name_2;
         if (current_mission == 3) current_mission_base_name = base_name_3;
