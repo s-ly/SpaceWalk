@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
+using UnityEngine.UI;
 using UnityEngine.XR;
 
 public class Radar : MonoBehaviour {
@@ -23,6 +26,17 @@ public class Radar : MonoBehaviour {
     float current_mission_z;
     GameObject current_mission_base;
 
+
+    public GameObject Canvas;
+    public Button button_radar_1;
+    public Button button_radar_2;
+
+    public float speed_rot = 45f;
+
+    bool map_incline = false;
+
+
+
     void Start() {
         Player = GameObject.FindWithTag("Player");
         RadarMap = transform.GetChild(0).gameObject;
@@ -38,6 +52,12 @@ public class Radar : MonoBehaviour {
     void Update() {
         if (RadarMap.activeSelf) {
             FindPlayer();
+            RadarMap.transform.Rotate(0.0f, speed_rot * Time.deltaTime, 0.0f, Space.Self);
+
+            if (map_incline) {
+                //RadarMap.transform.Rotate(60f * Time.deltaTime, 0.0f, 0.0f, Space.Self);
+                RadarMap.transform.Rotate(60f * Time.deltaTime, 0.0f, 0.0f, Space.World);
+            }
         }
     }
 
@@ -45,7 +65,8 @@ public class Radar : MonoBehaviour {
 
         if (other.gameObject.CompareTag("Player")) {
             RadarMap.SetActive(true);
-            // FindPlayer();
+            Canvas.SetActive(true);
+            speed_rot = 45f;
             script_GameManager.Dialog_current_mission.SetActive(true);
             map_point_current_mission.SetActive(true);
             current_mission_activate();
@@ -56,6 +77,7 @@ public class Radar : MonoBehaviour {
 
         if (other.gameObject.CompareTag("Player")) {
             RadarMap.SetActive(false);
+            Canvas.SetActive(false);
             script_GameManager.Dialog_current_mission.SetActive(false);
         }
     }
@@ -65,7 +87,7 @@ public class Radar : MonoBehaviour {
         Player_y = Player.transform.localEulerAngles.y;
         Player_z = Player.transform.localEulerAngles.z;
 
-        Vector3 newRotation = new Vector3(Player_x, Player_y, Player_z);        
+        Vector3 newRotation = new Vector3(Player_x, Player_y, Player_z);
         map_point_player.transform.localEulerAngles = newRotation;
 
         map_point_player_orient.transform.rotation = Quaternion.identity;
@@ -109,5 +131,17 @@ public class Radar : MonoBehaviour {
         current_mission_z = current_mission_base.transform.localEulerAngles.z;
         Vector3 newRotation = new Vector3(current_mission_x, current_mission_y, current_mission_z);
         map_point_current_mission.transform.localEulerAngles = newRotation;
+    }
+    public void map_pause() {
+        if (speed_rot != 0) {
+            speed_rot = 0f;
+        }
+        else { speed_rot = 45f; }
+    }
+    public void map_incline_on() {
+        map_incline = true;
+    }
+    public void map_incline_off() {
+        map_incline = false;
     }
 }
