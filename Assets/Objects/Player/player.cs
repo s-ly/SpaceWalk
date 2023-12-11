@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class player : MonoBehaviour {
+    [SerializeField] fuel_manager script_fuel_manager;
     [SerializeField] private Rigidbody rig;
     [SerializeField] private Transform Target;
 
@@ -14,6 +15,7 @@ public class player : MonoBehaviour {
     [SerializeField] private float rotSpeed = 6.0f;
     [SerializeField] private float gravity = 2.0f;
     [SerializeField] private float jamp = 2.0f;
+    float forward_jamp = 50.0f;
 
     [SerializeField] private float speedOld;
     [SerializeField] private float rot;
@@ -27,7 +29,12 @@ public class player : MonoBehaviour {
     bool PlayerOnGround = false; //Player находится на поверхности и может прыгать
     bool PlayerJumpBase_enter = false; // Player совершил базовый прижок
     bool PlayerJumpEngine_enter = false; // Player совершил реактивный прижок
+    bool PlayerJumpEngineForward_enter = false; // Player совершил реактивный прижок вперед
+
+    [SerializeField] private GameObject button_move_jamp_engine;
+
     [SerializeField] GameObject Engines; // двигатели
+    [SerializeField] GameObject engines_forward; // двигатели вперед
 
     private bool pressA = false;
     private bool pressS = false;
@@ -41,7 +48,9 @@ public class player : MonoBehaviour {
     void Start() {
         script_PlayerRifle = PlayerRifle.GetComponent<Player_Rifle>();
         Engines.SetActive(false);
+        engines_forward.SetActive(false);
         player_speed = ProgressManager.Instance.YandexDataOBJ.DATA_player_speed;
+        button_move_jamp_engine.SetActive(false);
     }
 
     // Update is called once per frame
@@ -51,6 +60,10 @@ public class player : MonoBehaviour {
        * то помощаю его в Update(). Иначе, может не всегда сработать. */
         if (Input.GetKeyDown(KeyCode.UpArrow)) {
             jumpPlayer();
+        }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow)) {
+            MoveJumpPlayer();
         }
 
         //if (((Input.GetKey(KeyCode.Space)) || pressSpace) && (PlayerModeAttack))
@@ -124,14 +137,27 @@ public class player : MonoBehaviour {
             animator.SetTrigger("jump");
             PlayerJumpBase_enter = true;
             PlayerJumpEngine_enter = false;
+            PlayerJumpEngineForward_enter = false;
+            button_move_jamp_engine.SetActive(true);
         }
         else if (PlayerJumpBase_enter == true && PlayerJumpEngine_enter == false) {
-            rig.AddForce(transform.up * speed * (jamp * 1.0f));
-            //rig.AddForce(transform.forward * speed * jamp);
-            //animator.SetTrigger("jump");
-            PlayerJumpBase_enter = true;
-            PlayerJumpEngine_enter = true;
-            Engines.SetActive(true);
+            if (script_fuel_manager.JumpRequest()) {
+                rig.AddForce(transform.up * speed * (jamp * 1.0f));
+                PlayerJumpBase_enter = true;
+                PlayerJumpEngine_enter = true;
+                Engines.SetActive(true);
+            }
+        }
+    }
+    public void MoveJumpPlayer() {
+        if (PlayerJumpBase_enter == true && PlayerJumpEngineForward_enter == false) {
+            if (script_fuel_manager.JumpRequest()) {
+                rig.AddForce(transform.forward * speed * forward_jamp);
+                PlayerJumpBase_enter = true;
+                PlayerJumpEngineForward_enter = true;
+                engines_forward.SetActive(true);
+                button_move_jamp_engine.SetActive(false);
+            }
         }
     }
 
@@ -186,8 +212,11 @@ public class player : MonoBehaviour {
     void OnCollisionEnter(Collision collision) {
         print("--------------------------------- Collision detected");
         Engines.SetActive(false);
+        engines_forward.SetActive(false);
         PlayerJumpBase_enter = false;
         PlayerJumpEngine_enter = false;
+        PlayerJumpEngineForward_enter = false;
+        button_move_jamp_engine.SetActive(false);
     }
     void OnCollisionStay(Collision collision) {
         PlayerOnGround = true;

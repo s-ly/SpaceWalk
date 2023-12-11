@@ -38,6 +38,7 @@ public class Yandex : MonoBehaviour {
         ProgressManager.Instance.YandexDataOBJ.DATA_time_shot_pause = 0.3f;
         ProgressManager.Instance.YandexDataOBJ.DATA_player_speed = 1.0f;
         ProgressManager.Instance.YandexDataOBJ.DATA_player_health = 100;
+        ProgressManager.Instance.YandexDataOBJ.DATA_fuel = 100;
 
         script_MainMenu.PlayerDataShowInMainMenu();
     }
@@ -61,9 +62,15 @@ public class Yandex : MonoBehaviour {
             ProgressManager.Instance.YandexDataOBJ.Oxygen = 20;
             ProgressManager.Instance.YandexDataOBJ.DATA_player_speed = 1.0f;
             ProgressManager.Instance.YandexDataOBJ.DATA_player_health = 100;
+            ProgressManager.Instance.YandexDataOBJ.DATA_fuel = 100;
 
             // Скрываем кнопку загрузки игры
             script_MainMenu.Button_LoadGame_hide();
+        }
+
+        // если игрок играл в старую версию, до топлива
+        if(ProgressManager.Instance.YandexDataOBJ.DATA_fuel == 0) {
+            ProgressManager.Instance.YandexDataOBJ.DATA_fuel = 100;
         }
         script_MainMenu.PlayerDataShowInMainMenu();
     }

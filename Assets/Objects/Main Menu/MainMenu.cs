@@ -42,6 +42,7 @@ public class MainMenu : MonoBehaviour {
         string Rifle_shot_pause = ProgressManager.Instance.YandexDataOBJ.DATA_time_shot_pause.ToString();
         string player_speed = ProgressManager.Instance.YandexDataOBJ.DATA_player_speed.ToString();
         string player_health = ProgressManager.Instance.YandexDataOBJ.DATA_player_health.ToString();
+        string fuel = ProgressManager.Instance.YandexDataOBJ.DATA_fuel.ToString();
 
         string PlayerDataString = (
             "Игровой прогресс: " + "\n" +
@@ -51,7 +52,8 @@ public class MainMenu : MonoBehaviour {
             "Задание: " + Level + "\n" +
             "Время перезарядки: " + Rifle_shot_pause + "\n" +
             "Скорость игрока: " + player_speed + "\n" +
-            "Здоровье игрока: " + player_health);
+            "Здоровье игрока: " + player_health + "\n" +
+            "Топливо: " + fuel);
 
         PlayerDataText.text = PlayerDataString;
     }

@@ -14,6 +14,7 @@ public class Manager_DeviceInfo : MonoBehaviour
     [SerializeField] GameObject touch_keyboard_obj_5;
     [SerializeField] GameObject touch_keyboard_obj_6;
     [SerializeField] GameObject touch_keyboard_obj_7;
+    [SerializeField] GameObject touch_keyboard_obj_8;
 
     // Функция java-script
     [DllImport("__Internal")] private static extern void JS_DeviceInfo();
@@ -40,6 +41,7 @@ public class Manager_DeviceInfo : MonoBehaviour
             touch_keyboard_obj_5.SetActive(false);
             touch_keyboard_obj_6.SetActive(false);
             touch_keyboard_obj_7.SetActive(false);
+            touch_keyboard_obj_8.SetActive(false);
         }
     }
 }

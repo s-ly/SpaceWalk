@@ -531,6 +531,7 @@ MonoBehaviour:
     DATA_time_shot_pause: 0.3
     DATA_player_speed: 1
     DATA_player_health: 100
+    DATA_fuel: 100
 --- !u!4 &143792168
 Transform:
   m_ObjectHideFlags: 0
@@ -1409,7 +1410,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19.05
+  m_fontSize: 16.2
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2454,7 +2455,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0412\u0435\u0440\u0441\u0438\u044F: 0.7.4.4"
+  m_text: "\u0412\u0435\u0440\u0441\u0438\u044F: 0.7.4.5"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4c6bb5ea021435c46bc8ca5ab893e0f0, type: 2}
   m_sharedMaterial: {fileID: 681354975341750395, guid: 4c6bb5ea021435c46bc8ca5ab893e0f0, type: 2}
@@ -3682,6 +3683,8 @@ MonoBehaviour:
 
     -
 
+    -
+
     -----'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4c6bb5ea021435c46bc8ca5ab893e0f0, type: 2}
@@ -3843,7 +3846,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
+  m_fontSize: 45.45
   m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4556,6 +4559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46fd083b4d4b12c4ba9eec2018b051c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  script_fuel_manager: {fileID: 0}
   rig: {fileID: 0}
   Target: {fileID: 0}
   rotSpeed: 6
@@ -4566,7 +4570,9 @@ MonoBehaviour:
   animator: {fileID: 994113069}
   PlayerRifle: {fileID: 0}
   PlayerModeAttack: 0
+  button_move_jamp_engine: {fileID: 0}
   Engines: {fileID: 0}
+  engines_forward: {fileID: 0}
 --- !u!1 &1743655396
 GameObject:
   m_ObjectHideFlags: 0

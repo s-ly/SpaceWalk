@@ -15,6 +15,7 @@ public class YandexData
     public float DATA_time_shot_pause; // Пауза выстрела (время между выстрелами винтовки игрока).
     public float DATA_player_speed; // коэффициент ускорения игрока (прибавка к скорости)
     public int DATA_player_health; // здоровье игрока
+    public int DATA_fuel;
 
     //public string DeviceInfo;
     //public bool TouchKeyboardActive;
