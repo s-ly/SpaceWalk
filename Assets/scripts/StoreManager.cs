@@ -35,6 +35,7 @@ public class StoreManager : MonoBehaviour {
 
 
     public fuel_manager SCRIPT_fuel_manager;
+    public BatteryManager SCRIPT_BatteryManager;
     // Start is called before the first frame update
     void Start() {
         // в магазине выводим текущее время перезарядки
@@ -112,10 +113,11 @@ public class StoreManager : MonoBehaviour {
         int tmp_crystal = script_crystalManager.CrystalStore;
         int tmp_techCon = SCRIPT_TechnicalContainerManager.TechnicalContainerStore;
 
-        if (tmp_techCon >= upgrFuelPrice_techCon && tmp_crystal >= upgrFuelPrice_crystal) {            
+        if (tmp_techCon >= upgrFuelPrice_techCon && tmp_crystal >= upgrFuelPrice_crystal) {
             tmp_crystal -= upgrFuelPrice_crystal;
             tmp_techCon -= upgrFuelPrice_techCon;
             SCRIPT_fuel_manager.fuel_max += upgrade_fuel; // покупка
+
             script_crystalManager.CrystalStore = tmp_crystal;
             SCRIPT_TechnicalContainerManager.TechnicalContainerStore = tmp_techCon;
 
@@ -127,6 +129,38 @@ public class StoreManager : MonoBehaviour {
             script_crystalManager.UpdateUICrystal();
 
             script_GameManager.Check_GameState("BayFuel"); // это сохранит на сервере Яндекса
+
+        }
+    }
+
+    public void BayEnergyField() {
+        int upgrPrice_crystal = 10;
+        int upgrPrice_techCon = 5;
+        int max_level = 4;  // максимальный уровень прокачки (0-4) 
+        int tmp_BatteryManager = SCRIPT_BatteryManager.battery_level;
+        int tmp_crystal = script_crystalManager.CrystalStore;
+        int tmp_techCon = SCRIPT_TechnicalContainerManager.TechnicalContainerStore;
+        
+        if (tmp_techCon >= upgrPrice_techCon && tmp_crystal >= upgrPrice_crystal && tmp_BatteryManager < max_level) {
+            tmp_crystal -= upgrPrice_crystal;
+            tmp_techCon -= upgrPrice_techCon;
+            SCRIPT_BatteryManager.battery_level++;
+
+            script_crystalManager.CrystalStore = tmp_crystal;
+            SCRIPT_TechnicalContainerManager.TechnicalContainerStore = tmp_techCon;
+
+            SCRIPT_BatteryManager.SaveDataLevelBattery();
+            SCRIPT_BatteryManager.BatteryInIt();
+            SCRIPT_BatteryManager.BtteryChargeMath();
+            SCRIPT_BatteryManager.UpdateDevUIBattery();
+
+            SCRIPT_TechnicalContainerManager.SaveDataTechnicalContainerManager();
+            SCRIPT_TechnicalContainerManager.UpdateUITechnicalContainer();
+            script_crystalManager.SaveDataCrystal();
+            script_crystalManager.UpdateUICrystal();
+
+            script_GameManager.Check_GameState("BayFuel"); // это сохранит на сервере Яндекса
+
 
         }
     }

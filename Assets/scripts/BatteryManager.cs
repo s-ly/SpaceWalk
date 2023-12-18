@@ -11,7 +11,7 @@ public class BatteryManager : MonoBehaviour {
     public int battery_charge_percent = 0; //уровень зар€да в процентах
     public int battery_charge_level = 0; //уровень зар€да в состо€нии (0-6)
     public bool battery_charging_status = false; //зар€жаетс€ ли бабатер€
-    public float battery_auto_charging_speed = 0; //скорость самозар€дки в 1/сек
+    public float battery_auto_charging_speed = 0; //скорость самозар€дки в 1/сек (меньше лучше)
 
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] player SCRIPT_player;
@@ -33,7 +33,7 @@ public class BatteryManager : MonoBehaviour {
         BatteryInIt();
         BatteryRecharge();
         BtteryChargeMath();
-        UpdateDevUIBattery();        
+        UpdateDevUIBattery();
     }
 
     // Update is called once per frame
@@ -43,6 +43,10 @@ public class BatteryManager : MonoBehaviour {
             UpdateDevUIBattery();
         }
         if (battery_charging_status && battery_charge_units != battery_size && !isCharging) StartCoroutine(ChargerTime());
+    }
+
+    public void SaveDataLevelBattery() {
+        ProgressManager.Instance.YandexDataOBJ.DATA_battary_level = battery_level;
     }
 
     public void UpdateDevUIBattery() {
@@ -67,7 +71,7 @@ public class BatteryManager : MonoBehaviour {
         SetTextures();
     }
 
-    void BatteryInIt() {
+    public void BatteryInIt() {
 
         switch (battery_level) {
             case 0: {
@@ -75,16 +79,37 @@ public class BatteryManager : MonoBehaviour {
                     battery_auto_charging_speed = 1.0f;
                     break;
                 }
+            case 1: {
+                    battery_size = 70;
+                    battery_auto_charging_speed = 0.95f;
+                    break;
+                }
+            case 2: {
+                    battery_size = 80;
+                    battery_auto_charging_speed = 0.9f;
+                    break;
+                }
+            case 3: {
+                    battery_size = 90;
+                    battery_auto_charging_speed = 0.85f;
+                    break;
+                }
+            case 4: {
+                    battery_size = 100;
+                    battery_auto_charging_speed = 0.8f;
+                    break;
+                }
+
         }
 
     }
 
-    void BatteryRecharge() {
+    public void BatteryRecharge() {
         battery_charge_units = battery_size;
     }
 
     // вычисление зар€да в процентак и выставление уровн€ по ним
-    void BtteryChargeMath() {
+    public void BtteryChargeMath() {
         float temp_battery_size = (float)battery_size;
         float temp_battery_charge_units = (float)battery_charge_units;
         float temp_battery_charge_percent = (float)battery_charge_percent;
@@ -145,13 +170,13 @@ public class BatteryManager : MonoBehaviour {
     // TODO
     // Ёта функци€ вызываетс€ каждый раз, когда что-то мен€етс€, а надо только когда
     // мен€етс€ battery_charge_level.
-    void SetTextures() { 
-    if (battery_charge_level == 0) player_material.SetTexture("_MainTex", battery_0);
-    else if (battery_charge_level == 1) player_material.SetTexture("_MainTex", battery_1);
-    else if (battery_charge_level == 2) player_material.SetTexture("_MainTex", battery_2);
-    else if (battery_charge_level == 3) player_material.SetTexture("_MainTex", battery_3);
-    else if (battery_charge_level == 4) player_material.SetTexture("_MainTex", battery_4);
-    else if (battery_charge_level == 5) player_material.SetTexture("_MainTex", battery_5);
-    else if (battery_charge_level == 6) player_material.SetTexture("_MainTex", battery_6);
+    void SetTextures() {
+        if (battery_charge_level == 0) player_material.SetTexture("_MainTex", battery_0);
+        else if (battery_charge_level == 1) player_material.SetTexture("_MainTex", battery_1);
+        else if (battery_charge_level == 2) player_material.SetTexture("_MainTex", battery_2);
+        else if (battery_charge_level == 3) player_material.SetTexture("_MainTex", battery_3);
+        else if (battery_charge_level == 4) player_material.SetTexture("_MainTex", battery_4);
+        else if (battery_charge_level == 5) player_material.SetTexture("_MainTex", battery_5);
+        else if (battery_charge_level == 6) player_material.SetTexture("_MainTex", battery_6);
     }
 }

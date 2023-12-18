@@ -17,7 +17,7 @@ public class YandexData
     public float DATA_player_speed; // коэффициент ускорения игрока (прибавка к скорости)
     public int DATA_player_health; // здоровье игрока
     public int DATA_fuel;
-    public int DATA_battary_level; // скорость зарядки (уровень)
+    public int DATA_battary_level; // защитное поле (уровень)
 }
 
 /* 

@@ -1278,7 +1278,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16.2
+  m_fontSize: 22
   m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1412,7 +1412,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13.2
+  m_fontSize: 19.45
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2457,7 +2457,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0412\u0435\u0440\u0441\u0438\u044F: 0.7.4.9"
+  m_text: "\u0412\u0435\u0440\u0441\u0438\u044F: 0.7.5.0"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4c6bb5ea021435c46bc8ca5ab893e0f0, type: 2}
   m_sharedMaterial: {fileID: 681354975341750395, guid: 4c6bb5ea021435c46bc8ca5ab893e0f0, type: 2}
@@ -3648,8 +3648,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 323.2, y: 2.9}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 323.2, y: -10.096106}
+  m_SizeDelta: {x: 100, y: 125.9923}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1121266912
 MonoBehaviour:
@@ -3671,23 +3671,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Player data:
-
-    -
-
-    -
-
-    -
-
-    -
-
-    -
-
-    -
-
-    -
-
-    -----'
+  m_text: "Player data:\n-\n-\n-\n-\n-\n-\n-\n-----\n\u0417\u0430\u0449\u0438\u0442\u043D\u043E\u0435
+    \u043F\u043E\u043B\u0435"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4c6bb5ea021435c46bc8ca5ab893e0f0, type: 2}
   m_sharedMaterial: {fileID: 681354975341750395, guid: 4c6bb5ea021435c46bc8ca5ab893e0f0, type: 2}
@@ -3750,7 +3735,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -95.35653, y: 8.802805, z: -0.23722227, w: -5.04887}
+  m_margin: {x: -95.35653, y: -0.49480632, z: -0.23722227, w: -0.5941124}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3848,7 +3833,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31.35
+  m_fontSize: 50
   m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 1

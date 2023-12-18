@@ -43,17 +43,19 @@ public class MainMenu : MonoBehaviour {
         string player_speed = ProgressManager.Instance.YandexDataOBJ.DATA_player_speed.ToString();
         string player_health = ProgressManager.Instance.YandexDataOBJ.DATA_player_health.ToString();
         string fuel = ProgressManager.Instance.YandexDataOBJ.DATA_fuel.ToString();
+        string battary = ProgressManager.Instance.YandexDataOBJ.DATA_battary_level.ToString();
 
         string PlayerDataString = (
             "Игровой прогресс: " + "\n" +
             "Кристаллы: " + Crystal + "\n" +
-            "Кислород: " + Oxygen + "\n" +
+            "Максимальный запас кислорода: " + Oxygen + "\n" +
             "Тех-контейнеры: " + TechnicalContainer + "\n" +
-            "Задание: " + Level + "\n" +
-            "Время перезарядки: " + Rifle_shot_pause + "\n" +
+            "Текущее задание: " + Level + "\n" +
+            "Время перезарядки оружия: " + Rifle_shot_pause + "\n" +
             "Скорость игрока: " + player_speed + "\n" +
             "Здоровье игрока: " + player_health + "\n" +
-            "Топливо: " + fuel);
+            "Максимальный запас топлива: " + fuel + "\n" +
+            "Версия защитного поля: " + battary);
 
         PlayerDataText.text = PlayerDataString;
     }
