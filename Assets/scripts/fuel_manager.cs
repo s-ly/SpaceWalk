@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 
 public class fuel_manager : MonoBehaviour {
-    int fuel_max; // ёммкость баков
+    public int fuel_max; // ёммкость баков
     int fuel; // сколько осталось в баке
     int jump_price = 10; // цена прыжка в топливах
 
@@ -41,5 +41,9 @@ public class fuel_manager : MonoBehaviour {
     public void Refueling() {
         fuel = fuel_max;
         UpdateUIFuel();
+    }
+
+    public void SaveFuel() {
+        ProgressManager.Instance.YandexDataOBJ.DATA_fuel = fuel_max;
     }
 }

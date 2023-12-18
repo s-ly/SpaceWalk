@@ -19,6 +19,7 @@ public class healthManager : MonoBehaviour
     // менеджер игры
     [SerializeField] private GameObject GameManager;
     private GameManager script_GameManager;
+    public BatteryManager SCRIPT_BatteryManager;
 
 
 
@@ -45,16 +46,15 @@ public class healthManager : MonoBehaviour
         textHealthPlayer.text = healthPlayerTEMP.ToString();
     }
 
-    // Урон игрока
+    // Урон игрока. Пуля попала в игрока
     public void Damage()
     {
+        int compensation_protective_field = 0;
+        compensation_protective_field = SCRIPT_BatteryManager.ActivationProtectiveField(bulletDamage);
+        healthPlayerTEMP += compensation_protective_field; // компенсация защитного поля
         healthPlayerTEMP -= bulletDamage; // вычитаем урон
         if (healthPlayerTEMP < 0) healthPlayerTEMP = 0; // что-бы не уходить в минус
         UpdateUIHealthPlayer();
-        //Debug.Log("Пуля попала в игрока");
-
-        
-
 
 
         // кончилось здоровье

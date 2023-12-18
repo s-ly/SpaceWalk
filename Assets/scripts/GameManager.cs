@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour {
     //string dev_text;
 
 
-
+    public EngineBase SCRIPT_EngineBase; // перекрытие UI
     // Start is called before the first frame update
     void Start() {
         GameState = ProgressManager.Instance.YandexDataOBJ.GameState; // «агрузка —осто€ни€ игры
@@ -116,6 +116,12 @@ public class GameManager : MonoBehaviour {
     // ѕроверка состо€ни€ игры
     public void Check_GameState(string GameEvent) {
         switch (GameEvent) {
+            case "BayFuel": {
+#if UNITY_WEBGL
+                    script_Yandex.Button_Save();
+#endif
+                    break;
+                }
             case "PlayerEnterSpacePod": {
                     // —осто€ние 0 - игрок в начале игры, его цель просто добежать до базы.
                     if (GameState == 0) {
@@ -266,11 +272,13 @@ public class GameManager : MonoBehaviour {
         StoreButton.SetActive(false);
         script_StoreManager.flagStoreUIOn = false; // значит сам магазин не открыт
         Dialog_current_mission.SetActive(false);
+        SCRIPT_EngineBase.SwitchActive(); // дл€ предотвращение перекрыти€ ui
         Time.timeScale = 0; // ѕауза
     }
     public void CloseDialog_menu() {
         Dialog_Menu.SetActive(false);
         if (SpacePodZone.activeSelf) StoreButton.SetActive(true); // показать кнопку магазина
+        SCRIPT_EngineBase.SwitchActive(); // дл€ предотвращение перекрыти€ ui
         Time.timeScale = 1; // ”бираем паузу
     }
 

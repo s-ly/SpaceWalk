@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - Tech_Container
   - Enemy_2
+  - Enemy_battery
   layers:
   - Default
   - TransparentFX

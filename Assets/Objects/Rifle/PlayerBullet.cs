@@ -10,6 +10,9 @@ public class PlayerBullet : MonoBehaviour
     private GameObject turret;
     private Turret turret_script;
     private GameObject clone_Explosion_Bullet; // клон взрыва пули
+    
+    EnergyBattery SCRIPT_EnergyBattery;
+    //GameObject EnergyBattery;
 
     // так как колаидер, по которому стреляет игрок ниже в ирархии робота
     // при попадании в коллидер мы используем его родителя, это будет основной объект робота.
@@ -53,6 +56,25 @@ public class PlayerBullet : MonoBehaviour
             robot_scout_SCRIPT = other.gameObject.GetComponentInParent<robot_scout>();
             robot_scout_SCRIPT.Damage();
 
+
+            // взрыв пули
+            clone_Explosion_Bullet = Instantiate(Explosion_Bullet, transform.position, transform.rotation);
+            Destroy(clone_Explosion_Bullet, 2f); // уничтожение через 2 сек
+
+            Destroy(gameObject); // убиваем пулю игрока
+        }
+
+        // Пуля попала в Робота
+        if (other.gameObject.CompareTag("Enemy_battery")) {
+            
+            // получаем родителя родителя родителя
+            GameObject energy_battery;             
+            energy_battery = other.gameObject.transform.parent.gameObject;
+            energy_battery = energy_battery.transform.parent.gameObject;
+            energy_battery = energy_battery.transform.parent.gameObject;
+            SCRIPT_EnergyBattery = energy_battery.GetComponent<EnergyBattery>();
+            SCRIPT_EnergyBattery.Damage();
+            Debug.Log("----Damage>");
 
             // взрыв пули
             clone_Explosion_Bullet = Instantiate(Explosion_Bullet, transform.position, transform.rotation);

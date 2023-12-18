@@ -37,7 +37,9 @@ public class Player_Rifle : MonoBehaviour {
     // в зону что-то вошло
     private void OnTriggerEnter(Collider other) {
         // В прицеле игрока появился враг
-        if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Enemy_2")) {
+        if (other.gameObject.CompareTag("Enemy") || 
+            other.gameObject.CompareTag("Enemy_2") || 
+            other.gameObject.CompareTag("Enemy_battery")) {
             lookOnEnemy = true; // враг в прицеле появился
             Debug.Log("Вижу врага");
         }
@@ -46,7 +48,9 @@ public class Player_Rifle : MonoBehaviour {
     // в зоне что-то находится
     private void OnTriggerStay(Collider other) {
         // В прицеле игрока находится враг
-        if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Enemy_2")) {
+        if (other.gameObject.CompareTag("Enemy") ||
+            other.gameObject.CompareTag("Enemy_2") ||
+            other.gameObject.CompareTag("Enemy_battery")) {
             lookOnEnemy = true; // враг в прицеле
         }
     }
@@ -54,7 +58,9 @@ public class Player_Rifle : MonoBehaviour {
     // из зоны что-то вышло
     private void OnTriggerExit(Collider other) {
         // Из прицела игрока вышел враг
-        if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Enemy_2")) {
+        if (other.gameObject.CompareTag("Enemy") ||
+            other.gameObject.CompareTag("Enemy_2") ||
+            other.gameObject.CompareTag("Enemy_battery")) {
             lookOnEnemy = false; // враг вышел из прицела
         }
     }

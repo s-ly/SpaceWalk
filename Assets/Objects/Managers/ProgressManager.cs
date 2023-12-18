@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+//using static UnityEditor.Experimental.GraphView.Port;
 
 // —обственный класс, данные дл€ сохранени€ между уровн€ми и на Yandex.
 // Ёто нужно дл€ удобной передачи в JavaScript.
@@ -16,9 +17,7 @@ public class YandexData
     public float DATA_player_speed; // коэффициент ускорени€ игрока (прибавка к скорости)
     public int DATA_player_health; // здоровье игрока
     public int DATA_fuel;
-
-    //public string DeviceInfo;
-    //public bool TouchKeyboardActive;
+    public int DATA_battary_level; // скорость зар€дки (уровень)
 }
 
 /* 
