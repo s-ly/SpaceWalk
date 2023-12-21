@@ -48,7 +48,7 @@ public class SpacePod : MonoBehaviour
             SCRIPT_TechnicalContainerManager.StoreTechnicalContainer(); // кладём Тех-К в хранилище
             SCRIPT_TechnicalContainerManager.SaveDataTechnicalContainerManager(); // сохраняем Тех-К меж-ур
             ButtnStore.SetActive(true); // вкыл кнопка магазина            
-            FindObjectOfType<healthManager>().healthPlayerRestart(); // рестарт здоровья игрока            
+            // FindObjectOfType<healthManager>().healthPlayerRestart(); // рестарт здоровья игрока            
             script_GameManager.Check_GameState("PlayerEnterSpacePod"); // Проверка состояния игры
         }
     }
