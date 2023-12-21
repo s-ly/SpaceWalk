@@ -7,6 +7,7 @@ public class Yandex : MonoBehaviour {
     [DllImport("__Internal")] private static extern void JS_LogUserID();
     [DllImport("__Internal")] private static extern void JS_Save(string data);
     [DllImport("__Internal")] private static extern void JS_Load();
+    [DllImport("__Internal")] private static extern void JS_ShowAdv();
 
 
     [SerializeField] MainMenu script_MainMenu;
@@ -71,11 +72,17 @@ public class Yandex : MonoBehaviour {
         }
 
         // если игрок играл в старую версию, до топлива и батареи
-        if(ProgressManager.Instance.YandexDataOBJ.DATA_fuel == 0) {
+        if (ProgressManager.Instance.YandexDataOBJ.DATA_fuel == 0) {
             ProgressManager.Instance.YandexDataOBJ.DATA_fuel = 100;
             ProgressManager.Instance.YandexDataOBJ.DATA_battary_level = 0;
         }
         script_MainMenu.PlayerDataShowInMainMenu();
+    }
+
+    public void ShowAdv() {
+#if UNITY_WEBGL
+        JS_ShowAdv();
+#endif
     }
 
 }

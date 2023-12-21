@@ -124,6 +124,7 @@ public class GameManager : MonoBehaviour {
             TimerDeath = TimerDeath - Time.deltaTime;
             if (TimerDeath <= 0) {
                 SceneManager.LoadScene(2);  // Загрузка GAME OVER
+                script_Yandex.ShowAdv();
             }
         }
     }
