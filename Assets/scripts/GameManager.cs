@@ -53,20 +53,37 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private GameObject crystalManager;
     private crystalManager script_crystalManager;
 
-    private string TextDialog_0 = "Доберитесь до базы.";
+    private string TextDialog_0 = "Доберитесь до базы. " +
+        "Доберитесь до базушки.";
     private string TextDialog_1 = "Собери 10 Кристаллов, увеличь объём кислорода.";
-    private string TextDialog_2 = "Найди Шаттл.";
-    private string TextDialog_3 = "Найти топливную станцию и принести к Шаттлу.";
-    private string TextDialog_4 = "Найти энергетическую станцию и принести к Шаттлу.";
-    private string TextDialog_5 = "Найти станцию охраны и принести к Шаттлу.";
-    private string TextDialog_6 = "Вы уже выиграли.";
+    private string TextDialog_2 = "Кратер с кристаллами (северный кратер).";
+    private string TextDialog_3 = "Найди станцию оружия.";
+    private string TextDialog_4 = "Найди Шаттл.";
+    private string TextDialog_5 = "Найди станцию двигателей.";
+    private string TextDialog_6 = "Найти топливную станцию и принести к Шаттлу.";
+    private string TextDialog_7 = "Найди станцию поля.";
+    private string TextDialog_8 = "Найти энергетическую станцию и принести к Шаттлу.";
+    private string TextDialog_9 = "Уничтожить 3 реактора.";
+    private string TextDialog_10 = "Найти станцию охраны и принести к Шаттлу.";
+    private string TextDialog_11 = "Вы уже выиграли.";
 
     [SerializeField] Yandex script_Yandex;
 
-    //string dev_text;
-
+    // какие батареи уничтоженны
+    bool DestroyBatteryNum_1 = false;
+    bool DestroyBatteryNum_2 = false;
+    bool DestroyBatteryNum_3 = false;
+    public bool DestroyBatteryAll = false; 
 
     public EngineBase SCRIPT_EngineBase; // перекрытие UI
+
+    public GameObject EnergyBattery_1;
+    public GameObject EnergyBattery_2;
+    public GameObject EnergyBattery_3;
+    EnergyBattery SRC_EnergyBattery_1;
+    EnergyBattery SRC_EnergyBattery_2;
+    EnergyBattery SRC_EnergyBattery_3;
+
     // Start is called before the first frame update
     void Start() {
         GameState = ProgressManager.Instance.YandexDataOBJ.GameState; // Загрузка Состояния игры
@@ -80,6 +97,12 @@ public class GameManager : MonoBehaviour {
         script_rigger_Terminal_key = Trigger_Terminal_key.GetComponent<Trigger_Terminal>();
         script_rigger_Terminal_fuel = Trigger_Terminal_fuel.GetComponent<Trigger_Terminal>();
         script_rigger_Terminal_energy = Trigger_Terminal_energy.GetComponent<Trigger_Terminal>();
+
+        SRC_EnergyBattery_1 = EnergyBattery_1.GetComponent<EnergyBattery>();
+        SRC_EnergyBattery_2 = EnergyBattery_2.GetComponent<EnergyBattery>();
+        SRC_EnergyBattery_3 = EnergyBattery_3.GetComponent<EnergyBattery>();
+
+
 
         Dialog_Menu.SetActive(false);
         OpenDialogMission();
@@ -125,7 +148,7 @@ public class GameManager : MonoBehaviour {
             case "PlayerEnterSpacePod": {
                     // Состояние 0 - игрок в начале игры, его цель просто добежать до базы.
                     if (GameState == 0) {
-                        GameState = 1; // переводим в состояние 1
+                        GameState = 1; 
                         ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями 
                         OpenDialogMission();
                     }
@@ -137,7 +160,7 @@ public class GameManager : MonoBehaviour {
             case "PlayerBayOxygen": {
                     // Состояние 1 - игрок должен собрать 10 кристаллов и купить увеличение кислорода.
                     if (GameState == 1) {
-                        GameState = 2; // переводим в состояние 2
+                        GameState = 2; 
                         ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
                         OpenDialogMission();
 #if UNITY_WEBGL
@@ -146,35 +169,104 @@ public class GameManager : MonoBehaviour {
                     }
                     break;
                 }
-            case "PlayerEnter_Space_Shuttle": {
-                    // Состояние 2 - игрок ищет шатл.
+            case "NorthCrater": {
+                    // Состояние 2 - игрок должен найти Северный кратер.
                     if (GameState == 2) {
-                        GameState = 3; // переводим в состояние 
+                        GameState = 3; 
+                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
+                        OpenDialogMission();
+#if UNITY_WEBGL
+                        script_Yandex.Button_Save();
+#endif
+                    }
+                    break;
+                }
+            case "Weapons_Base": {
+                    // Состояние 2 - игрок должен найти Северный кратер.
+                    if (GameState == 3) {
+                        GameState = 4; 
+                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
+                        OpenDialogMission();
+#if UNITY_WEBGL
+                        script_Yandex.Button_Save();
+#endif
+                    }
+                    break;
+                }
+            case "Engine_base": {
+                    // Состояние 5 - игрок должен найти двигатели.
+                    if (GameState == 5) {
+                        GameState = 6; 
+                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
+                        OpenDialogMission();
+                        TriggerActivation();
+#if UNITY_WEBGL
+                        script_Yandex.Button_Save();
+#endif
+                    }
+                    break;
+                }
+            case "Lab_base": {
+                    // Состояние 7 - игрок должен найти Поле.
+                    if (GameState == 7) {
+                        GameState = 8; 
+                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
+                        OpenDialogMission();
+                        TriggerActivation();
+                        
+#if UNITY_WEBGL
+                        script_Yandex.Button_Save();
+#endif
+                    }
+                    break;
+                }
+            case "Battery": {
+                    // Состояние 9 - игрок должен уничтожить 3 батареи.
+                    if (GameState == 9 && DestroyBatteryAll) {                        
+                        GameState = 10; 
+                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
+                        OpenDialogMission();
+                        TriggerActivation();
+                        
+#if UNITY_WEBGL
+                        script_Yandex.Button_Save();
+#endif
+                    }
+                    break;
+                }
+            case "PlayerEnter_Space_Shuttle": {
+                    // Состояние 4 - игрок ищет шатл.
+                    if (GameState == 4) {
+                        GameState = 5;  
                         ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
                         OpenDialogMission();
                     }
-                    // Состояние 3 - игрок должен принести на базу FUEL.
-                    if (GameState == 3 && BAG_Player_fuel) {
-                        GameState = 4; // переводим в состояние 
+
+                    // Состояние 6 - игрок должен принести на базу FUEL.
+                    if (GameState == 6 && BAG_Player_fuel) {
+                        GameState = 7;  
                         ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
                         BAG_Player(false, false, false); // у игрока в сумке ничего нет
                         OpenDialogMission();
                     }
-                    // Состояние 4 - игрок должен принести на базу ENERGY.
-                    if (GameState == 4 && BAG_Player_energy) {
-                        GameState = 5; // переводим в состояние 
+                    // Состояние 8 - игрок должен принести на базу ENERGY.
+                    if (GameState == 8 && BAG_Player_energy) {
+                        GameState = 9; 
                         ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
                         BAG_Player(false, false, false); // у игрока в сумке ничего нет
+                        SRC_EnergyBattery_1.ActivationBattery();
+                        SRC_EnergyBattery_2.ActivationBattery();
+                        SRC_EnergyBattery_3.ActivationBattery();
                         OpenDialogMission();
                     }
-                    // Состояние 5 - игрок должен принести на базу KEY.
-                    if (GameState == 5 && BAG_Player_key) {
-                        GameState = 6; // переводим в состояние 
+                    // Состояние 10 - игрок должен принести на базу KEY.
+                    if (GameState == 10 && BAG_Player_key) {
+                        GameState = 11; 
                         ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
                         BAG_Player(false, false, false); // у игрока в сумке ничего нет
                         YouWin(); // конец игры
                     }
-                    TriggerActivation();
+                    //TriggerActivation();
 #if UNITY_WEBGL
                     script_Yandex.Button_Save();
 #endif
@@ -212,6 +304,26 @@ public class GameManager : MonoBehaviour {
         if (GameState == 6) {
             TextDialog.text = TextDialog_6;
             Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_6;
+        }
+        if (GameState == 7) {
+            TextDialog.text = TextDialog_7;
+            Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_7;
+        }
+        if (GameState == 8) {
+            TextDialog.text = TextDialog_8;
+            Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_8;
+        }
+        if (GameState == 9) {
+            TextDialog.text = TextDialog_9;
+            Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_9;
+        }
+        if (GameState == 10) {
+            TextDialog.text = TextDialog_10;
+            Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_10;
+        }
+        if (GameState == 11) {
+            TextDialog.text = TextDialog_11;
+            Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_11;
         }
         Dialog.SetActive(true);
         if (StoreButton.activeSelf) StoreButton.SetActive(false); // скрыть кнопку магазина
@@ -300,9 +412,17 @@ public class GameManager : MonoBehaviour {
 
     // Активирует тригеры.
     void TriggerActivation() {
-        if (GameState == 3) script_rigger_Terminal_fuel.ActiveTermonal(true); // вкыл терминал FUEL
-        if (GameState == 4) script_rigger_Terminal_energy.ActiveTermonal(true); // вкыл терминал ENERGY
-        if (GameState == 5) script_rigger_Terminal_key.ActiveTermonal(true); // вкыл терминал KEY
+        if (GameState == 6) script_rigger_Terminal_fuel.ActiveTermonal(true); // вкыл терминал FUEL
+        if (GameState == 8) script_rigger_Terminal_energy.ActiveTermonal(true); // вкыл терминал ENERGY
+        if (GameState == 10) script_rigger_Terminal_key.ActiveTermonal(true); // вкыл терминал KEY
+    }
+
+    // Проверяет, какая батарея (из 3-ох) уничтоженна
+    public void CheckDestroyBatteryNum(int numBattery) {
+        if (numBattery == 1) DestroyBatteryNum_1 = true;
+        if (numBattery == 2) DestroyBatteryNum_2 = true;
+        if (numBattery == 3) DestroyBatteryNum_3 = true;
+        if (DestroyBatteryNum_1 && DestroyBatteryNum_2 && DestroyBatteryNum_3) DestroyBatteryAll = true;
     }
 
 }

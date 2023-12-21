@@ -85,6 +85,12 @@ public class MainMenu : MonoBehaviour {
         PlayerDataShowInMainMenu();
     }
 
+    // Увеличивает техконтейнеры и кристаллы игрока
+    public void DEV_BUTTON_state() {
+        ProgressManager.Instance.YandexDataOBJ.GameState = 9;
+        PlayerDataShowInMainMenu();
+    }
+
     // Меняет строку с типом девайса в mainMenu
     //public void Set_Text_DeviceInfo()
     //{

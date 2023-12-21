@@ -6,6 +6,7 @@ using UnityEngine;
 public class WeaponsBase : MonoBehaviour {
     public GameObject Zone;
     public GameObject store;
+    public GameManager SRC_GameManager;
     // Start is called before the first frame update
     void Start() {
         Zone.SetActive(false);
@@ -20,6 +21,7 @@ public class WeaponsBase : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         // В зону вошёл игрок 
         if (other.gameObject.CompareTag("Player")) {
+            SRC_GameManager.Check_GameState("Weapons_Base"); // Проверка состояния игры
             Zone.SetActive(true);
             store.SetActive(true);
         }

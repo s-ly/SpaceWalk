@@ -5,6 +5,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnergyBattery : MonoBehaviour {
+    public int num_battery = 0; // порядковый номер (1-3)
+    public GameManager SRC_GameManager;
+
     public GameObject Base_On;
     public GameObject Base_Off;
     public TextMeshProUGUI text;
@@ -15,19 +18,31 @@ public class EnergyBattery : MonoBehaviour {
     Animator ANIMATOR_player;
 
     int health = 200; // здоровье
-    bool destroy = false;
+    public bool destroy = false;
+    public bool active = false;
 
     public GameObject Explosion;// взрыв
     GameObject Explosion_CLONE;// взрыв для робота
 
     // Start is called before the first frame update
     void Start() {
-        Base_Off.SetActive(false);
         canvas.SetActive(false);
+        Base_Off.SetActive(false);
         Player = GameObject.FindGameObjectWithTag("Player");
         SCRIPT_player = Player.GetComponent<player>();
         ANIMATOR_player = Player.GetComponent<Animator>();
         text.text = health.ToString(); // показываем здоровье
+
+        if (ProgressManager.Instance.YandexDataOBJ.GameState == 9) {
+            ActivationBattery();
+        }
+
+        if (ProgressManager.Instance.YandexDataOBJ.GameState >= 10) {
+            destroy = true;
+            active = false;
+            Base_Off.SetActive(true);
+            Base_On.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -35,10 +50,16 @@ public class EnergyBattery : MonoBehaviour {
 
     }
 
+    public void ActivationBattery() {
+        Debug.Log("АКТИВАЦИЯ БАТАРЕИ" + num_battery);
+        active = true;
+
+    }
+
     // в зону турели что-то входит
     private void OnTriggerEnter(Collider other) {
         // В зону вошёл игрок 
-        if (other.gameObject.CompareTag("Player") && !destroy) {
+        if (other.gameObject.CompareTag("Player") && !destroy && active) {
             canvas.SetActive(true);
             // активация режима игрока (бой)
             ANIMATOR_player.SetBool("Attack_mode", true);
@@ -49,22 +70,7 @@ public class EnergyBattery : MonoBehaviour {
     // из зоны турели что-то вышло
     private void OnTriggerExit(Collider other) {
         // В зону вошёл игрок 
-        if (other.gameObject.CompareTag("Player") && !destroy) {
-            // дополнительная проверка растояния между игроком и роботом.
-            // потому-то были ложные срабатывания при их столкновении
-            //Vector3 playerPosition = Player.transform.position;
-            //Vector3 robotPosition = transform.position;
-            //float distance = Vector3.Distance(playerPosition, robotPosition);
-            //if (distance >= 5f) {
-            //    Debug.Log(debug_obj_name + "Потерял цель");
-            //    rot_robot_scout = false;
-            //    robot_scout_canvas_text.enabled = false;
-
-            //    // ДЕактивация режима игрока (бой)
-            //    animatorPlayer.SetBool("Attack_mode", false);
-            //    SCRIPT_player.PlayerModeAttack = false;
-            //}
-
+        if (other.gameObject.CompareTag("Player") && !destroy && active) {
             canvas.SetActive(false);
             // ДЕактивация режима игрока (бой)
             ANIMATOR_player.SetBool("Attack_mode", false);
@@ -75,12 +81,7 @@ public class EnergyBattery : MonoBehaviour {
     // в зоне что-то находится
     private void OnTriggerStay(Collider other) {
         // В зону вошёл игрок 
-        if (other.gameObject.CompareTag("Player") && !destroy) {
-
-            //distance_player = Vector3.Distance(other.transform.position, transform.position); // определяю расстояние до игрока
-            // rot_robot_scout = true;
-
-            //Debug.Log(debug_obj_name + "Наблюдаю цель, до игрока: " + distance_player.ToString());
+        if (other.gameObject.CompareTag("Player") && !destroy && active) {
 
             canvas.SetActive(true);
             // активация режима игрока (бой)
@@ -91,6 +92,7 @@ public class EnergyBattery : MonoBehaviour {
 
     void Destroy() {
         destroy = true;
+        active = false;
 
         // ДЕактивация режима игрока (бой)
         ANIMATOR_player.SetBool("Attack_mode", false);
@@ -106,11 +108,16 @@ public class EnergyBattery : MonoBehaviour {
         Base_On.SetActive(false);
         Base_Off.SetActive(true);
         canvas.SetActive(false);
+
+        SRC_GameManager.CheckDestroyBatteryNum(num_battery);
+        SRC_GameManager.Check_GameState("Battery"); // Проверка состояния игры
     }
 
     public void Damage() {
-        health -= 10;
-        text.text = health.ToString(); // показываем здоровье
-        if (health <= 0) Destroy();
+        if (active) {
+            health -= 10;
+            text.text = health.ToString(); // показываем здоровье
+            if (health <= 0) Destroy();
+        }
     }
 }
