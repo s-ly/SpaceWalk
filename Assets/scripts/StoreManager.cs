@@ -17,6 +17,7 @@ public class StoreManager : MonoBehaviour {
     [SerializeField] private GameObject StoreUI; // Окно магазина
     [SerializeField] public float stepUpgradeTimeFire; // шаг улучшения перезарядки винтовки
     [SerializeField] private TextMeshProUGUI GUI_TEXT_nowTimeShotPause;
+    [SerializeField] private TextMeshProUGUI GUI_TEXT_nowPole;
 
     private GameManager script_GameManager; // скрипт ГЛАВНОГО АРХИТЕКТОРА
     private TechnicalContainerManager SCRIPT_TechnicalContainerManager;
@@ -30,6 +31,9 @@ public class StoreManager : MonoBehaviour {
     // Пауза выстрела (время между выстрелами винтовки игрока).
     // Получим из DATA хранилища 
     private float time_shot_pause;
+    
+    int poleLevel;
+    public GameObject Button_Bay_Pole;
 
     float minimal_time_shot_pause = 0.1f;
 
@@ -41,7 +45,9 @@ public class StoreManager : MonoBehaviour {
     void Start() {
         // в магазине выводим текущее время перезарядки
         time_shot_pause = ProgressManager.Instance.YandexDataOBJ.DATA_time_shot_pause;
+        poleLevel = ProgressManager.Instance.YandexDataOBJ.DATA_battary_level;
         GUI_TEXT_nowTimeShotPause.text = "Время перезарядки: " + time_shot_pause.ToString() + " сек";
+        GUI_TEXT_nowPole.text = "Текущий уровень полня: " + poleLevel.ToString() + " (максимальный: 4)";
 
         // ссылки на скрипты:
         script_crystalManager = crystalManager.GetComponent<crystalManager>();
@@ -55,6 +61,7 @@ public class StoreManager : MonoBehaviour {
         flagStoreUIOn = false;
 
         Off_Button_Bay_TimeShotPause();
+        Off_Button_Bay_Pole();
     }
 
     // Update is called once per frame
@@ -70,6 +77,13 @@ public class StoreManager : MonoBehaviour {
             Button_Bay_TimeShotPause.GetComponent<Button>().interactable = false;
         }
     }
+
+    void Off_Button_Bay_Pole() {
+        if (ProgressManager.Instance.YandexDataOBJ.DATA_battary_level == 4) {
+            Button_Bay_Pole.GetComponent<Button>().interactable = false;
+        } 
+    }
+
 
     // Покупка кислорода
     public void BayOxygen() {
@@ -156,6 +170,9 @@ public class StoreManager : MonoBehaviour {
         if (tmp_techCon >= upgrPrice_techCon && tmp_crystal >= upgrPrice_crystal && tmp_BatteryManager < max_level) {
             tmp_crystal -= upgrPrice_crystal;
             tmp_techCon -= upgrPrice_techCon;
+
+            
+            
             SCRIPT_BatteryManager.battery_level++;
 
             script_crystalManager.CrystalStore = tmp_crystal;
@@ -170,8 +187,13 @@ public class StoreManager : MonoBehaviour {
             SCRIPT_TechnicalContainerManager.UpdateUITechnicalContainer();
             script_crystalManager.SaveDataCrystal();
             script_crystalManager.UpdateUICrystal();
-
+            
+            poleLevel = ProgressManager.Instance.YandexDataOBJ.DATA_battary_level;
+            GUI_TEXT_nowPole.text = "Текущий уровень полня: " + poleLevel.ToString() + " (максимальный: 4)";
+            Off_Button_Bay_Pole();
+            
             script_GameManager.Check_GameState("BayFuel"); // это сохранит на сервере Яндекса
+            
 
 
         }

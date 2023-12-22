@@ -35,9 +35,12 @@ public class Radar : MonoBehaviour {
 
     bool map_incline = false;
 
+    public GameObject map_point_mission_battery;
+
 
 
     void Start() {
+        map_point_mission_battery.SetActive(false);
         Player = GameObject.FindWithTag("Player");
         RadarMap = transform.GetChild(0).gameObject;
         map_point_player = RadarMap.transform.GetChild(0).gameObject;
@@ -109,19 +112,39 @@ public class Radar : MonoBehaviour {
     void current_mission_activate() {
         current_mission = ProgressManager.Instance.YandexDataOBJ.GameState;
 
-        string base_name_1 = "pivot (SpacePod)";
-        string base_name_2 = "space_shuttle_POINT";
-        string base_name_3 = "BASES/Fuel_Base";
-        string base_name_4 = "BASES/Energy_Base";
-        string base_name_5 = "Trigger_Terminal_POINT (key)";
+        string base_name_SpacePod = "pivot (SpacePod)";
+        string base_name_shuttle = "space_shuttle_POINT";
+        string base_name_Fuel = "BASES/Fuel_Base";
+        string base_name_Energy = "BASES/Energy_Base";
+        string base_name_Military_Base = "BASES/Military_Base";        
+        
+        string base_name_crater = "crater_POINT (1)";
+        string base_name_Weapons_Base = "BASES/Weapons_Base";
+        string base_name_Engine_base = "BASES/Engine_base";      
+        string base_name_Ñabernitic_lab = "BASES/Ñabernitic_lab";
         string current_mission_base_name = "pivot (SpacePod)";
+        
 
-        if (current_mission == 0 && current_mission == 1) current_mission_base_name = base_name_1;
-        if (current_mission == 2) current_mission_base_name = base_name_2;
-        if (current_mission == 3) current_mission_base_name = base_name_3;
-        if (current_mission == 4) current_mission_base_name = base_name_4;
-        if (current_mission == 5) current_mission_base_name = base_name_5;
-        if (current_mission == 6) map_point_current_mission.SetActive(false); // öåëè áîëüøå íåò
+        if (current_mission == 0 && current_mission == 1) current_mission_base_name = base_name_SpacePod;
+        if (current_mission == 2) current_mission_base_name = base_name_crater;        
+        if (current_mission == 3) current_mission_base_name = base_name_Weapons_Base;
+        if (current_mission == 4) current_mission_base_name = base_name_shuttle;
+        if (current_mission == 5) current_mission_base_name = base_name_Engine_base;
+        if (current_mission == 6) current_mission_base_name = base_name_Fuel;
+        if (current_mission == 7) current_mission_base_name = base_name_Ñabernitic_lab;
+        if (current_mission == 8) current_mission_base_name = base_name_Energy;
+
+        if (current_mission == 9) {
+            map_point_current_mission.SetActive(false);
+            map_point_mission_battery.SetActive(true);
+        }
+        if (current_mission == 10) {
+            Debug.Log("----!!!!!!!!!!!!--------m->" + base_name_Military_Base);
+            map_point_current_mission.SetActive(true);
+            map_point_mission_battery.SetActive(false);
+            current_mission_base_name = base_name_Military_Base;
+        }
+        if (current_mission == 11) map_point_current_mission.SetActive(false); // öåëè áîëüøå íåò
 
         current_mission_base = GameObject.Find("/" + current_mission_base_name); // òåêóùàÿ áàçà ïîìèññèè
         Debug.Log("-----> " + current_mission_base.name);

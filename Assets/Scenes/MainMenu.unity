@@ -599,6 +599,8 @@ MonoBehaviour:
   script_Yandex: {fileID: 0}
   DestroyBatteryAll: 0
   SCRIPT_EngineBase: {fileID: 0}
+  SRC_LabBase: {fileID: 0}
+  STC_WeaponsBase: {fileID: 0}
   EnergyBattery_1: {fileID: 0}
   EnergyBattery_2: {fileID: 0}
   EnergyBattery_3: {fileID: 0}
@@ -2418,7 +2420,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &678339447
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2598,7 +2600,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0412\u0435\u0440\u0441\u0438\u044F: 0.7.6.0"
+  m_text: "\u0412\u0435\u0440\u0441\u0438\u044F: 0.8"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4c6bb5ea021435c46bc8ca5ab893e0f0, type: 2}
   m_sharedMaterial: {fileID: 681354975341750395, guid: 4c6bb5ea021435c46bc8ca5ab893e0f0, type: 2}
