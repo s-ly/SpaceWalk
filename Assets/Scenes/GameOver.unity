@@ -253,6 +253,10 @@ MonoBehaviour:
   Player: {fileID: 0}
   Text_Dialog_current_mission: {fileID: 0}
   Dialog_current_mission: {fileID: 0}
+  script_StoreManager: {fileID: 0}
+  StoreButton: {fileID: 0}
+  SpacePodZone: {fileID: 0}
+  Store: {fileID: 0}
   Trigger_Terminal_key: {fileID: 0}
   Trigger_Terminal_fuel: {fileID: 0}
   Trigger_Terminal_energy: {fileID: 0}
@@ -260,6 +264,13 @@ MonoBehaviour:
   GameState: 0
   crystalManager: {fileID: 0}
   script_Yandex: {fileID: 0}
+  DestroyBatteryAll: 0
+  SCRIPT_EngineBase: {fileID: 0}
+  SRC_LabBase: {fileID: 0}
+  STC_WeaponsBase: {fileID: 0}
+  EnergyBattery_1: {fileID: 0}
+  EnergyBattery_2: {fileID: 0}
+  EnergyBattery_3: {fileID: 0}
 --- !u!4 &210951437
 Transform:
   m_ObjectHideFlags: 0
@@ -1066,9 +1077,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46fd083b4d4b12c4ba9eec2018b051c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  script_fuel_manager: {fileID: 0}
   rig: {fileID: 0}
   Target: {fileID: 0}
-  speed: 1.8
   rotSpeed: 6
   gravity: 2
   jamp: 2
@@ -1077,7 +1088,54 @@ MonoBehaviour:
   animator: {fileID: 994113069}
   PlayerRifle: {fileID: 0}
   PlayerModeAttack: 0
+  button_move_jamp_engine: {fileID: 0}
   Engines: {fileID: 0}
+  engines_forward: {fileID: 0}
+--- !u!1 &1842309036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1842309038}
+  - component: {fileID: 1842309037}
+  m_Layer: 0
+  m_Name: GameOwer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1842309037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1842309036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a33014e7640c99e43a83fe2bf64fb4cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonRestart: {fileID: 1944969363}
+--- !u!4 &1842309038
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1842309036}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1889495813
 GameObject:
   m_ObjectHideFlags: 0
@@ -1289,3 +1347,4 @@ SceneRoots:
   - {fileID: 1109608315}
   - {fileID: 1889495816}
   - {fileID: 210951437}
+  - {fileID: 1842309038}

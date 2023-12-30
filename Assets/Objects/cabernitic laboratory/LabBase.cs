@@ -7,6 +7,9 @@ public class LabBase : MonoBehaviour {
     public GameObject Zone;
     public GameObject store;
     public GameManager SRC_GameManager;
+    public bool flag_ui_on = true;
+    int GameState;
+
     // Start is called before the first frame update
     void Start() {
         Zone.SetActive(false);
@@ -20,10 +23,13 @@ public class LabBase : MonoBehaviour {
     // в зону что-то входит
     private void OnTriggerEnter(Collider other) {
         // В зону вошёл игрок 
-        if (other.gameObject.CompareTag("Player")) {
+        if (other.gameObject.CompareTag("Player") && flag_ui_on) {
+            GameState = ProgressManager.Instance.YandexDataOBJ.GameState;
             SRC_GameManager.Check_GameState("Lab_base"); // Проверка состояния игры
-            Zone.SetActive(true);
-            store.SetActive(true);
+            if (GameState != 7) {
+                Zone.SetActive(true);
+                store.SetActive(true);
+            }
         }
     }
     // из зоны что-то вышло
@@ -35,9 +41,28 @@ public class LabBase : MonoBehaviour {
         }
     }
 
+    private void OnTriggerStay(Collider other) {
+        if (other.gameObject.CompareTag("Player") && flag_ui_on) {
+            SRC_GameManager.Check_GameState("Lab_base"); // Проверка состояния игры
+            Zone.SetActive(true);
+            store.SetActive(true);
+        }
+    }
+
     // менят активность Canvas (для исключение перекрытия окон интерфейса)
     public void SwitchActive() {
         if (store.activeSelf && Zone.activeSelf) store.SetActive(false);
         else if (!store.activeSelf && Zone.activeSelf) store.SetActive(true);
+    }
+
+    public void Store_on() {
+        Zone.SetActive(true);
+        store.SetActive(true);
+        flag_ui_on = true;
+    }
+    public void Store_off() {
+        Zone.SetActive(false);
+        store.SetActive(false);
+        flag_ui_on = false;
     }
 }

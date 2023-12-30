@@ -24,6 +24,8 @@ public class EnergyBattery : MonoBehaviour {
     public GameObject Explosion;// взрыв
     GameObject Explosion_CLONE;// взрыв для робота
 
+    bool DamageOn = false; // получает ли урон
+
     // Start is called before the first frame update
     void Start() {
         canvas.SetActive(false);
@@ -61,6 +63,7 @@ public class EnergyBattery : MonoBehaviour {
         // В зону вошёл игрок 
         if (other.gameObject.CompareTag("Player") && !destroy && active) {
             canvas.SetActive(true);
+            DamageOn = true;
             // активация режима игрока (бой)
             ANIMATOR_player.SetBool("Attack_mode", true);
             SCRIPT_player.PlayerModeAttack = true;
@@ -72,6 +75,7 @@ public class EnergyBattery : MonoBehaviour {
         // В зону вошёл игрок 
         if (other.gameObject.CompareTag("Player") && !destroy && active) {
             canvas.SetActive(false);
+            DamageOn = false;
             // ДЕактивация режима игрока (бой)
             ANIMATOR_player.SetBool("Attack_mode", false);
             SCRIPT_player.PlayerModeAttack = false;
@@ -82,8 +86,8 @@ public class EnergyBattery : MonoBehaviour {
     private void OnTriggerStay(Collider other) {
         // В зону вошёл игрок 
         if (other.gameObject.CompareTag("Player") && !destroy && active) {
-
             canvas.SetActive(true);
+            DamageOn = true;
             // активация режима игрока (бой)
             ANIMATOR_player.SetBool("Attack_mode", true);
             SCRIPT_player.PlayerModeAttack = true;
@@ -114,7 +118,7 @@ public class EnergyBattery : MonoBehaviour {
     }
 
     public void Damage() {
-        if (active) {
+        if (active && DamageOn) {
             health -= 10;
             text.text = health.ToString(); // показываем здоровье
             if (health <= 0) Destroy();

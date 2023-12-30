@@ -61,10 +61,12 @@ mergeInto(LibraryManager.library, {
         onClose: function (wasShown) {
           // some action after close
           console.log("-------onClose ADV->|");
+          myGameInstance.SendMessage('GameOwer', 'ShowButRestart');
         },
         onError: function (error) {
           // some action on error
           console.log("-------onError ADV->|");
+          myGameInstance.SendMessage('GameOwer', 'ShowButRestart');
         }
       }
     })
