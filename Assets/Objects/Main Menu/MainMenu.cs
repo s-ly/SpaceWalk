@@ -9,9 +9,12 @@ public class MainMenu : MonoBehaviour {
     [SerializeField] TextMeshProUGUI PlayerDataText;
     [SerializeField] Yandex script_Yandex;
     [SerializeField] GameObject ButtonLoadGame;
+    [SerializeField] GameObject ButtonStartGame;
+    [SerializeField] GameObject TextLoad;
     //[SerializeField] TextMeshProUGUI Text_DeviceInfo;
 
     void Start() {
+        TextLoad.SetActive(false);
         Set_UserID_text_MainMenu("none");
         PlayerDataShowInMainMenu();
         //Set_Text_DeviceInfo();
@@ -103,39 +106,14 @@ public class MainMenu : MonoBehaviour {
         PlayerDataShowInMainMenu();
     }
 
+    public void ShowLoadText() {
+        StartCoroutine(StartShowLoadText());
+    }
 
-    // Меняет строку с типом девайса в mainMenu
-    //public void Set_Text_DeviceInfo()
-    //{
-    //    string str_DeviceInfo = ProgressManager.Instance.YandexDataOBJ.DeviceInfo;
-    //    string str_DeviceInfo_ru = "другое";
-    //    ProgressManager.Instance.YandexDataOBJ.TouchKeyboardActive = true;
-
-    //    switch (str_DeviceInfo)
-    //    {
-    //        case "desktop":
-    //            {
-    //                str_DeviceInfo_ru = "компьютер";
-    //                ProgressManager.Instance.YandexDataOBJ.TouchKeyboardActive = false;
-    //                break;
-    //            }
-    //        case "mobile":
-    //            {
-    //                str_DeviceInfo_ru = "мобильное устройство";
-    //                break;
-    //            }
-    //        case "tablet":
-    //            {
-    //                str_DeviceInfo_ru = "планшет";
-    //                break;
-    //            }
-    //        case "tv":
-    //            {
-    //                str_DeviceInfo_ru = "телевизор";
-    //                break;
-    //            }
-    //    }
-
-    //    Text_DeviceInfo.text = "Платформа: " + str_DeviceInfo_ru;
-    //}
+    public IEnumerator StartShowLoadText() {
+        ButtonStartGame.SetActive(false);
+        ButtonLoadGame.SetActive(false);
+        TextLoad.SetActive(true);
+        yield return null;
+    }
 }

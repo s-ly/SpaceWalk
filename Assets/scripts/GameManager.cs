@@ -10,6 +10,20 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
     //[DllImport("__Internal")] private static extern void JS_MyWebLog(string my_log);
 
+    public Sprite img_base;
+    public Sprite img_crystall;
+    public Sprite img_radar;
+    public Sprite img_weapon;
+    public Sprite img_shuttle;
+    public Sprite img_engine;
+    public Sprite img_fuel;
+    public Sprite img_cyberlab;
+    public Sprite img_energy;
+    public Sprite img_battery;
+    public Sprite img_gun;
+
+    public Image img_mission;
+
     // сумка игрока
     [SerializeField] GameObject BAG_IMG_Player_key;
     [SerializeField] GameObject BAG_IMG_Player_fuel;
@@ -333,50 +347,62 @@ public class GameManager : MonoBehaviour {
     // Показывает Диалог
     public void OpenDialogMission() {
         if (GameState == 0) {
+            img_mission.sprite = img_base;
             TextDialog.text = TextDialog_0;
             Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_0;
         }
         if (GameState == 1) {
+            img_mission.sprite = img_crystall;
             TextDialog.text = TextDialog_1;
             Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_1;
         }
         if (GameState == 2) {
+            img_mission.sprite = img_radar;
             TextDialog.text = TextDialog_2;
             Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_2;
         }
         if (GameState == 3) {
+            img_mission.sprite = img_weapon;
             TextDialog.text = TextDialog_3;
             Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_3;
         }
         if (GameState == 4) {
+            img_mission.sprite = img_shuttle;
             TextDialog.text = TextDialog_4;
             Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_4;
         }
         if (GameState == 5) {
+            img_mission.sprite = img_engine;
             TextDialog.text = TextDialog_5;
             Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_5;
         }
         if (GameState == 6) {
+            img_mission.sprite = img_fuel;
             TextDialog.text = TextDialog_6;
             Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_6;
         }
         if (GameState == 7) {
+            img_mission.sprite = img_cyberlab;
             TextDialog.text = TextDialog_7;
             Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_7;
         }
         if (GameState == 8) {
+            img_mission.sprite = img_energy;
             TextDialog.text = TextDialog_8;
             Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_8;
         }
         if (GameState == 9) {
+            img_mission.sprite = img_battery;
             TextDialog.text = TextDialog_9;
             Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_9;
         }
         if (GameState == 10) {
+            img_mission.sprite = img_gun;
             TextDialog.text = TextDialog_10;
             Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_10;
         }
         if (GameState == 11) {
+            //img_mission.sprite = img_base;
             TextDialog.text = TextDialog_11;
             Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_11;
         }

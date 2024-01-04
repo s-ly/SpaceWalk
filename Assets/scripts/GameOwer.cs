@@ -8,8 +8,10 @@ public class GameOwer : MonoBehaviour {
     float Timer_Start_Adv = 1.8f;
     float Timer_Show_Restart_Button = 5.0f;
     public GameObject ButtonRestart;
+    public GameObject TextLoad;
     // Start is called before the first frame update
     void Start() {
+        TextLoad.SetActive(false);
         ButtonRestart.SetActive(false);
     }
 
@@ -44,5 +46,16 @@ public class GameOwer : MonoBehaviour {
     }
     public void ShowButRestart() {
         ButtonRestart.SetActive(true);
+    }
+
+
+    public void ShowLoadText() {
+        StartCoroutine(StartShowLoadText());
+    }
+
+    public IEnumerator StartShowLoadText() {
+        ButtonRestart.SetActive(false);
+        TextLoad.SetActive(true);
+        yield return null;
     }
 }
