@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameOwer : MonoBehaviour {
     [DllImport("__Internal")] private static extern void JS_ShowAdv();
@@ -9,6 +10,7 @@ public class GameOwer : MonoBehaviour {
     float Timer_Show_Restart_Button = 5.0f;
     public GameObject ButtonRestart;
     public GameObject TextLoad;
+
     // Start is called before the first frame update
     void Start() {
         TextLoad.SetActive(false);
@@ -48,14 +50,16 @@ public class GameOwer : MonoBehaviour {
         ButtonRestart.SetActive(true);
     }
 
-
-    public void ShowLoadText() {
-        StartCoroutine(StartShowLoadText());
+    public void LoadLevel() {
+        StartCoroutine(ENUM_LoadLevel());
     }
 
-    public IEnumerator StartShowLoadText() {
+    IEnumerator ENUM_LoadLevel() {
         ButtonRestart.SetActive(false);
+        yield return new WaitUntil(() => !ButtonRestart.gameObject.activeSelf);
         TextLoad.SetActive(true);
-        yield return null;
+        yield return new WaitUntil(() => TextLoad.gameObject.activeSelf);
+
+        SceneManager.LoadScene(1);
     }
 }

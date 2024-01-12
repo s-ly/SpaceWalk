@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour {
@@ -11,7 +12,9 @@ public class MainMenu : MonoBehaviour {
     [SerializeField] GameObject ButtonLoadGame;
     [SerializeField] GameObject ButtonStartGame;
     [SerializeField] GameObject TextLoad;
-    //[SerializeField] TextMeshProUGUI Text_DeviceInfo;
+
+    // для ассинхронной загрузки (пока не надо)
+    //private bool isLoading = false; //находится ли игра в состоянии загрузк
 
     void Start() {
         TextLoad.SetActive(false);
@@ -106,14 +109,41 @@ public class MainMenu : MonoBehaviour {
         PlayerDataShowInMainMenu();
     }
 
-    public void ShowLoadText() {
-        StartCoroutine(StartShowLoadText());
+    // для ассинхронной загрузки (пока не надо)
+    //public void LoadLevel() {
+    //    if (!isLoading) {
+    //        StartCoroutine(ENUM_LoadLevel());
+    //    }
+    //}
+
+    //IEnumerator ENUM_LoadLevel() {
+    //    isLoading = true;
+    //    ButtonStartGame.SetActive(false);
+    //    ButtonLoadGame.SetActive(false);
+    //    TextLoad.SetActive(true);
+    //    yield return null;
+    //    AsyncOperation asyncOp = SceneManager.LoadSceneAsync(1);
+
+    //    // Wait until the asynchronous scene fully loads
+    //    while (!asyncOp.isDone) {
+    //        yield return null;
+    //    }
+
+    //    isLoading = false;
+    //}
+
+    public void LoadLevel() {
+        StartCoroutine(ENUM_LoadLevel());
     }
 
-    public IEnumerator StartShowLoadText() {
+    IEnumerator ENUM_LoadLevel() {
         ButtonStartGame.SetActive(false);
+        yield return new WaitUntil(() => !ButtonStartGame.gameObject.activeSelf);
         ButtonLoadGame.SetActive(false);
+        yield return new WaitUntil(() => !ButtonLoadGame.gameObject.activeSelf);
         TextLoad.SetActive(true);
-        yield return null;
+        yield return new WaitUntil(() => TextLoad.gameObject.activeSelf);
+
+        SceneManager.LoadScene(1);
     }
 }

@@ -1542,6 +1542,14 @@ PrefabInstance:
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1584,7 +1592,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7159e250e956c6c499e8a797c953a776, type: 2}
+      objectReference: {fileID: 2100000, guid: 6809dde0372b4cf4a9f381b8bfaea5de, type: 2}
     - target: {fileID: 919132149155446097, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Name
       value: energy_battery_destroyed_1
@@ -1902,7 +1910,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalScale.y
@@ -1910,7 +1918,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1991,6 +1999,14 @@ PrefabInstance:
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -2033,7 +2049,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7159e250e956c6c499e8a797c953a776, type: 2}
+      objectReference: {fileID: 2100000, guid: 6809dde0372b4cf4a9f381b8bfaea5de, type: 2}
     - target: {fileID: 919132149155446097, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Name
       value: energy_battery_destroyed_3
@@ -2289,6 +2305,14 @@ PrefabInstance:
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -2331,7 +2355,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7159e250e956c6c499e8a797c953a776, type: 2}
+      objectReference: {fileID: 2100000, guid: 6809dde0372b4cf4a9f381b8bfaea5de, type: 2}
     - target: {fileID: 919132149155446097, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Name
       value: energy_battery_destroyed_2
@@ -2595,7 +2619,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalScale.y
@@ -2603,7 +2627,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2938,6 +2962,14 @@ PrefabInstance:
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -2980,7 +3012,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7159e250e956c6c499e8a797c953a776, type: 2}
+      objectReference: {fileID: 2100000, guid: 27cbec3f516e8e34cbefa7c0a37ca1bd, type: 2}
     - target: {fileID: 919132149155446097, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Name
       value: Military_Base
@@ -3078,6 +3110,14 @@ PrefabInstance:
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -3120,7 +3160,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7159e250e956c6c499e8a797c953a776, type: 2}
+      objectReference: {fileID: 2100000, guid: 6e7246a244d9e4049a62fbf740c9e146, type: 2}
     - target: {fileID: 919132149155446097, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Name
       value: map_point_shatl
@@ -3238,6 +3278,14 @@ PrefabInstance:
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -3280,7 +3328,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7159e250e956c6c499e8a797c953a776, type: 2}
+      objectReference: {fileID: 2100000, guid: 2eb99fe9af8f6b849868a0a10a7adb2e, type: 2}
     - target: {fileID: 919132149155446097, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Name
       value: "\u0421abernitic_lab"
@@ -3350,7 +3398,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7159e250e956c6c499e8a797c953a776, type: 2}
+      objectReference: {fileID: 2100000, guid: 5b6ae4cfe5e0cc349bb3845088702820, type: 2}
     - target: {fileID: 919132149155446097, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Name
       value: map_point_fuel
@@ -3379,7 +3427,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.7
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalScale.y
@@ -3387,7 +3435,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.7
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3538,6 +3586,14 @@ PrefabInstance:
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -3577,10 +3633,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7159e250e956c6c499e8a797c953a776, type: 2}
+      objectReference: {fileID: 2100000, guid: 47ea46569431c9440b462595299b6e73, type: 2}
     - target: {fileID: 919132149155446097, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Name
       value: map_point_energy
@@ -3609,7 +3669,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalScale.y
@@ -3617,7 +3677,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3788,6 +3848,14 @@ PrefabInstance:
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -3830,7 +3898,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7159e250e956c6c499e8a797c953a776, type: 2}
+      objectReference: {fileID: 2100000, guid: 273c3014c9059c74b913cc0a75795d94, type: 2}
     - target: {fileID: 919132149155446097, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Name
       value: Base_base_oxygen
@@ -3856,6 +3924,14 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_RootOrder
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3900,7 +3976,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7159e250e956c6c499e8a797c953a776, type: 2}
+      objectReference: {fileID: 2100000, guid: bb13c35de5c9aac45aa7cab2a6e248b4, type: 2}
     - target: {fileID: 919132149155446097, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Name
       value: 'Engine_base '
@@ -4003,6 +4079,14 @@ PrefabInstance:
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -4045,7 +4129,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7159e250e956c6c499e8a797c953a776, type: 2}
+      objectReference: {fileID: 2100000, guid: 1ff4578f692a4bb4d8967a8058e9e07d, type: 2}
     - target: {fileID: 919132149155446097, guid: a3e050f39fba0d84d82cd0e679ec28d8, type: 3}
       propertyPath: m_Name
       value: Weapons_Base
