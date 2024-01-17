@@ -43,6 +43,16 @@ public class fuel_manager : MonoBehaviour {
         UpdateUIFuel();
     }
 
+    public void FuilingBalon() {
+        int fuel_balon_size = 10; // емкость балона
+        for (int i = 0; i < fuel_balon_size; i++) {
+            if (fuel < fuel_max) {
+                fuel++;
+            }
+        }
+        UpdateUIFuel();
+    }
+
     public void SaveFuel() {
         ProgressManager.Instance.YandexDataOBJ.DATA_fuel = fuel_max;
     }

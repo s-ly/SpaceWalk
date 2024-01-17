@@ -998,7 +998,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   robot_scout_canvas_text: {fileID: 9198284978158053209}
   robot_scout_canvas: {fileID: 5700695588753040799}
-  Explosion: {fileID: 5670192608253241209}
+  Explosion: {fileID: 3064272157172441927, guid: 9a6e3b7635a45ed42abddeddbd76fd2e, type: 3}
   rot_robot_scout: 0
   animatorPlayer: {fileID: 0}
   Gun: {fileID: 1726137765546671080}
@@ -1587,16 +1587,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Explosion
       objectReference: {fileID: 0}
+    - target: {fileID: 5798232341915502794, guid: 3eb93a39fe490274fa9afb55db642f70, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3eb93a39fe490274fa9afb55db642f70, type: 3}
---- !u!1 &5670192608253241209 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5798232341915502794, guid: 3eb93a39fe490274fa9afb55db642f70, type: 3}
-  m_PrefabInstance: {fileID: 2217996130371039155}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5670192608253241210 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5798232341915502793, guid: 3eb93a39fe490274fa9afb55db642f70, type: 3}

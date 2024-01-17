@@ -179,4 +179,15 @@ public class BatteryManager : MonoBehaviour {
         else if (battery_charge_level == 5) player_material.SetTexture("_MainTex", battery_5);
         else if (battery_charge_level == 6) player_material.SetTexture("_MainTex", battery_6);
     }
+
+    public void EnergyAdd() {
+        int batary_size = 10; // емкость балона
+        for (int i = 0; i < batary_size; i++) {
+            if (battery_charge_units < battery_size) {
+                battery_charge_units++;
+            }
+        }
+        BtteryChargeMath();
+        UpdateDevUIBattery();
+    }
 }

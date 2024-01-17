@@ -14,8 +14,19 @@ public class Turret : MonoBehaviour {
 
     // тех-контейнер
     [SerializeField] private Transform GENERATE_technical_container; // место по€влени€ тех-контейнера
+    [SerializeField] private Transform GENERATE_2;
+    [SerializeField] private Transform GENERATE_3;
+    [SerializeField] private Transform GENERATE_4;
     [SerializeField] private GameObject PREFAB_technical_container;  // префаб тех-контейнера
+    [SerializeField] private GameObject PREFAB_fuel_balon;
+    [SerializeField] private GameObject PREFAB_oxy_balon;
+    [SerializeField] private GameObject PREFAB_energy_container;
+    [SerializeField] private GameObject PREFAB_aid_container;
     private GameObject CLONE_technical_container;  // клон тех-контейнера
+    private GameObject CLONE_fuel_balon;
+    private GameObject CLONE_oxy_balon;
+    private GameObject CLONE_energy_container;
+    private GameObject CLONE_aid_container;
 
     [SerializeField] private int healthTurret; // здоровье турели
     private int healhTurretTEMP;
@@ -109,7 +120,7 @@ public class Turret : MonoBehaviour {
             Debug.Log("¬ижу цель");
 
             // активаци€ режима игрока (бой)
-            animatorPlayer.SetBool("Attack_mode", true);           
+            animatorPlayer.SetBool("Attack_mode", true);
             script_player.PlayerModeAttack = true;
 
             turretCanvasText.SetActive(true); // показать текст турели
@@ -195,11 +206,61 @@ public class Turret : MonoBehaviour {
     }
 
     // генераци€ тех-контейнера на месте GENERATE_technical_container
+    // на самом деле генерирую все подарки
     void Generate_Technical_Container() {
+        int random_slot_2 = 0;
+        int random_slot_3 = 0;
+        int random_slot_4 = 0;
+        random_slot_2 = Random.Range(0, 5);
+        random_slot_3 = Random.Range(0, 5);
+        random_slot_4 = Random.Range(0, 5);
+
         CLONE_technical_container = Instantiate(
             PREFAB_technical_container,
             GENERATE_technical_container.transform.position,
             GENERATE_technical_container.transform.rotation);
+        if (random_slot_2 != 0) {
+            if (random_slot_2 == 1) {
+                CLONE_fuel_balon = Instantiate(PREFAB_fuel_balon, GENERATE_2.transform.position, GENERATE_2.transform.rotation);
+            }
+            if (random_slot_2 == 2) {
+                CLONE_fuel_balon = Instantiate(PREFAB_oxy_balon, GENERATE_2.transform.position, GENERATE_2.transform.rotation);
+            }
+            if (random_slot_2 == 3) {
+                CLONE_fuel_balon = Instantiate(PREFAB_aid_container, GENERATE_2.transform.position, GENERATE_2.transform.rotation);
+            }
+            if (random_slot_2 == 4) {
+                CLONE_fuel_balon = Instantiate(PREFAB_energy_container, GENERATE_2.transform.position, GENERATE_2.transform.rotation);
+            }
+        }
+        if (random_slot_3 != 0) {
+            if (random_slot_3 == 1) {
+                CLONE_fuel_balon = Instantiate(PREFAB_fuel_balon, GENERATE_3.transform.position, GENERATE_3.transform.rotation);
+            }
+            if (random_slot_3 == 2) {
+                CLONE_fuel_balon = Instantiate(PREFAB_oxy_balon, GENERATE_3.transform.position, GENERATE_3.transform.rotation);
+            }
+            if (random_slot_3 == 3) {
+                CLONE_fuel_balon = Instantiate(PREFAB_aid_container, GENERATE_3.transform.position, GENERATE_3.transform.rotation);
+            }
+            if (random_slot_3 == 4) {
+                CLONE_fuel_balon = Instantiate(PREFAB_energy_container, GENERATE_3.transform.position, GENERATE_3.transform.rotation);
+            }
+        }
+        if (random_slot_4 != 0) {
+            if (random_slot_4 == 1) {
+                CLONE_fuel_balon = Instantiate(PREFAB_fuel_balon, GENERATE_4.transform.position, GENERATE_4.transform.rotation);
+            }
+            if (random_slot_4 == 2) {
+                CLONE_fuel_balon = Instantiate(PREFAB_oxy_balon, GENERATE_4.transform.position, GENERATE_4.transform.rotation);
+            }
+            if (random_slot_4 == 3) {
+                CLONE_fuel_balon = Instantiate(PREFAB_aid_container, GENERATE_4.transform.position, GENERATE_4.transform.rotation);
+            }
+            if (random_slot_4 == 4) {
+                CLONE_fuel_balon = Instantiate(PREFAB_energy_container, GENERATE_4.transform.position, GENERATE_4.transform.rotation);
+            }
+        }
     }
 
     // “урель получает урон. ¬ызываетс€ из скрипта пули игрока

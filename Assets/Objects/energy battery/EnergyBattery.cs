@@ -105,8 +105,9 @@ public class EnergyBattery : MonoBehaviour {
         // экземпл€р взрыва
         Transform child_base;
         child_base = transform.GetChild(0);
-        Explosion_CLONE = Instantiate(Explosion, child_base.position, child_base.rotation);
-        Explosion_CLONE.transform.localScale = Vector3.one * 2f;
+        Explosion_CLONE = Instantiate(Explosion, child_base.position, child_base.rotation);   
+        Explosion_CLONE.transform.localScale = Vector3.one * 7f;
+        Explosion_CLONE.transform.localPosition += Vector3.up * 1f;
         Explosion_CLONE.SetActive(true);
         Destroy(Explosion_CLONE, 1.18f); // уничтожение через 2 сек
         Base_On.SetActive(false);

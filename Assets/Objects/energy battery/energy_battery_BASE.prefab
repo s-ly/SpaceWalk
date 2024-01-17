@@ -188,7 +188,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.63837034}
   m_AnchorMax: {x: 1, y: 0.71800005}
-  m_AnchoredPosition: {x: 0, y: 0.20000076}
+  m_AnchoredPosition: {x: 0, y: 0.20000458}
   m_SizeDelta: {x: 0, y: 0.06499958}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3669883024386433715
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.4
+  m_fontSize: 25.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -334,11 +334,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5488b55fb0621594892d07f48fd6e511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  num_battery: 0
+  SRC_GameManager: {fileID: 0}
   Base_On: {fileID: 8890511876635319969}
   Base_Off: {fileID: 1148139358315158927}
   text: {fileID: 1658334113229668519}
   canvas: {fileID: 1444553864709654811}
-  Explosion: {fileID: 5798232341915502794, guid: 3eb93a39fe490274fa9afb55db642f70, type: 3}
+  destroy: 0
+  active: 0
+  Explosion: {fileID: 3064272157172441927, guid: 9a6e3b7635a45ed42abddeddbd76fd2e, type: 3}
 --- !u!135 &8597361159160131260
 SphereCollider:
   m_ObjectHideFlags: 0

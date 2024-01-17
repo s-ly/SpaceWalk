@@ -61,4 +61,13 @@ public class oxygen : MonoBehaviour
     {
         text.text = (Mathf.Round(oxygenTime)).ToString();
     }
+    public void oxygenAdd() {
+        int oxy_balon_size = 10; // емкость балона
+        for (int i = 0; i < oxy_balon_size; i++) {
+            if (oxygenTime < oxygenTimeTemp) {
+                oxygenTime++;
+            }
+        }
+        UpdateUIOxygen();
+    }
 }

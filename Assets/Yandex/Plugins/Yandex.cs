@@ -33,7 +33,7 @@ public class Yandex : MonoBehaviour {
     // Играть с начала (не сохраняет)
     public void Reset_Game() {
         ProgressManager.Instance.YandexDataOBJ.Crystal = 0;
-        ProgressManager.Instance.YandexDataOBJ.Oxygen = 20f;
+        ProgressManager.Instance.YandexDataOBJ.Oxygen = 30f;
         ProgressManager.Instance.YandexDataOBJ.TechnicalContainer = 0;
         ProgressManager.Instance.YandexDataOBJ.GameState = 0;
         ProgressManager.Instance.YandexDataOBJ.DATA_time_shot_pause = 0.3f;
@@ -61,7 +61,7 @@ public class Yandex : MonoBehaviour {
             ProgressManager.Instance.YandexDataOBJ.TechnicalContainer = 0;
             ProgressManager.Instance.YandexDataOBJ.GameState = 0;
             ProgressManager.Instance.YandexDataOBJ.DATA_time_shot_pause = 0.3f;
-            ProgressManager.Instance.YandexDataOBJ.Oxygen = 20;
+            ProgressManager.Instance.YandexDataOBJ.Oxygen = 30;
             ProgressManager.Instance.YandexDataOBJ.DATA_player_speed = 1.0f;
             ProgressManager.Instance.YandexDataOBJ.DATA_player_health = 100;
             ProgressManager.Instance.YandexDataOBJ.DATA_fuel = 100;

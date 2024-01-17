@@ -71,16 +71,15 @@ public class healthManager : MonoBehaviour
         UpdateUIHealthPlayer();
     }
 
-    //private void DamageIndicator()
-    //{
-    //    float timerDamageRedImage = 1f;
-        
-    //    if (timerDamageRedImage > 0)
-    //    {
-    //        timerDamageRedImage -= Time.deltaTime;
-    //    }
-    //    else
-    //}
+    public void healthAdd() {
+        int aid_kit_size = 10; // емкость балона
+        for (int i = 0; i < aid_kit_size; i++) {
+            if (healthPlayerTEMP < healthPlayer) {
+                healthPlayerTEMP++;
+            }
+        }
+        UpdateUIHealthPlayer();
+    }
 
 
 }

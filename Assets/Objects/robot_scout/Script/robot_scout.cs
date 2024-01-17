@@ -178,7 +178,7 @@ public class robot_scout : MonoBehaviour {
         // экземпл€р взрыва
         Explosion_CLONE = Instantiate(Explosion, transform.position, transform.rotation);
         Explosion_CLONE.SetActive(true);
-        Destroy(Explosion_CLONE, 1.18f); // уничтожение через 2 сек
+        Destroy(Explosion_CLONE, 6.0f); // уничтожение через 2 сек
         Destroy(RADIUS_robot_scout);
     }
 }
