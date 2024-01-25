@@ -34,11 +34,164 @@ public class robot_scout : MonoBehaviour {
     [SerializeField] GameObject Gun;
     [SerializeField] GameObject Bullet; //префаб пули
     GameObject cloneBullet; // клон пули
-    float TimeFire  = 0.3f; // время между выстрелами
+    float TimeFire = 0.3f; // время между выстрелами
     float TimeFireTemp;
 
     GameObject RADIUS_robot_scout;
 
+
+    // генерация призов
+    public Transform slot_generate_1;
+    public Transform slot_generate_2;
+    public Transform slot_generate_3;
+    public Transform slot_generate_4;
+    public GameObject PREFAB_technical_container;
+    public GameObject PREFAB_fuel_balon;
+    public GameObject PREFAB_oxy_balon;
+    public GameObject PREFAB_energy_container;
+    public GameObject PREFAB_aid_container;
+    GameObject CLONE_technical_container;
+    GameObject CLONE_fuel_balon;
+    GameObject CLONE_oxy_balon;
+    GameObject CLONE_energy_container;
+    GameObject CLONE_aid_container;
+
+
+    // Генерирует призы после взрыва
+    void GeneratePrize() {
+        int random_slot_1 = 0;
+        int random_slot_2 = 0;
+        int random_slot_3 = 0;
+        int random_slot_4 = 0;
+        random_slot_1 = Random.Range(0, 6);
+        random_slot_2 = Random.Range(0, 6);
+        random_slot_3 = Random.Range(0, 6);
+        random_slot_4 = Random.Range(0, 6);
+
+        if (random_slot_1 == 1) {
+            CLONE_technical_container = Instantiate(
+                PREFAB_technical_container,
+                slot_generate_1.transform.position, 
+                slot_generate_1.transform.rotation);
+        }
+        if (random_slot_1 == 2) {
+            CLONE_fuel_balon = Instantiate(
+                PREFAB_fuel_balon,
+                slot_generate_1.transform.position,
+                slot_generate_1.transform.rotation);
+        }
+        if (random_slot_1 == 3) {
+            CLONE_oxy_balon = Instantiate(
+                PREFAB_oxy_balon,
+                slot_generate_1.transform.position,
+                slot_generate_1.transform.rotation);
+        }
+        if (random_slot_1 == 4) {
+            CLONE_energy_container = Instantiate(
+                PREFAB_energy_container,
+                slot_generate_1.transform.position,
+                slot_generate_1.transform.rotation);
+        }
+        if (random_slot_1 == 5) {
+            CLONE_aid_container = Instantiate(
+                PREFAB_aid_container,
+                slot_generate_1.transform.position,
+                slot_generate_1.transform.rotation);
+        }
+        
+        if (random_slot_2 == 1) {
+            CLONE_technical_container = Instantiate(
+                PREFAB_technical_container,
+                slot_generate_2.transform.position,
+                slot_generate_2.transform.rotation);
+        }
+        if (random_slot_2 == 2) {
+            CLONE_fuel_balon = Instantiate(
+                PREFAB_fuel_balon,
+                slot_generate_2.transform.position,
+                slot_generate_2.transform.rotation);
+        }
+        if (random_slot_2 == 3) {
+            CLONE_oxy_balon = Instantiate(
+                PREFAB_oxy_balon,
+                slot_generate_2.transform.position,
+                slot_generate_2.transform.rotation);
+        }
+        if (random_slot_2 == 4) {
+            CLONE_energy_container = Instantiate(
+                PREFAB_energy_container,
+                slot_generate_2.transform.position,
+                slot_generate_2.transform.rotation);
+        }
+        if (random_slot_2 == 5) {
+            CLONE_aid_container = Instantiate(
+                PREFAB_aid_container,
+                slot_generate_2.transform.position,
+                slot_generate_2.transform.rotation);
+        }
+
+        if (random_slot_3 == 1) {
+            CLONE_technical_container = Instantiate(
+                PREFAB_technical_container,
+                slot_generate_3.transform.position,
+                slot_generate_3.transform.rotation);
+        }
+        if (random_slot_3 == 2) {
+            CLONE_fuel_balon = Instantiate(
+                PREFAB_fuel_balon,
+                slot_generate_3.transform.position,
+                slot_generate_3.transform.rotation);
+        }
+        if (random_slot_3 == 3) {
+            CLONE_oxy_balon = Instantiate(
+                PREFAB_oxy_balon,
+                slot_generate_3.transform.position,
+                slot_generate_3.transform.rotation);
+        }
+        if (random_slot_3 == 4) {
+            CLONE_energy_container = Instantiate(
+                PREFAB_energy_container,
+                slot_generate_3.transform.position,
+                slot_generate_3.transform.rotation);
+        }
+        if (random_slot_3 == 5) {
+            CLONE_aid_container = Instantiate(
+                PREFAB_aid_container,
+                slot_generate_3.transform.position,
+                slot_generate_3.transform.rotation);
+        }
+
+        if (random_slot_4 == 1) {
+            CLONE_technical_container = Instantiate(
+                PREFAB_technical_container,
+                slot_generate_4.transform.position,
+                slot_generate_4.transform.rotation);
+        }
+        if (random_slot_4 == 2) {
+            CLONE_fuel_balon = Instantiate(
+                PREFAB_fuel_balon,
+                slot_generate_4.transform.position,
+                slot_generate_4.transform.rotation);
+        }
+        if (random_slot_4 == 3) {
+            CLONE_oxy_balon = Instantiate(
+                PREFAB_oxy_balon,
+                slot_generate_4.transform.position,
+                slot_generate_4.transform.rotation);
+        }
+        if (random_slot_4 == 4) {
+            CLONE_energy_container = Instantiate(
+                PREFAB_energy_container,
+                slot_generate_4.transform.position,
+                slot_generate_4.transform.rotation);
+        }
+        if (random_slot_4 == 5) {
+            CLONE_aid_container = Instantiate(
+                PREFAB_aid_container,
+                slot_generate_4.transform.position,
+                slot_generate_4.transform.rotation);
+        }
+    }
     // Start is called before the first frame update
     void Start() {
         RADIUS_robot_scout = transform.parent.gameObject;
@@ -163,7 +316,8 @@ public class robot_scout : MonoBehaviour {
     public void Damage() {
         robot_scout_health -= 10;
         robot_scout_canvas_text.text = robot_scout_health.ToString(); // показываем здоровье
-        if (robot_scout_health <= 0) {            
+        if (robot_scout_health <= 0) {
+            GeneratePrize();
             Dead();
         }
     }
