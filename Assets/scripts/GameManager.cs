@@ -531,6 +531,16 @@ public class GameManager : MonoBehaviour {
         BAG_Player_energy = energy;
     }
 
+    // возвращает текущее состояние сумки игрока
+    // в порядке: key fuel energy
+    public bool[] BAG_Player_curent() {
+        bool[] bag = new bool[3];
+        bag[0] = BAG_Player_key;
+        bag[1] = BAG_Player_fuel;
+        bag[2] = BAG_Player_energy;
+        return bag;
+    }
+
     // Активирует тригеры.
     void TriggerActivation() {
         if (GameState == 6) script_rigger_Terminal_fuel.ActiveTermonal(true); // вкыл терминал FUEL
