@@ -15,6 +15,8 @@ public class oxygen : MonoBehaviour
     [SerializeField] private GameObject GameManager; 
     private GameManager script_GameManager;
 
+    [SerializeField] AudioSource sound_oxy;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +47,7 @@ public class oxygen : MonoBehaviour
 
     public void oxygenTimerRestart()
     {
+        sound_oxy.Play();
         oxygenTime = oxygenTimeTemp; 
         trigerOxygen = false;
         //text.text = (Mathf.Round(oxygenTime)).ToString();
@@ -62,6 +65,7 @@ public class oxygen : MonoBehaviour
         text.text = (Mathf.Round(oxygenTime)).ToString();
     }
     public void oxygenAdd() {
+        sound_oxy.Play(); // sound
         int oxy_balon_size = 10; // емкость балона
         for (int i = 0; i < oxy_balon_size; i++) {
             if (oxygenTime < oxygenTimeTemp) {

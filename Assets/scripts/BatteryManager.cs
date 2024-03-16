@@ -25,6 +25,8 @@ public class BatteryManager : MonoBehaviour {
     [SerializeField] Texture battery_5;
     [SerializeField] Texture battery_6;
 
+    [SerializeField] AudioSource charger;
+
     private bool isCharging = false; // заряжается ли в данную секундк
 
     // Start is called before the first frame update
@@ -181,6 +183,7 @@ public class BatteryManager : MonoBehaviour {
     }
 
     public void EnergyAdd() {
+        charger.Play(); //sound
         int batary_size = 10; // емкость балона
         for (int i = 0; i < batary_size; i++) {
             if (battery_charge_units < battery_size) {

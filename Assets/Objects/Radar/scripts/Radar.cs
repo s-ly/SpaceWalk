@@ -7,7 +7,8 @@ using UnityEngine.UI;
 using UnityEngine.XR;
 using static UnityEngine.GraphicsBuffer;
 
-public class Radar : MonoBehaviour {
+public class Radar : MonoBehaviour
+{
     GameObject RadarMap;
     GameObject map_point_player;
     GameObject map_point_player_orient;
@@ -37,6 +38,7 @@ public class Radar : MonoBehaviour {
     bool map_incline = false;
 
     public GameObject map_point_mission_battery;
+    [SerializeField] AudioSource ping;
 
     // Orient system
     public GameObject vector_target; // выравнивается к цели на карте
@@ -47,7 +49,8 @@ public class Radar : MonoBehaviour {
     bool Locked_Orient_system = false;
 
 
-    void Start() {
+    void Start()
+    {
         map_point_mission_battery.SetActive(false);
         Player = GameObject.FindWithTag("Player");
         CameraPlayer = GameObject.FindWithTag("MainCamera");
@@ -62,24 +65,32 @@ public class Radar : MonoBehaviour {
         script_GameManager = GameManager.GetComponent<GameManager>();
     }
 
-    void Update() {
-        if (RadarMap.activeSelf) {
+    void Update()
+    {
+        if (RadarMap.activeSelf)
+        {
+
             FindPlayer();
             RadarMap.transform.Rotate(0.0f, speed_rot * Time.deltaTime, 0.0f, Space.Self);
 
-            if (map_incline) {
+            if (map_incline)
+            {
                 RadarMap.transform.Rotate(60f * Time.deltaTime, 0.0f, 0.0f, Space.World);
             }
-            if (Locked_Orient_system) {
+            if (Locked_Orient_system)
+            {
                 Orient_rotate_to_camera();
                 Orient_CopyRot();
             }
         }
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerEnter(Collider other)
+    {
 
-        if (other.gameObject.CompareTag("Player")) {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            ping.Play(); // звук
             RadarMap.SetActive(true);
             Canvas.SetActive(true);
             speed_rot = 45f;
@@ -89,9 +100,11 @@ public class Radar : MonoBehaviour {
         }
     }
 
-    private void OnTriggerExit(Collider other) {
+    private void OnTriggerExit(Collider other)
+    {
 
-        if (other.gameObject.CompareTag("Player")) {
+        if (other.gameObject.CompareTag("Player"))
+        {
             Locked_Orient_system = false; // отключаю систему наведения на камеру цели
             RadarMap.SetActive(false);
             Canvas.SetActive(false);
@@ -100,7 +113,8 @@ public class Radar : MonoBehaviour {
         }
     }
 
-    void FindPlayer() {
+    void FindPlayer()
+    {
         Player_x = Player.transform.localEulerAngles.x;
         Player_y = Player.transform.localEulerAngles.y;
         Player_z = Player.transform.localEulerAngles.z;
@@ -114,7 +128,8 @@ public class Radar : MonoBehaviour {
     }
 
     // показывает на радаре текущую миссию
-    void current_mission_activate() {
+    void current_mission_activate()
+    {
         current_mission = ProgressManager.Instance.YandexDataOBJ.GameState;
 
         string base_name_SpacePod = "pivot (SpacePod)";
@@ -146,15 +161,19 @@ public class Radar : MonoBehaviour {
         if (current_mission == 8 && !bag_energy) current_mission_base_name = base_name_Energy;
         if (current_mission == 8 && bag_energy) current_mission_base_name = base_name_shuttle;
 
-        if (current_mission == 9) {
+        if (current_mission == 9)
+        {
             map_point_current_mission.SetActive(false);
             map_point_mission_battery.SetActive(true);
         }
-        if (current_mission == 10) {
+        if (current_mission == 10)
+        {
             Debug.Log("----!!!!!!!!!!!!--------m->" + base_name_Military_Base);
             map_point_current_mission.SetActive(true);
             map_point_mission_battery.SetActive(false);
-            if (!bag_key) { current_mission_base_name = base_name_Military_Base; } else {
+            if (!bag_key) { current_mission_base_name = base_name_Military_Base; }
+            else
+            {
                 current_mission_base_name = base_name_shuttle;
             }
         }
@@ -169,32 +188,40 @@ public class Radar : MonoBehaviour {
         Vector3 newRotation = new Vector3(current_mission_x, current_mission_y, current_mission_z);
         map_point_current_mission.transform.localEulerAngles = newRotation;
     }
-    public void map_pause() {
-        if (speed_rot != 0) {
+    public void map_pause()
+    {
+        if (speed_rot != 0)
+        {
             speed_rot = 0f;
         }
-        else {
+        else
+        {
             Locked_Orient_system = false; // отключаем наведение
             speed_rot = 45f;
         }
     }
-    public void map_incline_on() {
+    public void map_incline_on()
+    {
         Locked_Orient_system = false;
         map_incline = true;
     }
-    public void map_incline_off() {
+    public void map_incline_off()
+    {
         map_incline = false;
     }
 
     /////////////////// Система наведения на цель ///////////////////
     // останавливает глобус
-    public void Orient_stop_map() {
+    public void Orient_stop_map()
+    {
         speed_rot = 0f;
         Locked_Orient_system = false;
     }
     // выравнивает вектор_к_цели к цели (игрок) (глобус не крутится)
-    public void Orient_vector_target() {
-        if (!Locked_Orient_system) {
+    public void Orient_vector_target()
+    {
+        if (!Locked_Orient_system)
+        {
             Vector3 direction = map_point_player_orient.transform.position - vector_target.transform.position;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             vector_target.transform.rotation = targetRotation;
@@ -202,14 +229,18 @@ public class Radar : MonoBehaviour {
     }
     // выравнивает вектор_к_цели к миссии (глобус не крутится)
     // миссия 9 (реакторы) - особый случай
-    public void Orient_vector_target_mission() {
-        if (!Locked_Orient_system) {
-            if (current_mission != 9) {
+    public void Orient_vector_target_mission()
+    {
+        if (!Locked_Orient_system)
+        {
+            if (current_mission != 9)
+            {
                 Vector3 direction = target_current_misson.transform.position - vector_target.transform.position;
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 vector_target.transform.rotation = targetRotation;
             }
-            else {
+            else
+            {
                 Vector3 direction = target_battery_mission.transform.position - vector_target.transform.position;
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 vector_target.transform.rotation = targetRotation;
@@ -217,8 +248,10 @@ public class Radar : MonoBehaviour {
         }
     }
     // выравнивает дочерний вектор по отношению к глобусу
-    public void Orien_child_vector() {
-        if (!Locked_Orient_system) {
+    public void Orien_child_vector()
+    {
+        if (!Locked_Orient_system)
+        {
             vector_target_child.transform.rotation = vector_target.transform.rotation;
             Quaternion target_to_radarMap = RadarMap.transform.rotation * Quaternion.Inverse(vector_target.transform.rotation);
             vector_target_child.transform.rotation = target_to_radarMap * vector_target_child.transform.rotation;
@@ -226,22 +259,26 @@ public class Radar : MonoBehaviour {
         }
     }
     // Переносит ориентацию на глобус
-    void Orient_CopyRot() {
+    void Orient_CopyRot()
+    {
         RadarMap.transform.rotation = vector_target_child.transform.rotation;
     }
     // наводит вектор_к_цели на камеру 
-    void Orient_rotate_to_camera() {
+    void Orient_rotate_to_camera()
+    {
         float navigation_speed = 0.5f;
         Vector3 direction = CameraPlayer.transform.position - vector_target.transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         vector_target.transform.rotation = Quaternion.Slerp(vector_target.transform.rotation, targetRotation, Time.deltaTime * navigation_speed);
     }
-    public void Orient_Where_I_am() {
+    public void Orient_Where_I_am()
+    {
         Orient_stop_map();
         Orient_vector_target();
         Orien_child_vector();
     }
-    public void Orient_Where_is_the_target() {
+    public void Orient_Where_is_the_target()
+    {
         Orient_stop_map();
         Orient_vector_target_mission();
         Orien_child_vector();
