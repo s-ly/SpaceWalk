@@ -18,18 +18,18 @@ public class MedicalModule : MonoBehaviour {
 
     }
 
-    // в зону что-то входит
+    // пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     private void OnTriggerEnter(Collider other) {
-        // В зону вошёл игрок 
+        // пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ 
         if (other.gameObject.CompareTag("Player")) {
             zone.SetActive(true);
-            SCR_healthManager.healthPlayerRestart(); // рестарт здоровья игрока   
+            SCR_healthManager.healthPlayerRestart(); // СЂРµСЃС‚Р°СЂС‚ Р·РґРѕСЂРѕРІСЊСЏ РёРіСЂРѕРєР°_1   
         }
     }
 
-    // из зоны что-то вышло
+    // пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     private void OnTriggerExit(Collider other) {
-        // В зону вошёл игрок 
+        // пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ 
         if (other.gameObject.CompareTag("Player")) {
             zone.SetActive(false);
         }

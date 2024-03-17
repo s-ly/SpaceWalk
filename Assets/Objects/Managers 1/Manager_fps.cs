@@ -3,29 +3,30 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-// Считает и выводит в TextMeshPro FPS
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ TextMeshPro FPS
 public class Manager_fps : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private float TimePeriod = 3f;
+    [SerializeField] bool tes_d = false;
     private float fps;    
     private float TimeData = 0f;
 
     private void Update()
     {
-        fps = 1.0f / Time.deltaTime; // считаем fps
+        fps = 1.0f / Time.deltaTime; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ fps
         Timer(fps);
     }
 
-    // выводит FPS 
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ FPS 
     private void ShowFPS(float fps)
     {        
         float fpsTEMP = fps;
-        fpsTEMP = Mathf.Round(fpsTEMP); // округлили
-        text.text = ("Кадров в секунду: " + fpsTEMP.ToString());        
+        fpsTEMP = Mathf.Round(fpsTEMP); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        text.text = ("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " + fpsTEMP.ToString());        
     }
 
-    // таймер
+    // пїЅпїЅпїЅпїЅпїЅпїЅ
     private void Timer(float fps)
     {
         TimeData += Time.deltaTime;
