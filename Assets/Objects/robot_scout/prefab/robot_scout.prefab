@@ -1002,6 +1002,7 @@ GameObject:
   - component: {fileID: 2578940702280907617}
   - component: {fileID: 6413503731798347460}
   - component: {fileID: 118423210551652078}
+  - component: {fileID: 9220017316578051710}
   - component: {fileID: 430102123139212367}
   m_Layer: 0
   m_Name: robot_scout
@@ -1110,6 +1111,20 @@ MonoBehaviour:
   PREFAB_oxy_balon: {fileID: 96415329180288786, guid: 628a041fc77706d4f8ab597da2847096, type: 3}
   PREFAB_energy_container: {fileID: 8001728291159762589, guid: a1c892167c6caa342880d25ebc694423, type: 3}
   PREFAB_aid_container: {fileID: 8001728291159762589, guid: 779c76a8ee8474540ad51fb1affe23db, type: 3}
+--- !u!114 &9220017316578051710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5479432739324214738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5069cf495a96b964cbe7f5a87d420250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obj: {fileID: 7385035168106703375}
+  minDistance: 40
 --- !u!135 &430102123139212367
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1308,7 +1323,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7385035168106703375
 Transform:
   m_ObjectHideFlags: 0
@@ -1339,7 +1354,7 @@ Projector:
   m_AspectRatio: 1
   m_Orthographic: 0
   m_OrthographicSize: 10
-  m_Material: {fileID: 2100000, guid: 50e9bd4a305a96f4ebd7d5ef8aee8873, type: 2}
+  m_Material: {fileID: 2100000, guid: d9dcef409a104794b9939545515160ca, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2
     m_Bits: 119

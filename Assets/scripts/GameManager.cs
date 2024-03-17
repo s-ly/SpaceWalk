@@ -6,8 +6,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-// ГЛАВНЫЙ АРХИТЕКТОР
-public class GameManager : MonoBehaviour {
+// Р“Р›РђР’РќР«Р™ РђР РҐРРўР•РљРўРћР 
+public class GameManager : MonoBehaviour
+{
     //[DllImport("__Internal")] private static extern void JS_MyWebLog(string my_log);
 
     public Sprite img_base;
@@ -24,7 +25,7 @@ public class GameManager : MonoBehaviour {
 
     public Image img_mission;
 
-    // сумка игрока
+    // СЃСѓРјРєР° РёРіСЂРѕРєР°
     [SerializeField] GameObject BAG_IMG_Player_key;
     [SerializeField] GameObject BAG_IMG_Player_fuel;
     [SerializeField] GameObject BAG_IMG_Player_energy;
@@ -32,14 +33,14 @@ public class GameManager : MonoBehaviour {
     bool BAG_Player_fuel;
     bool BAG_Player_energy;
 
-    [SerializeField] private GameObject Dialog; // диалог
+    [SerializeField] private GameObject Dialog; // РґРёР°Р»РѕРі
     [SerializeField] private GameObject Dialog_Menu;
-    [SerializeField] private TextMeshProUGUI TextDialog; // текст Диалога
+    [SerializeField] private TextMeshProUGUI TextDialog; // С‚РµРєСЃС‚ Р”РёР°Р»РѕРіР°
 
 
     [SerializeField] private GameObject Player;
 
-    // текущая цель, около радара.
+    // С‚РµРєСѓС‰Р°СЏ С†РµР»СЊ, РѕРєРѕР»Рѕ СЂР°РґР°СЂР°.
     [SerializeField] private TextMeshProUGUI Text_Dialog_current_mission;
     [SerializeField] public GameObject Dialog_current_mission;
 
@@ -49,7 +50,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] GameObject SpacePodZone;
     [SerializeField] GameObject Store;
 
-    // Триггер-терминалы (для их включения)
+    // РўСЂРёРіРіРµСЂ-С‚РµСЂРјРёРЅР°Р»С‹ (РґР»СЏ РёС… РІРєР»СЋС‡РµРЅРёСЏ)
     [SerializeField] private GameObject Trigger_Terminal_key;
     [SerializeField] private GameObject Trigger_Terminal_fuel;
     [SerializeField] private GameObject Trigger_Terminal_energy;
@@ -61,86 +62,86 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private Animator animatorPlayer;
     private float TimerDeath = 1.8f;
     private bool DeathTriger = false;
-    public int GameState; // Состояние игры    
+    public int GameState; // РЎРѕСЃС‚РѕСЏРЅРёРµ РёРіСЂС‹    
 
-    // Доступ к менеджеру кристалов
+    // Р”РѕСЃС‚СѓРї Рє РјРµРЅРµРґР¶РµСЂСѓ РєСЂРёСЃС‚Р°Р»РѕРІ
     [SerializeField] private GameObject crystalManager;
     private crystalManager script_crystalManager;
 
-    private string TextDialog_0 = "\tЖесткая посадка, нужно выяснить, что привело к крушению. "+
-        "Но сейчас другая проблема, заканчивается кислород. "+
-        "<b><color=red>Нужно срочно добежать до базы</color></b>"+
-        ", там кислород пополняется. " +
-        "\n\tДля передвижения используй клавиши AWSD, для поворота и прыжка стрелки, или сенсорную клавиатуру.";
-    private string TextDialog_1 = "\tЗапас кислорода слишком мал. На этой базе можно его увеличить. "+
-        "Если собирать кристаллы и приносить их на базу, можно улучшать запас. "+
-        "<b><color=red>Нужно собрать 10 кристаллов</color></b>"+
-        ", их много рядом, принести на базу "+
-        "<b><color=red>и купить улучшение.</color></b> " +
-        "\n\tКристаллы мало собрать, их нужно донести до базы. На месте собранного кристалла, со временем появится новый.";
-    private string TextDialog_2 = "\tВокруг есть кристаллы, но их слишком мало для рейдов вглубь планеты. "+
-        "Тут есть множество кратеров, в них должно быть гораздо больше кристаллов. "+
-        "<b><color=red>Найди «северный» кратер. </color></b>"+
-        "Он рядом, и отмечен на радаре. " +
-        "\n\tНужно подойти к радару, тогда появится сферическая голограмма карты. "+
-        "На ней есть  маркер твоего положения и ориентации, красная стрелка. "+
-        "Ещё красным пунктирным кружком отмечено местоположение текущей цели. "+
-        "Голограммой можно управлять с помощью оранжевых сенсорных кнопок.";
-    private string TextDialog_3 = "\tПодозрительно много охраны. Нужно выяснить, что тут происходит. "+
-        "Но в начале нужно улучшить оружие, иначе не справится. "+
-        "Тут должна быть <b><color=red>«База вооружения», найди её</color></b>" +
-        ", думаю, на ней можно улучшить оружие. " +
-        "\n\tПопробуй двойной прыжок. Так, если подпрыгнуть, повторное нажатие на стрелку включит реактивный ранец, "+
-        "и подбросит вверх. Или можно подскочить вперёд, если нажать во время прыжка стрелку вниз. На это расходуется топливо.";
-    private string TextDialog_4 = "\tСтановится всё больше боевых машин. Нужно скорее улетать с этой планеты. "+
-        "При аварийной посадке, я заметил "+
-        "<b><color=red>космодром.</color></b> Он был недалеко от радиолокационных тарелок. " +
-        "Надеюсь, там найдётся какой-нибудь транспорт. "+
-        "\n\tЭти турели не очень поворотливы, но после уничтожения, какая-то ремонтная система их снова восстанавливает. "+
-        "Что тут происходит?";
-    private string TextDialog_5 = "\tПохоже, так просто не улететь. Этими комплексами кто-то или что-то управляет. "+
-        "Что бы выяснить, придётся разведать что дальше. Мне нужно улучшить топливные баки реактивного ранца. "+
-        "<b><color=red>Нужно найти станцию «Реактивных двигателей»,</color></b>"+
-        " там, я смогу улучшить снаряжение. " +
-        "\n\tТех-контейнеры, остающиеся после взорванных турелей тоже нужно сперва отнести на главную базу, "+
-        "что бы потом покупать улучшения.";
-    private string TextDialog_6 = "\tПохоже, комплекс управляется неисправной «Системой безопасности». "+
-        "Нужно скорее улетать. Но для Шаттла нужно топливо. "+
-        "<b><color=red>На «Топливной станции» нужно получить ключ доступа.</color></b> " +
-        "Ключ доступа нужно донести до шаттла."+
-        "\n\tИщи топливные баки, там можно заправить реактивный ранец.";
-    private string TextDialog_7 = "\tЭто уже не смешно, слишком опасно. Нужно улучшить свою броню, "+
-        "иначе эти турели и роботы меня уничтожат. Мой скафандр оснащён защитным полем. "+
-        "Если я <b><color=red>найду «Кибернетическую лабораторию»</color></b>" +
-        ", я смогу улучшить его. "+
-        "\n\tЗащитное поле тратится, когда в него попадают выстрелы, и так защищает меня. "+
-        "Поле само медленно восстанавливается, но только если выйти из боя.";
-    private string TextDialog_8 = "\tДля шаттла нужна энергия. "+
-        "<b><color=red>Ключ доступа должен быть на «Электростанции»</color></b>. Нужно найти её." +
-        "Ключ доступа нужно донести до шаттла. " +
-        "\n\tНельзя просто так улететь, пострадает ещё кто-то. Нужно найти способ остановить безумную систему.";
-    private string TextDialog_9 = "\tНа электростанции я выяснил, в южной части планеты расположен боевой комплекс, "+
-        "он и сбил мой корабль. Его нужно отключить. Комплекс питают "+
-        "<b><color=red>3 реактора, нужно уничтожить их все</color></b>." + 
-        "\n\tНа карте отмечены три точки, где расположены реакторы. Там полно охраны!";
-    private string TextDialog_10 = "\tВсе три реактора уничтожены, и защита комплекса ослабла. "+
-        "Осталось <b><color=red>найти ключ доступа «Охранной системы» и добежать до шаттла</color></b>." +
-        "\n\tСтранно, что никто не управляет станциями, что привело их в боевой режим, и почему они нападают? "+
-        "Нет времени думать, нужно хватать ключ и улетать. ";
-    private string TextDialog_11 = "\tПохоже, кто-то специально запрограммировал модули охраны на нападение. "+
-        "Кто и зачем? В следующий раз разберусь с этим. "+
-        "\n\t<b><color=red>Победа!</color></b>";
+    private string TextDialog_0 = "\tР–РµСЃС‚РєР°СЏ РїРѕСЃР°РґРєР°, РЅСѓР¶РЅРѕ РІС‹СЏСЃРЅРёС‚СЊ, С‡С‚Рѕ РїСЂРёРІРµР»Рѕ Рє РєСЂСѓС€РµРЅРёСЋ. " +
+        "РќРѕ СЃРµР№С‡Р°СЃ РґСЂСѓРіР°СЏ РїСЂРѕР±Р»РµРјР°, Р·Р°РєР°РЅС‡РёРІР°РµС‚СЃСЏ РєРёСЃР»РѕСЂРѕРґ. " +
+        "<b><color=red>РќСѓР¶РЅРѕ СЃСЂРѕС‡РЅРѕ РґРѕР±РµР¶Р°С‚СЊ РґРѕ Р±Р°Р·С‹</color></b>" +
+        ", С‚Р°Рј РєРёСЃР»РѕСЂРѕРґ РїРѕРїРѕР»РЅСЏРµС‚СЃСЏ.В " +
+        "\n\tР”Р»СЏ РїРµСЂРµРґРІРёР¶РµРЅРёСЏ РёСЃРїРѕР»СЊР·СѓР№ РєР»Р°РІРёС€Рё AWSD, РґР»СЏ РїРѕРІРѕСЂРѕС‚Р° Рё РїСЂС‹Р¶РєР° СЃС‚СЂРµР»РєРё, РёР»Рё СЃРµРЅСЃРѕСЂРЅСѓСЋ РєР»Р°РІРёР°С‚СѓСЂСѓ.";
+    private string TextDialog_1 = "\tР—Р°РїР°СЃ РєРёСЃР»РѕСЂРѕРґР° СЃР»РёС€РєРѕРј РјР°Р». РќР° СЌС‚РѕР№ Р±Р°Р·Рµ РјРѕР¶РЅРѕ РµРіРѕ СѓРІРµР»РёС‡РёС‚СЊ. " +
+        "Р•СЃР»Рё СЃРѕР±РёСЂР°С‚СЊ РєСЂРёСЃС‚Р°Р»Р»С‹ Рё РїСЂРёРЅРѕСЃРёС‚СЊ РёС… РЅР° Р±Р°Р·Сѓ, РјРѕР¶РЅРѕ СѓР»СѓС‡С€Р°С‚СЊ Р·Р°РїР°СЃ. " +
+        "<b><color=red>РќСѓР¶РЅРѕ СЃРѕР±СЂР°С‚СЊ 10 РєСЂРёСЃС‚Р°Р»Р»РѕРІ</color></b>" +
+        ", РёС… РјРЅРѕРіРѕ СЂСЏРґРѕРј, РїСЂРёРЅРµСЃС‚Рё РЅР° Р±Р°Р·Сѓ " +
+        "<b><color=red>Рё РєСѓРїРёС‚СЊ СѓР»СѓС‡С€РµРЅРёРµ.</color></b> " +
+        "\n\tРљСЂРёСЃС‚Р°Р»Р»С‹ РјР°Р»Рѕ СЃРѕР±СЂР°С‚СЊ, РёС… РЅСѓР¶РЅРѕ РґРѕРЅРµСЃС‚Рё РґРѕ Р±Р°Р·С‹. РќР° РјРµСЃС‚Рµ СЃРѕР±СЂР°РЅРЅРѕРіРѕ РєСЂРёСЃС‚Р°Р»Р»Р°, СЃРѕ РІСЂРµРјРµРЅРµРј РїРѕСЏРІРёС‚СЃСЏ РЅРѕРІС‹Р№.";
+    private string TextDialog_2 = "\tР’РѕРєСЂСѓРі РµСЃС‚СЊ РєСЂРёСЃС‚Р°Р»Р»С‹, РЅРѕ РёС… СЃР»РёС€РєРѕРј РјР°Р»Рѕ РґР»СЏ СЂРµР№РґРѕРІ РІРіР»СѓР±СЊ РїР»Р°РЅРµС‚С‹. " +
+        "РўСѓС‚ РµСЃС‚СЊ РјРЅРѕР¶РµСЃС‚РІРѕ РєСЂР°С‚РµСЂРѕРІ, РІ РЅРёС… РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РіРѕСЂР°Р·РґРѕ Р±РѕР»СЊС€Рµ РєСЂРёСЃС‚Р°Р»Р»РѕРІ. " +
+        "<b><color=red>РќР°Р№РґРё В«СЃРµРІРµСЂРЅС‹Р№В» РєСЂР°С‚РµСЂ. </color></b>" +
+        "РћРЅ СЂСЏРґРѕРј, Рё РѕС‚РјРµС‡РµРЅ РЅР° СЂР°РґР°СЂРµ. " +
+        "\n\tРќСѓР¶РЅРѕ РїРѕРґРѕР№С‚Рё Рє СЂР°РґР°СЂСѓ, С‚РѕРіРґР° РїРѕСЏРІРёС‚СЃСЏ СЃС„РµСЂРёС‡РµСЃРєР°СЏ РіРѕР»РѕРіСЂР°РјРјР° РєР°СЂС‚С‹. " +
+        "РќР° РЅРµР№ РµСЃС‚СЊВ  РјР°СЂРєРµСЂ С‚РІРѕРµРіРѕ РїРѕР»РѕР¶РµРЅРёСЏ Рё РѕСЂРёРµРЅС‚Р°С†РёРё, РєСЂР°СЃРЅР°СЏ СЃС‚СЂРµР»РєР°. " +
+        "Р•С‰С‘ РєСЂР°СЃРЅС‹Рј РїСѓРЅРєС‚РёСЂРЅС‹Рј РєСЂСѓР¶РєРѕРј РѕС‚РјРµС‡РµРЅРѕ РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ С‚РµРєСѓС‰РµР№ С†РµР»Рё. " +
+        "Р“РѕР»РѕРіСЂР°РјРјРѕР№ РјРѕР¶РЅРѕ СѓРїСЂР°РІР»СЏС‚СЊ СЃ РїРѕРјРѕС‰СЊСЋ РѕСЂР°РЅР¶РµРІС‹С… СЃРµРЅСЃРѕСЂРЅС‹С… РєРЅРѕРїРѕРє.";
+    private string TextDialog_3 = "\tРџРѕРґРѕР·СЂРёС‚РµР»СЊРЅРѕ РјРЅРѕРіРѕ РѕС…СЂР°РЅС‹. РќСѓР¶РЅРѕ РІС‹СЏСЃРЅРёС‚СЊ, С‡С‚Рѕ С‚СѓС‚ РїСЂРѕРёСЃС…РѕРґРёС‚. " +
+        "РќРѕ РІ РЅР°С‡Р°Р»Рµ РЅСѓР¶РЅРѕ СѓР»СѓС‡С€РёС‚СЊ РѕСЂСѓР¶РёРµ, РёРЅР°С‡Рµ РЅРµ СЃРїСЂР°РІРёС‚СЃСЏ. " +
+        "РўСѓС‚ РґРѕР»Р¶РЅР° Р±С‹С‚СЊ <b><color=red>В«Р‘Р°Р·Р° РІРѕРѕСЂСѓР¶РµРЅРёСЏВ», РЅР°Р№РґРё РµС‘</color></b>" +
+        ", РґСѓРјР°СЋ, РЅР° РЅРµР№ РјРѕР¶РЅРѕ СѓР»СѓС‡С€РёС‚СЊ РѕСЂСѓР¶РёРµ. " +
+        "\n\tРџРѕРїСЂРѕР±СѓР№ РґРІРѕР№РЅРѕР№ РїСЂС‹Р¶РѕРє. РўР°Рє, РµСЃР»Рё РїРѕРґРїСЂС‹РіРЅСѓС‚СЊ, РїРѕРІС‚РѕСЂРЅРѕРµ РЅР°Р¶Р°С‚РёРµ РЅР° СЃС‚СЂРµР»РєСѓ РІРєР»СЋС‡РёС‚ СЂРµР°РєС‚РёРІРЅС‹Р№ СЂР°РЅРµС†, " +
+        "Рё РїРѕРґР±СЂРѕСЃРёС‚ РІРІРµСЂС…. РР»Рё РјРѕР¶РЅРѕ РїРѕРґСЃРєРѕС‡РёС‚СЊ РІРїРµСЂС‘Рґ, РµСЃР»Рё РЅР°Р¶Р°С‚СЊ РІРѕ РІСЂРµРјСЏ РїСЂС‹Р¶РєР° СЃС‚СЂРµР»РєСѓ РІРЅРёР·. РќР° СЌС‚Рѕ СЂР°СЃС…РѕРґСѓРµС‚СЃСЏ С‚РѕРїР»РёРІРѕ.";
+    private string TextDialog_4 = "\tРЎС‚Р°РЅРѕРІРёС‚СЃСЏ РІСЃС‘ Р±РѕР»СЊС€Рµ Р±РѕРµРІС‹С… РјР°С€РёРЅ. РќСѓР¶РЅРѕ СЃРєРѕСЂРµРµ СѓР»РµС‚Р°С‚СЊ СЃ СЌС‚РѕР№ РїР»Р°РЅРµС‚С‹. " +
+        "РџСЂРё Р°РІР°СЂРёР№РЅРѕР№ РїРѕСЃР°РґРєРµ, СЏ Р·Р°РјРµС‚РёР» " +
+        "<b><color=red>РєРѕСЃРјРѕРґСЂРѕРј.</color></b> РћРЅ Р±С‹Р» РЅРµРґР°Р»РµРєРѕ РѕС‚ СЂР°РґРёРѕР»РѕРєР°С†РёРѕРЅРЅС‹С… С‚Р°СЂРµР»РѕРє. " +
+        "РќР°РґРµСЋСЃСЊ, С‚Р°Рј РЅР°Р№РґС‘С‚СЃСЏ РєР°РєРѕР№-РЅРёР±СѓРґСЊ С‚СЂР°РЅСЃРїРѕСЂС‚.В " +
+        "\n\tР­С‚Рё С‚СѓСЂРµР»Рё РЅРµ РѕС‡РµРЅСЊ РїРѕРІРѕСЂРѕС‚Р»РёРІС‹, РЅРѕ РїРѕСЃР»Рµ СѓРЅРёС‡С‚РѕР¶РµРЅРёСЏ, РєР°РєР°СЏ-С‚Рѕ СЂРµРјРѕРЅС‚РЅР°СЏ СЃРёСЃС‚РµРјР° РёС… СЃРЅРѕРІР° РІРѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµС‚. " +
+        "Р§С‚Рѕ С‚СѓС‚ РїСЂРѕРёСЃС…РѕРґРёС‚?";
+    private string TextDialog_5 = "\tРџРѕС…РѕР¶Рµ, С‚Р°Рє РїСЂРѕСЃС‚Рѕ РЅРµ СѓР»РµС‚РµС‚СЊ. Р­С‚РёРјРё РєРѕРјРїР»РµРєСЃР°РјРё РєС‚Рѕ-С‚Рѕ РёР»Рё С‡С‚Рѕ-С‚Рѕ СѓРїСЂР°РІР»СЏРµС‚. " +
+        "Р§С‚Рѕ Р±С‹ РІС‹СЏСЃРЅРёС‚СЊ, РїСЂРёРґС‘С‚СЃСЏ СЂР°Р·РІРµРґР°С‚СЊ С‡С‚Рѕ РґР°Р»СЊС€Рµ. РњРЅРµ РЅСѓР¶РЅРѕ СѓР»СѓС‡С€РёС‚СЊ С‚РѕРїР»РёРІРЅС‹Рµ Р±Р°РєРё СЂРµР°РєС‚РёРІРЅРѕРіРѕ СЂР°РЅС†Р°. " +
+        "<b><color=red>РќСѓР¶РЅРѕ РЅР°Р№С‚Рё СЃС‚Р°РЅС†РёСЋ В«Р РµР°РєС‚РёРІРЅС‹С… РґРІРёРіР°С‚РµР»РµР№В»,</color></b>" +
+        " С‚Р°Рј, СЏ СЃРјРѕРіСѓ СѓР»СѓС‡С€РёС‚СЊ СЃРЅР°СЂСЏР¶РµРЅРёРµ.В " +
+        "\n\tРўРµС…-РєРѕРЅС‚РµР№РЅРµСЂС‹, РѕСЃС‚Р°СЋС‰РёРµСЃСЏ РїРѕСЃР»Рµ РІР·РѕСЂРІР°РЅРЅС‹С… С‚СѓСЂРµР»РµР№ С‚РѕР¶Рµ РЅСѓР¶РЅРѕ СЃРїРµСЂРІР° РѕС‚РЅРµСЃС‚Рё РЅР° РіР»Р°РІРЅСѓСЋ Р±Р°Р·Сѓ, " +
+        "С‡С‚Рѕ Р±С‹ РїРѕС‚РѕРј РїРѕРєСѓРїР°С‚СЊ СѓР»СѓС‡С€РµРЅРёСЏ.";
+    private string TextDialog_6 = "\tРџРѕС…РѕР¶Рµ, РєРѕРјРїР»РµРєСЃ СѓРїСЂР°РІР»СЏРµС‚СЃСЏ РЅРµРёСЃРїСЂР°РІРЅРѕР№ В«РЎРёСЃС‚РµРјРѕР№ Р±РµР·РѕРїР°СЃРЅРѕСЃС‚РёВ». " +
+        "РќСѓР¶РЅРѕ СЃРєРѕСЂРµРµ СѓР»РµС‚Р°С‚СЊ. РќРѕ РґР»СЏ РЁР°С‚С‚Р»Р° РЅСѓР¶РЅРѕ С‚РѕРїР»РёРІРѕ. " +
+        "<b><color=red>РќР° В«РўРѕРїР»РёРІРЅРѕР№ СЃС‚Р°РЅС†РёРёВ» РЅСѓР¶РЅРѕ РїРѕР»СѓС‡РёС‚СЊ РєР»СЋС‡ РґРѕСЃС‚СѓРїР°.</color></b> " +
+        "РљР»СЋС‡ РґРѕСЃС‚СѓРїР° РЅСѓР¶РЅРѕ РґРѕРЅРµСЃС‚Рё РґРѕ С€Р°С‚С‚Р»Р°." +
+        "\n\tРС‰Рё С‚РѕРїР»РёРІРЅС‹Рµ Р±Р°РєРё, С‚Р°Рј РјРѕР¶РЅРѕ Р·Р°РїСЂР°РІРёС‚СЊ СЂРµР°РєС‚РёРІРЅС‹Р№ СЂР°РЅРµС†.";
+    private string TextDialog_7 = "\tР­С‚Рѕ СѓР¶Рµ РЅРµ СЃРјРµС€РЅРѕ, СЃР»РёС€РєРѕРј РѕРїР°СЃРЅРѕ. РќСѓР¶РЅРѕ СѓР»СѓС‡С€РёС‚СЊ СЃРІРѕСЋ Р±СЂРѕРЅСЋ, " +
+        "РёРЅР°С‡Рµ СЌС‚Рё С‚СѓСЂРµР»Рё Рё СЂРѕР±РѕС‚С‹ РјРµРЅСЏ СѓРЅРёС‡С‚РѕР¶Р°С‚. РњРѕР№ СЃРєР°С„Р°РЅРґСЂ РѕСЃРЅР°С‰С‘РЅ Р·Р°С‰РёС‚РЅС‹Рј РїРѕР»РµРј. " +
+        "Р•СЃР»Рё СЏ <b><color=red>РЅР°Р№РґСѓ В«РљРёР±РµСЂРЅРµС‚РёС‡РµСЃРєСѓСЋ Р»Р°Р±РѕСЂР°С‚РѕСЂРёСЋВ»</color></b>" +
+        ", СЏ СЃРјРѕРіСѓ СѓР»СѓС‡С€РёС‚СЊ РµРіРѕ. " +
+        "\n\tР—Р°С‰РёС‚РЅРѕРµ РїРѕР»Рµ С‚СЂР°С‚РёС‚СЃСЏ, РєРѕРіРґР° РІ РЅРµРіРѕ РїРѕРїР°РґР°СЋС‚ РІС‹СЃС‚СЂРµР»С‹, Рё С‚Р°Рє Р·Р°С‰РёС‰Р°РµС‚ РјРµРЅСЏ. " +
+        "РџРѕР»Рµ СЃР°РјРѕ РјРµРґР»РµРЅРЅРѕ РІРѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµС‚СЃСЏ, РЅРѕ С‚РѕР»СЊРєРѕ РµСЃР»Рё РІС‹Р№С‚Рё РёР· Р±РѕСЏ.";
+    private string TextDialog_8 = "\tР”Р»СЏ С€Р°С‚С‚Р»Р° РЅСѓР¶РЅР° СЌРЅРµСЂРіРёСЏ. " +
+        "<b><color=red>РљР»СЋС‡ РґРѕСЃС‚СѓРїР° РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РЅР° В«Р­Р»РµРєС‚СЂРѕСЃС‚Р°РЅС†РёРёВ»</color></b>. РќСѓР¶РЅРѕ РЅР°Р№С‚Рё РµС‘." +
+        "РљР»СЋС‡ РґРѕСЃС‚СѓРїР° РЅСѓР¶РЅРѕ РґРѕРЅРµСЃС‚Рё РґРѕ С€Р°С‚С‚Р»Р°. " +
+        "\n\tРќРµР»СЊР·СЏ РїСЂРѕСЃС‚Рѕ С‚Р°Рє СѓР»РµС‚РµС‚СЊ, РїРѕСЃС‚СЂР°РґР°РµС‚ РµС‰С‘ РєС‚Рѕ-С‚Рѕ. РќСѓР¶РЅРѕ РЅР°Р№С‚Рё СЃРїРѕСЃРѕР± РѕСЃС‚Р°РЅРѕРІРёС‚СЊ Р±РµР·СѓРјРЅСѓСЋ СЃРёСЃС‚РµРјСѓ.";
+    private string TextDialog_9 = "\tРќР° СЌР»РµРєС‚СЂРѕСЃС‚Р°РЅС†РёРё СЏ РІС‹СЏСЃРЅРёР», РІ СЋР¶РЅРѕР№ С‡Р°СЃС‚Рё РїР»Р°РЅРµС‚С‹ СЂР°СЃРїРѕР»РѕР¶РµРЅ Р±РѕРµРІРѕР№ РєРѕРјРїР»РµРєСЃ, " +
+        "РѕРЅ Рё СЃР±РёР» РјРѕР№ РєРѕСЂР°Р±Р»СЊ. Р•РіРѕ РЅСѓР¶РЅРѕ РѕС‚РєР»СЋС‡РёС‚СЊ. РљРѕРјРїР»РµРєСЃ РїРёС‚Р°СЋС‚ " +
+        "<b><color=red>3 СЂРµР°РєС‚РѕСЂР°, РЅСѓР¶РЅРѕ СѓРЅРёС‡С‚РѕР¶РёС‚СЊ РёС… РІСЃРµ</color></b>." +
+        "\n\tРќР° РєР°СЂС‚Рµ РѕС‚РјРµС‡РµРЅС‹ С‚СЂРё С‚РѕС‡РєРё, РіРґРµ СЂР°СЃРїРѕР»РѕР¶РµРЅС‹ СЂРµР°РєС‚РѕСЂС‹. РўР°Рј РїРѕР»РЅРѕ РѕС…СЂР°РЅС‹!";
+    private string TextDialog_10 = "\tР’СЃРµ С‚СЂРё СЂРµР°РєС‚РѕСЂР° СѓРЅРёС‡С‚РѕР¶РµРЅС‹, Рё Р·Р°С‰РёС‚Р° РєРѕРјРїР»РµРєСЃР° РѕСЃР»Р°Р±Р»Р°. " +
+        "РћСЃС‚Р°Р»РѕСЃСЊ <b><color=red>РЅР°Р№С‚Рё РєР»СЋС‡ РґРѕСЃС‚СѓРїР° В«РћС…СЂР°РЅРЅРѕР№ СЃРёСЃС‚РµРјС‹В» Рё РґРѕР±РµР¶Р°С‚СЊ РґРѕ С€Р°С‚С‚Р»Р°</color></b>." +
+        "\n\tРЎС‚СЂР°РЅРЅРѕ, С‡С‚Рѕ РЅРёРєС‚Рѕ РЅРµ СѓРїСЂР°РІР»СЏРµС‚ СЃС‚Р°РЅС†РёСЏРјРё, С‡С‚Рѕ РїСЂРёРІРµР»Рѕ РёС… РІ Р±РѕРµРІРѕР№ СЂРµР¶РёРј, Рё РїРѕС‡РµРјСѓ РѕРЅРё РЅР°РїР°РґР°СЋС‚? " +
+        "РќРµС‚ РІСЂРµРјРµРЅРё РґСѓРјР°С‚СЊ, РЅСѓР¶РЅРѕ С…РІР°С‚Р°С‚СЊ РєР»СЋС‡ Рё СѓР»РµС‚Р°С‚СЊ.В ";
+    private string TextDialog_11 = "\tРџРѕС…РѕР¶Рµ, РєС‚Рѕ-С‚Рѕ СЃРїРµС†РёР°Р»СЊРЅРѕ Р·Р°РїСЂРѕРіСЂР°РјРјРёСЂРѕРІР°Р» РјРѕРґСѓР»Рё РѕС…СЂР°РЅС‹ РЅР° РЅР°РїР°РґРµРЅРёРµ. " +
+        "РљС‚Рѕ Рё Р·Р°С‡РµРј? Р’ СЃР»РµРґСѓСЋС‰РёР№ СЂР°Р· СЂР°Р·Р±РµСЂСѓСЃСЊ СЃ СЌС‚РёРј. " +
+        "\n\t<b><color=red>РџРѕР±РµРґР°!</color></b>";
 
     [SerializeField] Yandex script_Yandex;
 
-    // какие батареи уничтоженны
+    // РєР°РєРёРµ Р±Р°С‚Р°СЂРµРё СѓРЅРёС‡С‚РѕР¶РµРЅРЅС‹
     bool DestroyBatteryNum_1 = false;
     bool DestroyBatteryNum_2 = false;
     bool DestroyBatteryNum_3 = false;
     public bool DestroyBatteryAll = false;
 
-    // перекрытие UI
-    public EngineBase SCRIPT_EngineBase; 
+    // РїРµСЂРµРєСЂС‹С‚РёРµ UI
+    public EngineBase SCRIPT_EngineBase;
     public LabBase SRC_LabBase;
     public WeaponsBase STC_WeaponsBase;
 
@@ -153,15 +154,16 @@ public class GameManager : MonoBehaviour {
     EnergyBattery SRC_EnergyBattery_3;
 
     // Start is called before the first frame update
-    void Start() {
-        GameState = ProgressManager.Instance.YandexDataOBJ.GameState; // Загрузка Состояния игры
+    void Start()
+    {
+        GameState = ProgressManager.Instance.YandexDataOBJ.GameState; // Р—Р°РіСЂСѓР·РєР° РЎРѕСЃС‚РѕСЏРЅРёСЏ РёРіСЂС‹
         //TouchKeyboardActive = ProgressManager.Instance.YandexDataOBJ.TouchKeyboardActive;
 
-        // доступ к скриптам игрока и менеджера кристалов
+        // РґРѕСЃС‚СѓРї Рє СЃРєСЂРёРїС‚Р°Рј РёРіСЂРѕРєР° Рё РјРµРЅРµРґР¶РµСЂР° РєСЂРёСЃС‚Р°Р»РѕРІ
         scripc_player = Player.GetComponent<player>();
         script_crystalManager = crystalManager.GetComponent<crystalManager>();
 
-        // скрипты Триггер-терминалов
+        // СЃРєСЂРёРїС‚С‹ РўСЂРёРіРіРµСЂ-С‚РµСЂРјРёРЅР°Р»РѕРІ
         script_rigger_Terminal_key = Trigger_Terminal_key.GetComponent<Trigger_Terminal>();
         script_rigger_Terminal_fuel = Trigger_Terminal_fuel.GetComponent<Trigger_Terminal>();
         script_rigger_Terminal_energy = Trigger_Terminal_energy.GetComponent<Trigger_Terminal>();
@@ -174,9 +176,9 @@ public class GameManager : MonoBehaviour {
 
         Dialog_Menu.SetActive(false);
         OpenDialogMission();
-        BAG_Player(false, false, false); // у игрока в сумке ничего нет
-        StartCoroutine(Pause_TriggerActivation(1f)); // Запуск активации трегеров с задержкой.
-        Dialog_current_mission.SetActive(false);// отключаем диалое текущей цели около радара.
+        BAG_Player(false, false, false); // Сѓ РёРіСЂРѕРєР° РІ СЃСѓРјРєРµ РЅРёС‡РµРіРѕ РЅРµС‚
+        StartCoroutine(Pause_TriggerActivation(1f)); // Р—Р°РїСѓСЃРє Р°РєС‚РёРІР°С†РёРё С‚СЂРµРіРµСЂРѕРІ СЃ Р·Р°РґРµСЂР¶РєРѕР№.
+        Dialog_current_mission.SetActive(false);// РѕС‚РєР»СЋС‡Р°РµРј РґРёР°Р»РѕРµ С‚РµРєСѓС‰РµР№ С†РµР»Рё РѕРєРѕР»Рѕ СЂР°РґР°СЂР°.
 
 
 
@@ -186,39 +188,48 @@ public class GameManager : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
-        // после смерти держим экран немного
-        if (TimerDeath > 0 && DeathTriger) {
+    void Update()
+    {
+        // РїРѕСЃР»Рµ СЃРјРµСЂС‚Рё РґРµСЂР¶РёРј СЌРєСЂР°РЅ РЅРµРјРЅРѕРіРѕ
+        if (TimerDeath > 0 && DeathTriger)
+        {
             TimerDeath = TimerDeath - Time.deltaTime;
-            if (TimerDeath <= 0) {
-                SceneManager.LoadScene(2);  // Загрузка GAME OVER
+            if (TimerDeath <= 0)
+            {
+                SceneManager.LoadScene(2);  // Р—Р°РіСЂСѓР·РєР° GAME OVER
                 //script_Yandex.ShowAdv();
             }
         }
     }
 
-    // Запуск активации трегеров с задержкой.
-    // Так-как в самих трегерах есть деактивация при старте, мы ждём паузу,
-    // а затем активируем если нужно.
-    IEnumerator Pause_TriggerActivation(float pauseSec) {
+    // Р—Р°РїСѓСЃРє Р°РєС‚РёРІР°С†РёРё С‚СЂРµРіРµСЂРѕРІ СЃ Р·Р°РґРµСЂР¶РєРѕР№.
+    // РўР°Рє-РєР°Рє РІ СЃР°РјРёС… С‚СЂРµРіРµСЂР°С… РµСЃС‚СЊ РґРµР°РєС‚РёРІР°С†РёСЏ РїСЂРё СЃС‚Р°СЂС‚Рµ, РјС‹ Р¶РґС‘Рј РїР°СѓР·Сѓ,
+    // Р° Р·Р°С‚РµРј Р°РєС‚РёРІРёСЂСѓРµРј РµСЃР»Рё РЅСѓР¶РЅРѕ.
+    IEnumerator Pause_TriggerActivation(float pauseSec)
+    {
         yield return new WaitForSeconds(pauseSec);
         TriggerActivation();
     }
 
-    // Проверка состояния игры
-    public void Check_GameState(string GameEvent) {
-        switch (GameEvent) {
-            case "BayFuel": {
+    // РџСЂРѕРІРµСЂРєР° СЃРѕСЃС‚РѕСЏРЅРёСЏ РёРіСЂС‹
+    public void Check_GameState(string GameEvent)
+    {
+        switch (GameEvent)
+        {
+            case "BayFuel":
+                {
 #if UNITY_WEBGL
                     script_Yandex.Button_Save();
 #endif
                     break;
                 }
-            case "PlayerEnterSpacePod": {
-                    // Состояние 0 - игрок в начале игры, его цель просто добежать до базы.
-                    if (GameState == 0) {
-                        GameState = 1; 
-                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями 
+            case "PlayerEnterSpacePod":
+                {
+                    // РЎРѕСЃС‚РѕСЏРЅРёРµ 0 - РёРіСЂРѕРє РІ РЅР°С‡Р°Р»Рµ РёРіСЂС‹, РµРіРѕ С†РµР»СЊ РїСЂРѕСЃС‚Рѕ РґРѕР±РµР¶Р°С‚СЊ РґРѕ Р±Р°Р·С‹.
+                    if (GameState == 0)
+                    {
+                        GameState = 1;
+                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // РЎРѕС…СЂР°РЅРµРЅРёРµ РґР°РЅРЅС‹С… РјРµР¶РґСѓ СѓСЂРѕРІРЅСЏРјРё 
                         OpenDialogMission();
                     }
 #if UNITY_WEBGL
@@ -226,11 +237,13 @@ public class GameManager : MonoBehaviour {
 #endif
                     break;
                 }
-            case "PlayerBayOxygen": {
-                    // Состояние 1 - игрок должен собрать 10 кристаллов и купить увеличение кислорода.
-                    if (GameState == 1) {
-                        GameState = 2; 
-                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
+            case "PlayerBayOxygen":
+                {
+                    // РЎРѕСЃС‚РѕСЏРЅРёРµ 1 - РёРіСЂРѕРє РґРѕР»Р¶РµРЅ СЃРѕР±СЂР°С‚СЊ 10 РєСЂРёСЃС‚Р°Р»Р»РѕРІ Рё РєСѓРїРёС‚СЊ СѓРІРµР»РёС‡РµРЅРёРµ РєРёСЃР»РѕСЂРѕРґР°.
+                    if (GameState == 1)
+                    {
+                        GameState = 2;
+                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // РЎРѕС…СЂР°РЅРµРЅРёРµ РґР°РЅРЅС‹С… РјРµР¶РґСѓ СѓСЂРѕРІРЅСЏРјРё
                         OpenDialogMission();
 #if UNITY_WEBGL
                         script_Yandex.Button_Save();
@@ -238,11 +251,13 @@ public class GameManager : MonoBehaviour {
                     }
                     break;
                 }
-            case "NorthCrater": {
-                    // Состояние 2 - игрок должен найти Северный кратер.
-                    if (GameState == 2) {
-                        GameState = 3; 
-                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
+            case "NorthCrater":
+                {
+                    // РЎРѕСЃС‚РѕСЏРЅРёРµ 2 - РёРіСЂРѕРє РґРѕР»Р¶РµРЅ РЅР°Р№С‚Рё РЎРµРІРµСЂРЅС‹Р№ РєСЂР°С‚РµСЂ.
+                    if (GameState == 2)
+                    {
+                        GameState = 3;
+                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // РЎРѕС…СЂР°РЅРµРЅРёРµ РґР°РЅРЅС‹С… РјРµР¶РґСѓ СѓСЂРѕРІРЅСЏРјРё
                         OpenDialogMission();
 #if UNITY_WEBGL
                         script_Yandex.Button_Save();
@@ -250,11 +265,13 @@ public class GameManager : MonoBehaviour {
                     }
                     break;
                 }
-            case "Weapons_Base": {
-                    // Состояние 2 - игрок должен найти Северный кратер.
-                    if (GameState == 3) {
-                        GameState = 4; 
-                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
+            case "Weapons_Base":
+                {
+                    // РЎРѕСЃС‚РѕСЏРЅРёРµ 2 - РёРіСЂРѕРє РґРѕР»Р¶РµРЅ РЅР°Р№С‚Рё РЎРµРІРµСЂРЅС‹Р№ РєСЂР°С‚РµСЂ.
+                    if (GameState == 3)
+                    {
+                        GameState = 4;
+                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // РЎРѕС…СЂР°РЅРµРЅРёРµ РґР°РЅРЅС‹С… РјРµР¶РґСѓ СѓСЂРѕРІРЅСЏРјРё
                         OpenDialogMission();
 #if UNITY_WEBGL
                         script_Yandex.Button_Save();
@@ -262,78 +279,89 @@ public class GameManager : MonoBehaviour {
                     }
                     break;
                 }
-            case "Engine_base": {
-                    // Состояние 5 - игрок должен найти двигатели.
-                    if (GameState == 5) {
-                        GameState = 6; 
-                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
-                        OpenDialogMission();
-                        TriggerActivation();
-#if UNITY_WEBGL
-                        script_Yandex.Button_Save();
-#endif
-                    }
-                    break;
-                }
-            case "Lab_base": {
-                    // Состояние 7 - игрок должен найти Поле.
-                    if (GameState == 7) {
-                        GameState = 8; 
-                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
+            case "Engine_base":
+                {
+                    // РЎРѕСЃС‚РѕСЏРЅРёРµ 5 - РёРіСЂРѕРє РґРѕР»Р¶РµРЅ РЅР°Р№С‚Рё РґРІРёРіР°С‚РµР»Рё.
+                    if (GameState == 5)
+                    {
+                        GameState = 6;
+                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // РЎРѕС…СЂР°РЅРµРЅРёРµ РґР°РЅРЅС‹С… РјРµР¶РґСѓ СѓСЂРѕРІРЅСЏРјРё
                         OpenDialogMission();
                         TriggerActivation();
-                        
 #if UNITY_WEBGL
                         script_Yandex.Button_Save();
 #endif
                     }
                     break;
                 }
-            case "Battery": {
-                    // Состояние 9 - игрок должен уничтожить 3 батареи.
-                    if (GameState == 9 && DestroyBatteryAll) {                        
-                        GameState = 10; 
-                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
+            case "Lab_base":
+                {
+                    // РЎРѕСЃС‚РѕСЏРЅРёРµ 7 - РёРіСЂРѕРє РґРѕР»Р¶РµРЅ РЅР°Р№С‚Рё РџРѕР»Рµ.
+                    if (GameState == 7)
+                    {
+                        GameState = 8;
+                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // РЎРѕС…СЂР°РЅРµРЅРёРµ РґР°РЅРЅС‹С… РјРµР¶РґСѓ СѓСЂРѕРІРЅСЏРјРё
                         OpenDialogMission();
                         TriggerActivation();
-                        
+
 #if UNITY_WEBGL
                         script_Yandex.Button_Save();
 #endif
                     }
                     break;
                 }
-            case "PlayerEnter_Space_Shuttle": {
-                    // Состояние 4 - игрок ищет шатл.
-                    if (GameState == 4) {
-                        GameState = 5;  
-                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
+            case "Battery":
+                {
+                    // РЎРѕСЃС‚РѕСЏРЅРёРµ 9 - РёРіСЂРѕРє РґРѕР»Р¶РµРЅ СѓРЅРёС‡С‚РѕР¶РёС‚СЊ 3 Р±Р°С‚Р°СЂРµРё.
+                    if (GameState == 9 && DestroyBatteryAll)
+                    {
+                        GameState = 10;
+                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // РЎРѕС…СЂР°РЅРµРЅРёРµ РґР°РЅРЅС‹С… РјРµР¶РґСѓ СѓСЂРѕРІРЅСЏРјРё
+                        OpenDialogMission();
+                        TriggerActivation();
+
+#if UNITY_WEBGL
+                        script_Yandex.Button_Save();
+#endif
+                    }
+                    break;
+                }
+            case "PlayerEnter_Space_Shuttle":
+                {
+                    // РЎРѕСЃС‚РѕСЏРЅРёРµ 4 - РёРіСЂРѕРє РёС‰РµС‚ С€Р°С‚Р».
+                    if (GameState == 4)
+                    {
+                        GameState = 5;
+                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // РЎРѕС…СЂР°РЅРµРЅРёРµ РґР°РЅРЅС‹С… РјРµР¶РґСѓ СѓСЂРѕРІРЅСЏРјРё
                         OpenDialogMission();
                     }
 
-                    // Состояние 6 - игрок должен принести на базу FUEL.
-                    if (GameState == 6 && BAG_Player_fuel) {
-                        GameState = 7;  
-                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
-                        BAG_Player(false, false, false); // у игрока в сумке ничего нет
+                    // РЎРѕСЃС‚РѕСЏРЅРёРµ 6 - РёРіСЂРѕРє РґРѕР»Р¶РµРЅ РїСЂРёРЅРµСЃС‚Рё РЅР° Р±Р°Р·Сѓ FUEL.
+                    if (GameState == 6 && BAG_Player_fuel)
+                    {
+                        GameState = 7;
+                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // РЎРѕС…СЂР°РЅРµРЅРёРµ РґР°РЅРЅС‹С… РјРµР¶РґСѓ СѓСЂРѕРІРЅСЏРјРё
+                        BAG_Player(false, false, false); // Сѓ РёРіСЂРѕРєР° РІ СЃСѓРјРєРµ РЅРёС‡РµРіРѕ РЅРµС‚
                         OpenDialogMission();
                     }
-                    // Состояние 8 - игрок должен принести на базу ENERGY.
-                    if (GameState == 8 && BAG_Player_energy) {
-                        GameState = 9; 
-                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
-                        BAG_Player(false, false, false); // у игрока в сумке ничего нет
+                    // РЎРѕСЃС‚РѕСЏРЅРёРµ 8 - РёРіСЂРѕРє РґРѕР»Р¶РµРЅ РїСЂРёРЅРµСЃС‚Рё РЅР° Р±Р°Р·Сѓ ENERGY.
+                    if (GameState == 8 && BAG_Player_energy)
+                    {
+                        GameState = 9;
+                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // РЎРѕС…СЂР°РЅРµРЅРёРµ РґР°РЅРЅС‹С… РјРµР¶РґСѓ СѓСЂРѕРІРЅСЏРјРё
+                        BAG_Player(false, false, false); // Сѓ РёРіСЂРѕРєР° РІ СЃСѓРјРєРµ РЅРёС‡РµРіРѕ РЅРµС‚
                         SRC_EnergyBattery_1.ActivationBattery();
                         SRC_EnergyBattery_2.ActivationBattery();
                         SRC_EnergyBattery_3.ActivationBattery();
                         OpenDialogMission();
                     }
-                    // Состояние 10 - игрок должен принести на базу KEY.
-                    if (GameState == 10 && BAG_Player_key) {
-                        GameState = 11; 
-                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
-                        BAG_Player(false, false, false); // у игрока в сумке ничего нет
-                        YouWin(); // конец игры
+                    // РЎРѕСЃС‚РѕСЏРЅРёРµ 10 - РёРіСЂРѕРє РґРѕР»Р¶РµРЅ РїСЂРёРЅРµСЃС‚Рё РЅР° Р±Р°Р·Сѓ KEY.
+                    if (GameState == 10 && BAG_Player_key)
+                    {
+                        GameState = 11;
+                        ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // РЎРѕС…СЂР°РЅРµРЅРёРµ РґР°РЅРЅС‹С… РјРµР¶РґСѓ СѓСЂРѕРІРЅСЏРјРё
+                        BAG_Player(false, false, false); // Сѓ РёРіСЂРѕРєР° РІ СЃСѓРјРєРµ РЅРёС‡РµРіРѕ РЅРµС‚
+                        YouWin(); // РєРѕРЅРµС† РёРіСЂС‹
                     }
                     //TriggerActivation();
 #if UNITY_WEBGL
@@ -344,67 +372,80 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    // Показывает Диалог
-    public void OpenDialogMission() {
-        if (GameState == 0) {
+    // РџРѕРєР°Р·С‹РІР°РµС‚ Р”РёР°Р»РѕРі
+    public void OpenDialogMission()
+    {
+        if (GameState == 0)
+        {
             img_mission.sprite = img_base;
             TextDialog.text = TextDialog_0;
-            Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_0;
+            Text_Dialog_current_mission.text = "РўРµРєСѓС‰Р°СЏ С†РµР»СЊ: " + TextDialog_0;
         }
-        if (GameState == 1) {
+        if (GameState == 1)
+        {
             img_mission.sprite = img_crystall;
             TextDialog.text = TextDialog_1;
-            Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_1;
+            Text_Dialog_current_mission.text = "РўРµРєСѓС‰Р°СЏ С†РµР»СЊ: " + TextDialog_1;
         }
-        if (GameState == 2) {
+        if (GameState == 2)
+        {
             img_mission.sprite = img_radar;
             TextDialog.text = TextDialog_2;
-            Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_2;
+            Text_Dialog_current_mission.text = "РўРµРєСѓС‰Р°СЏ С†РµР»СЊ: " + TextDialog_2;
         }
-        if (GameState == 3) {
+        if (GameState == 3)
+        {
             img_mission.sprite = img_weapon;
             TextDialog.text = TextDialog_3;
-            Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_3;
+            Text_Dialog_current_mission.text = "РўРµРєСѓС‰Р°СЏ С†РµР»СЊ: " + TextDialog_3;
         }
-        if (GameState == 4) {
+        if (GameState == 4)
+        {
             img_mission.sprite = img_shuttle;
             TextDialog.text = TextDialog_4;
-            Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_4;
+            Text_Dialog_current_mission.text = "РўРµРєСѓС‰Р°СЏ С†РµР»СЊ: " + TextDialog_4;
         }
-        if (GameState == 5) {
+        if (GameState == 5)
+        {
             img_mission.sprite = img_engine;
             TextDialog.text = TextDialog_5;
-            Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_5;
+            Text_Dialog_current_mission.text = "РўРµРєСѓС‰Р°СЏ С†РµР»СЊ: " + TextDialog_5;
         }
-        if (GameState == 6) {
+        if (GameState == 6)
+        {
             img_mission.sprite = img_fuel;
             TextDialog.text = TextDialog_6;
-            Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_6;
+            Text_Dialog_current_mission.text = "РўРµРєСѓС‰Р°СЏ С†РµР»СЊ: " + TextDialog_6;
         }
-        if (GameState == 7) {
+        if (GameState == 7)
+        {
             img_mission.sprite = img_cyberlab;
             TextDialog.text = TextDialog_7;
-            Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_7;
+            Text_Dialog_current_mission.text = "РўРµРєСѓС‰Р°СЏ С†РµР»СЊ: " + TextDialog_7;
         }
-        if (GameState == 8) {
+        if (GameState == 8)
+        {
             img_mission.sprite = img_energy;
             TextDialog.text = TextDialog_8;
-            Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_8;
+            Text_Dialog_current_mission.text = "РўРµРєСѓС‰Р°СЏ С†РµР»СЊ: " + TextDialog_8;
         }
-        if (GameState == 9) {
+        if (GameState == 9)
+        {
             img_mission.sprite = img_battery;
             TextDialog.text = TextDialog_9;
-            Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_9;
+            Text_Dialog_current_mission.text = "РўРµРєСѓС‰Р°СЏ С†РµР»СЊ: " + TextDialog_9;
         }
-        if (GameState == 10) {
+        if (GameState == 10)
+        {
             img_mission.sprite = img_gun;
             TextDialog.text = TextDialog_10;
-            Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_10;
+            Text_Dialog_current_mission.text = "РўРµРєСѓС‰Р°СЏ С†РµР»СЊ: " + TextDialog_10;
         }
-        if (GameState == 11) {
+        if (GameState == 11)
+        {
             //img_mission.sprite = img_base;
             TextDialog.text = TextDialog_11;
-            Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_11;
+            Text_Dialog_current_mission.text = "РўРµРєСѓС‰Р°СЏ С†РµР»СЊ: " + TextDialog_11;
         }
         Dialog.SetActive(true);
 
@@ -423,17 +464,19 @@ public class GameManager : MonoBehaviour {
         SRC_LabBase.Store_off();
         SCRIPT_EngineBase.Store_off();
 
-        if (StoreButton.activeSelf) StoreButton.SetActive(false); // скрыть кнопку магазина
-        if (Store.activeSelf) {
-            Store.SetActive(false); // скрыть Магазин
-            script_StoreManager.flagStoreUIOn = false; // значит сам магазин не открыт
+        if (StoreButton.activeSelf) StoreButton.SetActive(false); // СЃРєСЂС‹С‚СЊ РєРЅРѕРїРєСѓ РјР°РіР°Р·РёРЅР°
+        if (Store.activeSelf)
+        {
+            Store.SetActive(false); // СЃРєСЂС‹С‚СЊ РњР°РіР°Р·РёРЅ
+            script_StoreManager.flagStoreUIOn = false; // Р·РЅР°С‡РёС‚ СЃР°Рј РјР°РіР°Р·РёРЅ РЅРµ РѕС‚РєСЂС‹С‚
         }
 
-        Time.timeScale = 0; // Пауза
+        Time.timeScale = 0; // РџР°СѓР·Р°
     }
 
-    // Закрывает Диалог
-    public void CloseDialog() {
+    // Р—Р°РєСЂС‹РІР°РµС‚ Р”РёР°Р»РѕРі
+    public void CloseDialog()
+    {
         Dialog.SetActive(false);
 
         //SCRIPT_EngineBase.SwitchActive();
@@ -443,54 +486,62 @@ public class GameManager : MonoBehaviour {
         SRC_LabBase.flag_ui_on = true;
         SCRIPT_EngineBase.flag_ui_on = true;
 
-        if (SpacePodZone.activeSelf) StoreButton.SetActive(true); // показать кнопку магазина
-        Time.timeScale = 1; // Убираем паузу
+        if (SpacePodZone.activeSelf) StoreButton.SetActive(true); // РїРѕРєР°Р·Р°С‚СЊ РєРЅРѕРїРєСѓ РјР°РіР°Р·РёРЅР°
+        Time.timeScale = 1; // РЈР±РёСЂР°РµРј РїР°СѓР·Сѓ
     }
 
-    public void LoadLevel() {
-        SceneManager.LoadScene(1);  // Загрузка уровня
+    public void LoadLevel()
+    {
+        SceneManager.LoadScene(1);  // Р—Р°РіСЂСѓР·РєР° СѓСЂРѕРІРЅСЏ
     }
 
-    public void LoadMainMenu() {
-        SceneManager.LoadScene(0);  // Загрузка главного меню
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(0);  // Р—Р°РіСЂСѓР·РєР° РіР»Р°РІРЅРѕРіРѕ РјРµРЅСЋ
     }
 
-    public void LoadHelp() {
-        SceneManager.LoadScene(4);  // Загрузка помощи
+    public void LoadHelp()
+    {
+        SceneManager.LoadScene(4);  // Р—Р°РіСЂСѓР·РєР° РїРѕРјРѕС‰Рё
     }
 
-    public void ReloadGame() {
-        SceneManager.LoadScene(0);  // Загрузка игры снова (после выигрыша)
+    public void ReloadGame()
+    {
+        SceneManager.LoadScene(0);  // Р—Р°РіСЂСѓР·РєР° РёРіСЂС‹ СЃРЅРѕРІР° (РїРѕСЃР»Рµ РІС‹РёРіСЂС‹С€Р°)
     }
 
-    // игрок умер
-    public void GameOwer() {
-        script_crystalManager.SaveDataCrystal(); // записываем данные
-        animatorPlayer.SetTrigger("Death"); // тригер анимации смерти
-        scripc_player.enabled = false; // отключаю скрипт игрока
-        DeathTriger = true; // запуск таймера перезагрузки
+    // РёРіСЂРѕРє СѓРјРµСЂ
+    public void GameOwer()
+    {
+        script_crystalManager.SaveDataCrystal(); // Р·Р°РїРёСЃС‹РІР°РµРј РґР°РЅРЅС‹Рµ
+        animatorPlayer.SetTrigger("Death"); // С‚СЂРёРіРµСЂ Р°РЅРёРјР°С†РёРё СЃРјРµСЂС‚Рё
+        scripc_player.enabled = false; // РѕС‚РєР»СЋС‡Р°СЋ СЃРєСЂРёРїС‚ РёРіСЂРѕРєР°
+        DeathTriger = true; // Р·Р°РїСѓСЃРє С‚Р°Р№РјРµСЂР° РїРµСЂРµР·Р°РіСЂСѓР·РєРё
     }
 
-    // Игрок победил
-    public void YouWin() {
+    // РРіСЂРѕРє РїРѕР±РµРґРёР»
+    public void YouWin()
+    {
         Debug.Log("You Win!");
-        SceneManager.LoadScene(3);  // Загрузка You Win!
+        SceneManager.LoadScene(3);  // Р—Р°РіСЂСѓР·РєР° You Win!
     }
 
-    // Открывает игру во весь экран
-    public void FullScreen() {
+    // РћС‚РєСЂС‹РІР°РµС‚ РёРіСЂСѓ РІРѕ РІРµСЃСЊ СЌРєСЂР°РЅ
+    public void FullScreen()
+    {
         Screen.fullScreen = !Screen.fullScreen;
     }
 
-    public void OpenDialog_menu() {
+    public void OpenDialog_menu()
+    {
         Dialog_Menu.SetActive(true);
         Dialog.SetActive(false);
         Store.SetActive(false);
         StoreButton.SetActive(false);
-        script_StoreManager.flagStoreUIOn = false; // значит сам магазин не открыт
+        script_StoreManager.flagStoreUIOn = false; // Р·РЅР°С‡РёС‚ СЃР°Рј РјР°РіР°Р·РёРЅ РЅРµ РѕС‚РєСЂС‹С‚
         Dialog_current_mission.SetActive(false);
 
-        // для предотвращение перекрытия ui
+        // РґР»СЏ РїСЂРµРґРѕС‚РІСЂР°С‰РµРЅРёРµ РїРµСЂРµРєСЂС‹С‚РёСЏ ui
         //SCRIPT_EngineBase.SwitchActive();
         //SRC_LabBase.SwitchActive();
         //STC_WeaponsBase.SwitchActive();
@@ -498,13 +549,14 @@ public class GameManager : MonoBehaviour {
         SRC_LabBase.Store_off();
         STC_WeaponsBase.Store_off();
 
-        Time.timeScale = 0; // Пауза
+        Time.timeScale = 0; // РџР°СѓР·Р°
     }
-    public void CloseDialog_menu() {
+    public void CloseDialog_menu()
+    {
         Dialog_Menu.SetActive(false);
-        if (SpacePodZone.activeSelf) StoreButton.SetActive(true); // показать кнопку магазина
+        if (SpacePodZone.activeSelf) StoreButton.SetActive(true); // РїРѕРєР°Р·Р°С‚СЊ РєРЅРѕРїРєСѓ РјР°РіР°Р·РёРЅР°
 
-        //для предотвращение перекрытия ui
+        //РґР»СЏ РїСЂРµРґРѕС‚РІСЂР°С‰РµРЅРёРµ РїРµСЂРµРєСЂС‹С‚РёСЏ ui
         //SCRIPT_EngineBase.SwitchActive();
         //SRC_LabBase.SwitchActive();
         //STC_WeaponsBase.SwitchActive();
@@ -512,17 +564,19 @@ public class GameManager : MonoBehaviour {
         SRC_LabBase.flag_ui_on = true;
         SCRIPT_EngineBase.flag_ui_on = true;
 
-        Time.timeScale = 1; // Убираем паузу
+        Time.timeScale = 1; // РЈР±РёСЂР°РµРј РїР°СѓР·Сѓ
     }
 
-    // Качество графики
-    public void QualitySet(int quality) {
+    // РљР°С‡РµСЃС‚РІРѕ РіСЂР°С„РёРєРё
+    public void QualitySet(int quality)
+    {
         QualitySettings.SetQualityLevel(quality, true);
         Debug.Log("setQ " + quality.ToString());
     }
 
-    // показывает на экране, что взял игрок
-    public void BAG_Player(bool key, bool fuel, bool energy) {
+    // РїРѕРєР°Р·С‹РІР°РµС‚ РЅР° СЌРєСЂР°РЅРµ, С‡С‚Рѕ РІР·СЏР» РёРіСЂРѕРє
+    public void BAG_Player(bool key, bool fuel, bool energy)
+    {
         BAG_IMG_Player_key.SetActive(key);
         BAG_IMG_Player_fuel.SetActive(fuel);
         BAG_IMG_Player_energy.SetActive(energy);
@@ -531,9 +585,10 @@ public class GameManager : MonoBehaviour {
         BAG_Player_energy = energy;
     }
 
-    // возвращает текущее состояние сумки игрока
-    // в порядке: key fuel energy
-    public bool[] BAG_Player_curent() {
+    // РІРѕР·РІСЂР°С‰Р°РµС‚ С‚РµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ СЃСѓРјРєРё РёРіСЂРѕРєР°
+    // РІ РїРѕСЂСЏРґРєРµ: key fuel energy
+    public bool[] BAG_Player_curent()
+    {
         bool[] bag = new bool[3];
         bag[0] = BAG_Player_key;
         bag[1] = BAG_Player_fuel;
@@ -541,15 +596,17 @@ public class GameManager : MonoBehaviour {
         return bag;
     }
 
-    // Активирует тригеры.
-    void TriggerActivation() {
-        if (GameState == 6) script_rigger_Terminal_fuel.ActiveTermonal(true); // вкыл терминал FUEL
-        if (GameState == 8) script_rigger_Terminal_energy.ActiveTermonal(true); // вкыл терминал ENERGY
-        if (GameState == 10) script_rigger_Terminal_key.ActiveTermonal(true); // вкыл терминал KEY
+    // РђРєС‚РёРІРёСЂСѓРµС‚ С‚СЂРёРіРµСЂС‹.
+    void TriggerActivation()
+    {
+        if (GameState == 6) script_rigger_Terminal_fuel.ActiveTermonal(true); // РІРєС‹Р» С‚РµСЂРјРёРЅР°Р» FUEL
+        if (GameState == 8) script_rigger_Terminal_energy.ActiveTermonal(true); // РІРєС‹Р» С‚РµСЂРјРёРЅР°Р» ENERGY
+        if (GameState == 10) script_rigger_Terminal_key.ActiveTermonal(true); // РІРєС‹Р» С‚РµСЂРјРёРЅР°Р» KEY
     }
 
-    // Проверяет, какая батарея (из 3-ох) уничтоженна
-    public void CheckDestroyBatteryNum(int numBattery) {
+    // РџСЂРѕРІРµСЂСЏРµС‚, РєР°РєР°СЏ Р±Р°С‚Р°СЂРµСЏ (РёР· 3-РѕС…) СѓРЅРёС‡С‚РѕР¶РµРЅРЅР°
+    public void CheckDestroyBatteryNum(int numBattery)
+    {
         if (numBattery == 1) DestroyBatteryNum_1 = true;
         if (numBattery == 2) DestroyBatteryNum_2 = true;
         if (numBattery == 3) DestroyBatteryNum_3 = true;

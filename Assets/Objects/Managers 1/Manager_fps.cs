@@ -23,7 +23,7 @@ public class Manager_fps : MonoBehaviour
     {        
         float fpsTEMP = fps;
         fpsTEMP = Mathf.Round(fpsTEMP); // ���������
-        text.text = ("������ � �������: " + fpsTEMP.ToString());        
+        text.text = ("Кадров в секунду: " + fpsTEMP.ToString());        
     }
 
     // ������
