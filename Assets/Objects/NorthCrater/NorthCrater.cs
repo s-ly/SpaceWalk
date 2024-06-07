@@ -17,12 +17,12 @@ public class NorthCrater : MonoBehaviour
     {
         
     }
-    // в зону что-то входит
+    // РІ Р·РѕРЅСѓ С‡С‚Рѕ-С‚Рѕ РІС…РѕРґРёС‚
     private void OnTriggerEnter(Collider other) {
-        // В зону вошёл игрок 
+        // Р’ Р·РѕРЅСѓ РІРѕС€С‘Р» РёРіСЂРѕРє 
         if (other.gameObject.CompareTag("Player")) {
-            //Debug.Log("Игрок в кратере");
-            SRC_GameManager.Check_GameState("NorthCrater"); // Проверка состояния игры
+            //Debug.Log("РРіСЂРѕРє РІ РєСЂР°С‚РµСЂРµ");
+            SRC_GameManager.Check_GameState("NorthCrater"); // РџСЂРѕРІРµСЂРєР° СЃРѕСЃС‚РѕСЏРЅРёСЏ РёРіСЂС‹
         }
     }
 }

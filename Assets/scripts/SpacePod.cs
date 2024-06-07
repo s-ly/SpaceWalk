@@ -2,73 +2,69 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Скрипт космического челнока (база).
-public class SpacePod : MonoBehaviour
-{
-    [SerializeField] private GameObject GameManager; // ГЛАВНЫЙ АРХИТЕКТОР
-    [SerializeField] private GameObject spacePodZone;  // зона пополнения кислорода
-    [SerializeField] private GameObject target;
-    
-    // ссылки на объекты менеджеров (для доступа с скриптам менеджеров)
-    [SerializeField] private GameObject CrystalManager; 
-    [SerializeField] private GameObject TechnicalContainerManager; 
+// РЎРєСЂРёРїС‚ РєРѕСЃРјРёС‡РµСЃРєРѕРіРѕ С‡РµР»РЅРѕРєР° (Р±Р°Р·Р°).
+public class SpacePod : MonoBehaviour {
+  [SerializeField] private GameObject GameManager; // Р“Р›РђР’РќР«Р™ РђР РҐРРўР•РљРўРћР 
+  [SerializeField] private GameObject spacePodZone;  // Р·РѕРЅР° РїРѕРїРѕР»РЅРµРЅРёСЏ РєРёСЃР»РѕСЂРѕРґР°
+  [SerializeField] private GameObject target;
 
-    [SerializeField] private GameObject StoreUI; // Окно магазина
-    [SerializeField] private GameObject ButtnStore; // кнопка активации магазина
-    [SerializeField] private GameObject StoreManager; // менеджер магазина
-    private GameManager script_GameManager; // скрипт ГЛАВНОГО АРХИТЕКТОРА
-    private oxygen actionTarget;
-    private crystalManager scriptCrystalManager;
-    private StoreManager scriptStoreManager;
-    private TechnicalContainerManager SCRIPT_TechnicalContainerManager;
+  // СЃСЃС‹Р»РєРё РЅР° РѕР±СЉРµРєС‚С‹ РјРµРЅРµРґР¶РµСЂРѕРІ (РґР»СЏ РґРѕСЃС‚СѓРїР° СЃ СЃРєСЂРёРїС‚Р°Рј РјРµРЅРµРґР¶РµСЂРѕРІ)
+  [SerializeField] private GameObject CrystalManager;
+  [SerializeField] private GameObject TechnicalContainerManager;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        // ссылки на скрипты:
-        actionTarget = target.GetComponent<oxygen>();
-        scriptCrystalManager = CrystalManager.GetComponent<crystalManager>();
-        SCRIPT_TechnicalContainerManager = TechnicalContainerManager.GetComponent<TechnicalContainerManager>();
-        scriptStoreManager = StoreManager.GetComponent<StoreManager>();    
-        script_GameManager = GameManager.GetComponent<GameManager>();
+  [SerializeField] private GameObject StoreUI; // РћРєРЅРѕ РјР°РіР°Р·РёРЅР°
+  [SerializeField] private GameObject ButtnStore; // РєРЅРѕРїРєР° Р°РєС‚РёРІР°С†РёРё РјР°РіР°Р·РёРЅР°
+  [SerializeField] private GameObject ButtnStoreMission; // РєРЅРѕРїРєР° Р°РєС‚РёРІР°С†РёРё РјР°РіР°Р·РёРЅР°
+  [SerializeField] private GameObject StoreManager; // РјРµРЅРµРґР¶РµСЂ РјР°РіР°Р·РёРЅР°
+  private GameManager script_GameManager; // СЃРєСЂРёРїС‚ Р“Р›РђР’РќРћР“Рћ РђР РҐРРўР•РљРўРћР Рђ
+  private oxygen actionTarget;
+  private crystalManager scriptCrystalManager;
+  private StoreManager scriptStoreManager;
+  private TechnicalContainerManager SCRIPT_TechnicalContainerManager;
 
-        PlayerExitBase();
+  // Start is called before the first frame update
+  void Start() {
+    // СЃСЃС‹Р»РєРё РЅР° СЃРєСЂРёРїС‚С‹:
+    actionTarget = target.GetComponent<oxygen>();
+    scriptCrystalManager = CrystalManager.GetComponent<crystalManager>();
+    SCRIPT_TechnicalContainerManager = TechnicalContainerManager.GetComponent<TechnicalContainerManager>();
+    scriptStoreManager = StoreManager.GetComponent<StoreManager>();
+    script_GameManager = GameManager.GetComponent<GameManager>();
+
+    PlayerExitBase();
+  }
+
+  // Р’С‹Р·С‹РІР°РµС‚СЃСЏ РєРѕРіРґР° РІ С‚СЂРёРіРµСЂ РѕР±СЉРµРєС‚Р° С‡С‚Рѕ-С‚Рѕ РїРѕРїР°РґР°РµС‚.
+  // РРіСЂРѕРє РїРѕРїРѕР»РЅСЏРµС‚ РєРёСЃР»РѕСЂРѕРґ.
+  private void OnTriggerEnter(Collider other) {
+    if (other.gameObject.CompareTag("Player")) {
+      actionTarget.oxygenTimerRestart();
+      spacePodZone.SetActive(true);  // РІРєР»СЋС‡Р°РµРј Р·РѕРЅСѓ РєРёСЃР»РѕСЂРѕРґР°                                           
+      scriptCrystalManager.StoreCrystal(); // РєР»Р°РґС‘Рј РєСЂРёСЃС‚Р°Р»Р»С‹ РІ С…СЂР°РЅРёР»РёС‰Рµ
+      scriptCrystalManager.SaveDataCrystal(); // СЃРѕС…СЂР°РЅСЏРµРј РєСЂРёСЃС‚Р°Р»Р»С‹ РјРµР¶РґСѓ СѓСЂРѕРІРЅСЏРјРё
+      SCRIPT_TechnicalContainerManager.StoreTechnicalContainer(); // РєР»Р°РґС‘Рј РўРµС…-Рљ РІ С…СЂР°РЅРёР»РёС‰Рµ
+      SCRIPT_TechnicalContainerManager.SaveDataTechnicalContainerManager(); // СЃРѕС…СЂР°РЅСЏРµРј РўРµС…-Рљ РјРµР¶-СѓСЂ
+      ButtnStore.SetActive(true); // РІРєС‹Р» РєРЅРѕРїРєР° РјР°РіР°Р·РёРЅР°     
+      ButtnStoreMission.SetActive(true);       
+                                  // FindObjectOfType<healthManager>().healthPlayerRestart(); // СЂРµСЃС‚Р°СЂС‚ Р·РґРѕСЂРѕРІСЊСЏ РёРіСЂРѕРєР°            
+      script_GameManager.Check_GameState("PlayerEnterSpacePod"); // РџСЂРѕРІРµСЂРєР° СЃРѕСЃС‚РѕСЏРЅРёСЏ РёРіСЂС‹
     }
-    
-    // Вызывается когда в тригер объекта что-то попадает.
-    // Игрок пополняет кислород.
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            actionTarget.oxygenTimerRestart();
-            spacePodZone.SetActive(true);  // включаем зону кислорода                                           
-            scriptCrystalManager.StoreCrystal(); // кладём кристаллы в хранилище
-            scriptCrystalManager.SaveDataCrystal(); // сохраняем кристаллы между уровнями
-            SCRIPT_TechnicalContainerManager.StoreTechnicalContainer(); // кладём Тех-К в хранилище
-            SCRIPT_TechnicalContainerManager.SaveDataTechnicalContainerManager(); // сохраняем Тех-К меж-ур
-            ButtnStore.SetActive(true); // вкыл кнопка магазина            
-            // FindObjectOfType<healthManager>().healthPlayerRestart(); // рестарт здоровья игрока            
-            script_GameManager.Check_GameState("PlayerEnterSpacePod"); // Проверка состояния игры
-        }
-    }
+  }
 
-    // Вызывается когда из тригера что-то выходит.
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            PlayerExitBase();
-        }
+  // Р’С‹Р·С‹РІР°РµС‚СЃСЏ РєРѕРіРґР° РёР· С‚СЂРёРіРµСЂР° С‡С‚Рѕ-С‚Рѕ РІС‹С…РѕРґРёС‚.
+  private void OnTriggerExit(Collider other) {
+    if (other.gameObject.CompareTag("Player")) {
+      PlayerExitBase();
     }
+  }
 
-    // Игрок покинул базу
-    private void PlayerExitBase()
-    {
-        actionTarget.oxygenTimerExit();
-        spacePodZone.SetActive(false);  // отключаем зону кислорода
-        StoreUI.SetActive(false); // отключаем магазин
-        scriptStoreManager.flagStoreUIOn = false; // флаг видимости магазина тоже надо переключить
-        ButtnStore.SetActive(false); // выкл кнопка магазина
-    }
+  // РРіСЂРѕРє РїРѕРєРёРЅСѓР» Р±Р°Р·Сѓ
+  private void PlayerExitBase() {
+    actionTarget.oxygenTimerExit();
+    spacePodZone.SetActive(false);  // РѕС‚РєР»СЋС‡Р°РµРј Р·РѕРЅСѓ РєРёСЃР»РѕСЂРѕРґР°
+    StoreUI.SetActive(false); // РѕС‚РєР»СЋС‡Р°РµРј РјР°РіР°Р·РёРЅ
+    scriptStoreManager.flagStoreUIOn = false; // С„Р»Р°Рі РІРёРґРёРјРѕСЃС‚Рё РјР°РіР°Р·РёРЅР° С‚РѕР¶Рµ РЅР°РґРѕ РїРµСЂРµРєР»СЋС‡РёС‚СЊ
+    ButtnStore.SetActive(false); // РІС‹РєР» РєРЅРѕРїРєР° РјР°РіР°Р·РёРЅР°
+    ButtnStoreMission.SetActive(false);
+  }
 }
