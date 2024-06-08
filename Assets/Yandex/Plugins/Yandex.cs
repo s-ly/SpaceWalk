@@ -4,85 +4,86 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class Yandex : MonoBehaviour {
-    [DllImport("__Internal")] private static extern void JS_LogUserID();
-    [DllImport("__Internal")] private static extern void JS_Save(string data);
-    [DllImport("__Internal")] private static extern void JS_Load();
-    [DllImport("__Internal")] private static extern void JS_ShowAdv();
+  [DllImport("__Internal")] private static extern void JS_LogUserID();
+  [DllImport("__Internal")] private static extern void JS_Save(string data);
+  [DllImport("__Internal")] private static extern void JS_Load();
+  [DllImport("__Internal")] private static extern void JS_ShowAdv();
 
 
-    [SerializeField] MainMenu script_MainMenu;
+  [SerializeField] MainMenu script_MainMenu;
 
-    private void Start() {
-        // script_MainMenu.PlayerDataShowInMainMenu();
-    }
+  private void Start() {
+    // script_MainMenu.PlayerDataShowInMainMenu();
+  }
 
-    /////////////////////////// КНОПКИ УПРАВЛЕНИЯ YANDEX
-    public void Button_LogUserID() {
-        JS_LogUserID();
-    }
-    public void Button_Save() {
-        string jsonString = JsonUtility.ToJson(ProgressManager.Instance.YandexDataOBJ); // преобразует объект в строку
+  /////////////////////////// РљРќРћРџРљР РЈРџР РђР’Р›Р•РќРРЇ YANDEX
+  public void Button_LogUserID() {
+    JS_LogUserID();
+  }
+  public void Button_Save() {
+    // РїСЂРµРѕР±СЂР°Р·СѓРµС‚ РѕР±СЉРµРєС‚ РІ СЃС‚СЂРѕРєСѓ
+    string jsonString = JsonUtility.ToJson(ProgressManager.Instance.YandexDataOBJ);
 #if UNITY_WEBGL
-        JS_Save(jsonString);
+    JS_Save(jsonString);
 #endif
-    }
-    public void Button_Load() {
-        JS_Load();
-    }
+  }
+  public void Button_Load() {
+    JS_Load();
+  }
 
-    // Играть с начала (не сохраняет)
-    public void Reset_Game() {
-        ProgressManager.Instance.YandexDataOBJ.Crystal = 0;
-        ProgressManager.Instance.YandexDataOBJ.Oxygen = 30f;
-        ProgressManager.Instance.YandexDataOBJ.TechnicalContainer = 0;
-        ProgressManager.Instance.YandexDataOBJ.GameState = 0;
-        ProgressManager.Instance.YandexDataOBJ.DATA_time_shot_pause = 0.3f;
-        ProgressManager.Instance.YandexDataOBJ.DATA_player_speed = 1.0f;
-        ProgressManager.Instance.YandexDataOBJ.DATA_player_health = 100;
-        ProgressManager.Instance.YandexDataOBJ.DATA_fuel = 100;
-        ProgressManager.Instance.YandexDataOBJ.DATA_battary_level = 0;
+  // РРіСЂР°С‚СЊ СЃ РЅР°С‡Р°Р»Р° (РЅРµ СЃРѕС…СЂР°РЅСЏРµС‚)
+  public void Reset_Game() {
+    ProgressManager.Instance.YandexDataOBJ.Crystal = 0;
+    ProgressManager.Instance.YandexDataOBJ.Oxygen = 30f;
+    ProgressManager.Instance.YandexDataOBJ.TechnicalContainer = 0;
+    ProgressManager.Instance.YandexDataOBJ.GameState = 0;
+    ProgressManager.Instance.YandexDataOBJ.DATA_time_shot_pause = 0.3f;
+    ProgressManager.Instance.YandexDataOBJ.DATA_player_speed = 1.0f;
+    ProgressManager.Instance.YandexDataOBJ.DATA_player_health = 100;
+    ProgressManager.Instance.YandexDataOBJ.DATA_fuel = 100;
+    ProgressManager.Instance.YandexDataOBJ.DATA_battary_level = 0;
 
-        script_MainMenu.PlayerDataShowInMainMenu();
-    }
+    script_MainMenu.PlayerDataShowInMainMenu();
+  }
 
-    /////////////////////////// Вызывается из JS
-    public void Show_LogUserID(string id) {
-        script_MainMenu.Set_UserID_text_MainMenu(id);
-    }
+  /////////////////////////// Р’С‹Р·С‹РІР°РµС‚СЃСЏ РёР· JS
+  public void Show_LogUserID(string id) {
+    script_MainMenu.Set_UserID_text_MainMenu(id);
+  }
 
-    public void LoadFromJS(string value) {
-        // Заполняем данные
-        ProgressManager.Instance.YandexDataOBJ = JsonUtility.FromJson<YandexData>(value);
+  public void LoadFromJS(string value) {
+    // Р—Р°РїРѕР»РЅСЏРµРј РґР°РЅРЅС‹Рµ
+    ProgressManager.Instance.YandexDataOBJ = JsonUtility.FromJson<YandexData>(value);
 
-        // Если первое обращение в Yandex, ещё нет данных, и всё понулям.
-        if (ProgressManager.Instance.YandexDataOBJ.DATA_time_shot_pause == 0) {
-            // Задаём стартовые значения, так-как они стали нулевыми после загрузки с Яндекса.
-            ProgressManager.Instance.YandexDataOBJ.Crystal = 0;
-            ProgressManager.Instance.YandexDataOBJ.TechnicalContainer = 0;
-            ProgressManager.Instance.YandexDataOBJ.GameState = 0;
-            ProgressManager.Instance.YandexDataOBJ.DATA_time_shot_pause = 0.3f;
-            ProgressManager.Instance.YandexDataOBJ.Oxygen = 30;
-            ProgressManager.Instance.YandexDataOBJ.DATA_player_speed = 1.0f;
-            ProgressManager.Instance.YandexDataOBJ.DATA_player_health = 100;
-            ProgressManager.Instance.YandexDataOBJ.DATA_fuel = 100;
-            ProgressManager.Instance.YandexDataOBJ.DATA_battary_level = 0;
+    // Р•СЃР»Рё РїРµСЂРІРѕРµ РѕР±СЂР°С‰РµРЅРёРµ РІ Yandex, РµС‰С‘ РЅРµС‚ РґР°РЅРЅС‹С…, Рё РІСЃС‘ РїРѕРЅСѓР»СЏРј.
+    if (ProgressManager.Instance.YandexDataOBJ.DATA_time_shot_pause == 0) {
+      // Р—Р°РґР°С‘Рј СЃС‚Р°СЂС‚РѕРІС‹Рµ Р·РЅР°С‡РµРЅРёСЏ, С‚Р°Рє-РєР°Рє РѕРЅРё СЃС‚Р°Р»Рё РЅСѓР»РµРІС‹РјРё РїРѕСЃР»Рµ Р·Р°РіСЂСѓР·РєРё СЃ РЇРЅРґРµРєСЃР°.
+      ProgressManager.Instance.YandexDataOBJ.Crystal = 0;
+      ProgressManager.Instance.YandexDataOBJ.TechnicalContainer = 0;
+      ProgressManager.Instance.YandexDataOBJ.GameState = 0;
+      ProgressManager.Instance.YandexDataOBJ.DATA_time_shot_pause = 0.3f;
+      ProgressManager.Instance.YandexDataOBJ.Oxygen = 30;
+      ProgressManager.Instance.YandexDataOBJ.DATA_player_speed = 1.0f;
+      ProgressManager.Instance.YandexDataOBJ.DATA_player_health = 100;
+      ProgressManager.Instance.YandexDataOBJ.DATA_fuel = 100;
+      ProgressManager.Instance.YandexDataOBJ.DATA_battary_level = 0;
 
-            // Скрываем кнопку загрузки игры
-            script_MainMenu.Button_LoadGame_hide();
-        }
-
-        // если игрок играл в старую версию, до топлива и батареи
-        if (ProgressManager.Instance.YandexDataOBJ.DATA_fuel == 0) {
-            ProgressManager.Instance.YandexDataOBJ.DATA_fuel = 100;
-            ProgressManager.Instance.YandexDataOBJ.DATA_battary_level = 0;
-        }
-        script_MainMenu.PlayerDataShowInMainMenu();
+      // РЎРєСЂС‹РІР°РµРј РєРЅРѕРїРєСѓ Р·Р°РіСЂСѓР·РєРё РёРіСЂС‹
+      script_MainMenu.Button_LoadGame_hide();
     }
 
-    public void ShowAdv() {
+    // РµСЃР»Рё РёРіСЂРѕРє РёРіСЂР°Р» РІ СЃС‚Р°СЂСѓСЋ РІРµСЂСЃРёСЋ, РґРѕ С‚РѕРїР»РёРІР° Рё Р±Р°С‚Р°СЂРµРё
+    if (ProgressManager.Instance.YandexDataOBJ.DATA_fuel == 0) {
+      ProgressManager.Instance.YandexDataOBJ.DATA_fuel = 100;
+      ProgressManager.Instance.YandexDataOBJ.DATA_battary_level = 0;
+    }
+    script_MainMenu.PlayerDataShowInMainMenu();
+  }
+
+  public void ShowAdv() {
 #if UNITY_WEBGL
-        JS_ShowAdv();
+    JS_ShowAdv();
 #endif
-    }
+  }
 
 }

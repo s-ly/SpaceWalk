@@ -7,8 +7,7 @@ using UnityEngine;
 // Собственный класс, данные для сохранения между уровнями и на Yandex.
 // Это нужно для удобной передачи в JavaScript.
 [System.Serializable]
-public class YandexData
-{
+public class YandexData {
   public int Crystal;
   public float Oxygen;
   public int TechnicalContainer;
@@ -40,21 +39,17 @@ public class YandexData
 10 = "Найти станцию охраны и принести к Шаттлу.";
 11 = "Вы уже выиграли.";
 */
-public class ProgressManager : MonoBehaviour
-{
-  public YandexData YandexDataOBJ; // ����� � �������
+public class ProgressManager : MonoBehaviour {
+  public YandexData YandexDataOBJ;
   public static ProgressManager Instance;
 
-  private void Awake()
-  {
-    if (Instance == null)
-    {
+  private void Awake() {
+    if (Instance == null) {
       transform.parent = null;
       DontDestroyOnLoad(gameObject);
       Instance = this;
     }
-    else
-    {
+    else {
       Destroy(gameObject);
     }
   }
