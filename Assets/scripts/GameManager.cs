@@ -68,69 +68,18 @@ public class GameManager : MonoBehaviour {
   [SerializeField] private GameObject crystalManager;
   private crystalManager script_crystalManager;
 
-  private string TextDialog_0 = "\tЖесткая посадка, нужно выяснить, что привело к крушению. " +
-      "Но сейчас другая проблема, заканчивается кислород. " +
-      "<b><color=red>Нужно срочно добежать до базы</color></b>" +
-      ", там кислород пополняется. " +
-      "\n\tДля передвижения используй клавиши AWSD, для поворота и прыжка стрелки, или сенсорную клавиатуру.";
-  private string TextDialog_1 = "\tЗапас кислорода слишком мал. На этой базе можно его увеличить. " +
-      "Если собирать кристаллы и приносить их на базу, можно улучшать запас. " +
-      "<b><color=red>Нужно собрать 10 кристаллов</color></b>" +
-      ", их много рядом, принести на базу " +
-      "<b><color=red>и купить улучшение.</color></b> " +
-      "\n\tКристаллы мало собрать, их нужно донести до базы. На месте собранного кристалла, со временем появится новый.";
-  private string TextDialog_2 = "\tВокруг есть кристаллы, но их слишком мало для рейдов вглубь планеты. " +
-      "Тут есть множество кратеров, в них должно быть гораздо больше кристаллов. " +
-      "<b><color=red>Найди базу изучения кристаллов. </color></b>" +
-      "Она рядом с кратером, и отмечена на радаре. В кратере много кристаллов. " +
-      "\n\tНужно подойти к радару, тогда появится сферическая голограмма карты. " +
-      "На ней есть  маркер твоего положения и ориентации, красная стрелка. " +
-      "Ещё красным пунктирным кружком отмечено местоположение текущей цели. " +
-      "Голограммой можно управлять с помощью оранжевых сенсорных кнопок.";
-  private string TextDialog_3 = "\tПодозрительно много охраны. Нужно выяснить, что тут происходит. " +
-      "Но в начале нужно улучшить оружие, иначе не справится. " +
-      "Тут должна быть <b><color=red>«База вооружения», найди её</color></b>" +
-      ", думаю, на ней можно улучшить оружие. " +
-      "\n\tПопробуй двойной прыжок. Так, если подпрыгнуть, повторное нажатие на стрелку включит реактивный ранец, " +
-      "и подбросит вверх. Или можно подскочить вперёд, если нажать во время прыжка стрелку вниз. На это расходуется топливо.";
-  private string TextDialog_4 = "\tСтановится всё больше боевых машин. Нужно скорее улетать с этой планеты. " +
-      "При аварийной посадке, я заметил " +
-      "<b><color=red>космодром.</color></b> Он был недалеко от радиолокационных тарелок. " +
-      "Надеюсь, там найдётся какой-нибудь транспорт. " +
-      "\n\tЭти турели не очень поворотливы, но после уничтожения, какая-то ремонтная система их снова восстанавливает. " +
-      "Что тут происходит?";
-  private string TextDialog_5 = "\tПохоже, так просто не улететь. Этими комплексами кто-то или что-то управляет. " +
-      "Что бы выяснить, придётся разведать что дальше. Мне нужно улучшить топливные баки реактивного ранца. " +
-      "<b><color=red>Нужно найти станцию «Реактивных двигателей»,</color></b>" +
-      " там, я смогу улучшить снаряжение. " +
-      "\n\tТех-контейнеры, остающиеся после взорванных турелей тоже нужно сперва отнести на главную базу, " +
-      "что бы потом покупать улучшения.";
-  private string TextDialog_6 = "\tПохоже, комплекс управляется неисправной «Системой безопасности». " +
-      "Нужно скорее улетать. Но для Шаттла нужно топливо. " +
-      "<b><color=red>На «Топливной станции» нужно получить ключ доступа.</color></b> " +
-      "Ключ доступа нужно донести до шаттла." +
-      "\n\tИщи топливные баки, там можно заправить реактивный ранец.";
-  private string TextDialog_7 = "\tЭто уже не смешно, слишком опасно. Нужно улучшить свою броню, " +
-      "иначе эти турели и роботы меня уничтожат. Мой скафандр оснащён защитным полем. " +
-      "Если я <b><color=red>найду «Кибернетическую лабораторию»</color></b>" +
-      ", я смогу улучшить его. " +
-      "\n\tЗащитное поле тратится, когда в него попадают выстрелы, и так защищает меня. " +
-      "Поле само медленно восстанавливается, но только если выйти из боя.";
-  private string TextDialog_8 = "\tДля шаттла нужна энергия. " +
-      "<b><color=red>Ключ доступа должен быть на «Электростанции»</color></b>. Нужно найти её." +
-      "Ключ доступа нужно донести до шаттла. " +
-      "\n\tНельзя просто так улететь, пострадает ещё кто-то. Нужно найти способ остановить безумную систему.";
-  private string TextDialog_9 = "\tНа электростанции я выяснил, в южной части планеты расположен боевой комплекс, " +
-      "он и сбил мой корабль. Его нужно отключить. Комплекс питают " +
-      "<b><color=red>3 реактора, нужно уничтожить их все</color></b>." +
-      "\n\tНа карте отмечены три точки, где расположены реакторы. Там полно охраны!";
-  private string TextDialog_10 = "\tВсе три реактора уничтожены, и защита комплекса ослабла. " +
-      "Осталось <b><color=red>найти ключ доступа «Охранной системы» и добежать до шаттла</color></b>." +
-      "\n\tСтранно, что никто не управляет станциями, что привело их в боевой режим, и почему они нападают? " +
-      "Нет времени думать, нужно хватать ключ и улетать. ";
-  private string TextDialog_11 = "\tПохоже, кто-то специально запрограммировал модули охраны на нападение. " +
-      "Кто и зачем? В следующий раз разберусь с этим. " +
-      "\n\t<b><color=red>Победа!</color></b>";
+  string TextDialog_0;
+  string TextDialog_1;
+  string TextDialog_2;
+  string TextDialog_3;
+  string TextDialog_4;
+  string TextDialog_5;
+  string TextDialog_6;
+  string TextDialog_7;
+  string TextDialog_8;
+  string TextDialog_9;
+  string TextDialog_10;
+  string TextDialog_11;
 
   [SerializeField] Yandex script_Yandex;
 
@@ -155,6 +104,7 @@ public class GameManager : MonoBehaviour {
 
   // Start is called before the first frame update
   void Start() {
+    InIt_TextDialog();
     GameState = ProgressManager.Instance.YandexDataOBJ.GameState; // Загрузка Состояния игры
                                                                   //TouchKeyboardActive = ProgressManager.Instance.YandexDataOBJ.TouchKeyboardActive;
 
@@ -204,6 +154,21 @@ public class GameManager : MonoBehaviour {
   IEnumerator Pause_TriggerActivation(float pauseSec) {
     yield return new WaitForSeconds(pauseSec);
     TriggerActivation();
+  }
+
+  void InIt_TextDialog() {
+    TextDialog_0 = TextManager.Inst_TextData.textsData.MissionDialog_00;
+    TextDialog_1 = TextManager.Inst_TextData.textsData.MissionDialog_01;
+    TextDialog_2 = TextManager.Inst_TextData.textsData.MissionDialog_02;
+    TextDialog_3 = TextManager.Inst_TextData.textsData.MissionDialog_03;
+    TextDialog_4 = TextManager.Inst_TextData.textsData.MissionDialog_04;
+    TextDialog_5 = TextManager.Inst_TextData.textsData.MissionDialog_05;
+    TextDialog_6 = TextManager.Inst_TextData.textsData.MissionDialog_06;
+    TextDialog_7 = TextManager.Inst_TextData.textsData.MissionDialog_07;
+    TextDialog_8 = TextManager.Inst_TextData.textsData.MissionDialog_08;
+    TextDialog_9 = TextManager.Inst_TextData.textsData.MissionDialog_09;
+    TextDialog_10 = TextManager.Inst_TextData.textsData.MissionDialog_10;
+    TextDialog_11 = TextManager.Inst_TextData.textsData.MissionDialog_11;
   }
 
   // Проверка состояния игры
@@ -347,79 +312,70 @@ public class GameManager : MonoBehaviour {
 
   // Показывает Диалог
   public void OpenDialogMission() {
+    string Radar_CurrentGoal = TextManager.Inst_TextData.textsData.Radar_CurrentGoal;
+
     if (GameState == 0) {
       img_mission.sprite = img_base;
       TextDialog.text = TextDialog_0;
-      Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_0;
+      Text_Dialog_current_mission.text = Radar_CurrentGoal + TextDialog_0;
     }
     if (GameState == 1) {
       img_mission.sprite = img_crystall;
       TextDialog.text = TextDialog_1;
-      Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_1;
+      Text_Dialog_current_mission.text = Radar_CurrentGoal + TextDialog_1;
     }
     if (GameState == 2) {
       img_mission.sprite = img_radar;
       TextDialog.text = TextDialog_2;
-      Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_2;
+      Text_Dialog_current_mission.text = Radar_CurrentGoal + TextDialog_2;
     }
     if (GameState == 3) {
       img_mission.sprite = img_weapon;
       TextDialog.text = TextDialog_3;
-      Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_3;
+      Text_Dialog_current_mission.text = Radar_CurrentGoal + TextDialog_3;
     }
     if (GameState == 4) {
       img_mission.sprite = img_shuttle;
       TextDialog.text = TextDialog_4;
-      Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_4;
+      Text_Dialog_current_mission.text = Radar_CurrentGoal + TextDialog_4;
     }
     if (GameState == 5) {
       img_mission.sprite = img_engine;
       TextDialog.text = TextDialog_5;
-      Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_5;
+      Text_Dialog_current_mission.text = Radar_CurrentGoal + TextDialog_5;
     }
     if (GameState == 6) {
       img_mission.sprite = img_fuel;
       TextDialog.text = TextDialog_6;
-      Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_6;
+      Text_Dialog_current_mission.text = Radar_CurrentGoal + TextDialog_6;
     }
     if (GameState == 7) {
       img_mission.sprite = img_cyberlab;
       TextDialog.text = TextDialog_7;
-      Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_7;
+      Text_Dialog_current_mission.text = Radar_CurrentGoal + TextDialog_7;
     }
     if (GameState == 8) {
       img_mission.sprite = img_energy;
       TextDialog.text = TextDialog_8;
-      Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_8;
+      Text_Dialog_current_mission.text = Radar_CurrentGoal + TextDialog_8;
     }
     if (GameState == 9) {
       img_mission.sprite = img_battery;
       TextDialog.text = TextDialog_9;
-      Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_9;
+      Text_Dialog_current_mission.text = Radar_CurrentGoal + TextDialog_9;
     }
     if (GameState == 10) {
       img_mission.sprite = img_gun;
       TextDialog.text = TextDialog_10;
-      Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_10;
+      Text_Dialog_current_mission.text = Radar_CurrentGoal + TextDialog_10;
     }
     if (GameState == 11) {
       //img_mission.sprite = img_base;
       TextDialog.text = TextDialog_11;
-      Text_Dialog_current_mission.text = "Текущая цель: " + TextDialog_11;
+      Text_Dialog_current_mission.text = Radar_CurrentGoal + TextDialog_11;
     }
     Dialog.SetActive(true);
 
-    //SCRIPT_EngineBase.SwitchActive();
-    //SCRIPT_EngineBase.Zone.SetActive(false);
-    //SCRIPT_EngineBase.store.SetActive(false);
-
-    //SRC_LabBase.SwitchActive();
-    //SRC_LabBase.Zone.SetActive(false);
-    //SRC_LabBase.store.SetActive(false);
-
-    //STC_WeaponsBase.SwitchActive();
-    //STC_WeaponsBase.Zone.SetActive(false);
-    //STC_WeaponsBase.store.SetActive(false);
     STC_WeaponsBase.Store_off();
     SRC_LabBase.Store_off();
     SCRIPT_EngineBase.Store_off();
@@ -440,9 +396,6 @@ public class GameManager : MonoBehaviour {
   public void CloseDialog() {
     Dialog.SetActive(false);
 
-    //SCRIPT_EngineBase.SwitchActive();
-    //SRC_LabBase.SwitchActive();
-    //STC_WeaponsBase.SwitchActive();
     STC_WeaponsBase.flag_ui_on = true;
     SRC_LabBase.flag_ui_on = true;
     SCRIPT_EngineBase.flag_ui_on = true;

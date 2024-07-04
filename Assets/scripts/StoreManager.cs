@@ -13,8 +13,8 @@ public class StoreManager : MonoBehaviour {
   [SerializeField] private GameObject oxygenManager;
   [SerializeField] private GameObject TechnicalContainerManager;
   [SerializeField] private GameObject BayO2;
-  [SerializeField] private GameObject Player_Rifle;  
-  
+  [SerializeField] private GameObject Player_Rifle;
+
   [SerializeField] private GameObject StoreUI; // Окно магазина 
 
   [SerializeField] public float stepUpgradeTimeFire; // шаг улучшения перезарядки винтовки
@@ -40,16 +40,37 @@ public class StoreManager : MonoBehaviour {
   float minimal_time_shot_pause = 0.1f;
 
 
-
   public fuel_manager SCRIPT_fuel_manager;
   public BatteryManager SCRIPT_BatteryManager;
   // Start is called before the first frame update
+
+  //LOCAL
+  string Store_RechargeTime;
+  string Store_Sec;
+  string Store_CurrentFieldLevel;
+  string Store_Maximum4;
+  // string Store_WeaponUpgrade;
+  // string Store_FieldUpgrade;
+  // string Store_BUTT_Buy;
+
+  public
+  // END LOCAL
+
   void Start() {
+    //LOCAL LOAD
+    Store_RechargeTime = TextManager.Inst_TextData.textsData.Store_RechargeTime;
+    Store_Sec = TextManager.Inst_TextData.textsData.Store_Sec;
+    Store_CurrentFieldLevel = TextManager.Inst_TextData.textsData.Store_CurrentFieldLevel;
+    Store_Maximum4 = TextManager.Inst_TextData.textsData.Store_Maximum4;
+    // Store_WeaponUpgrade = TextManager.Inst_TextData.textsData.Store_WeaponUpgrade;
+    // Store_FieldUpgrade = TextManager.Inst_TextData.textsData.Store_FieldUpgrade;
+    // Store_BUTT_Buy = TextManager.Inst_TextData.textsData.Store_BUTT_Buy;
+
     // в магазине выводим текущее время перезарядки
     time_shot_pause = ProgressManager.Instance.YandexDataOBJ.DATA_time_shot_pause;
     poleLevel = ProgressManager.Instance.YandexDataOBJ.DATA_battary_level;
-    GUI_TEXT_nowTimeShotPause.text = "Время перезарядки: " + time_shot_pause.ToString() + " сек";
-    GUI_TEXT_nowPole.text = "Текущий уровень полня: " + poleLevel.ToString() + " (максимальный: 4)";
+    GUI_TEXT_nowTimeShotPause.text = Store_RechargeTime + time_shot_pause.ToString() + Store_Sec;
+    GUI_TEXT_nowPole.text = Store_CurrentFieldLevel + poleLevel.ToString() + Store_Maximum4;
 
     // ссылки на скрипты:
     script_crystalManager = crystalManager.GetComponent<crystalManager>();
@@ -68,7 +89,6 @@ public class StoreManager : MonoBehaviour {
 
   // Update is called once per frame
   void Update() {
-
   }
 
   // Если оружее максимально прокачено, то отключаем кнопку прокачки орижия. 
@@ -86,7 +106,6 @@ public class StoreManager : MonoBehaviour {
     }
   }
 
-
   // Покупка кислорода
   public void BayOxygen() {
     if (script_crystalManager.CrystalStore >= 10) {
@@ -99,7 +118,6 @@ public class StoreManager : MonoBehaviour {
       script_oxygen.UpdateUIOxygen();
       script_GameManager.Check_GameState("PlayerBayOxygen"); // Проверка состояния игры
     }
-
   }
 
   // Покупка улучшение время перезарядки винтовки игрока
@@ -124,7 +142,7 @@ public class StoreManager : MonoBehaviour {
       script_crystalManager.UpdateUICrystal();
 
       SCRIPT_Player_Rifle.UpdateTimeFireTemp();
-      GUI_TEXT_nowTimeShotPause.text = "Время перезарядки: " + TEMP_DATA_time_shot_pause.ToString() + " сек";
+      GUI_TEXT_nowTimeShotPause.text = Store_RechargeTime + TEMP_DATA_time_shot_pause.ToString() + Store_Sec;
 
       // скрываю кнопку покупки
       if (Math.Abs(TEMP_DATA_time_shot_pause - minimal_time_shot_pause) < 0.00001f) {
@@ -157,7 +175,6 @@ public class StoreManager : MonoBehaviour {
       script_crystalManager.UpdateUICrystal();
 
       script_GameManager.Check_GameState("BayFuel"); // это сохранит на сервере Яндекса
-
     }
   }
 
@@ -172,7 +189,6 @@ public class StoreManager : MonoBehaviour {
     if (tmp_techCon >= upgrPrice_techCon && tmp_crystal >= upgrPrice_crystal && tmp_BatteryManager < max_level) {
       tmp_crystal -= upgrPrice_crystal;
       tmp_techCon -= upgrPrice_techCon;
-
 
 
       SCRIPT_BatteryManager.battery_level++;
@@ -191,16 +207,12 @@ public class StoreManager : MonoBehaviour {
       script_crystalManager.UpdateUICrystal();
 
       poleLevel = ProgressManager.Instance.YandexDataOBJ.DATA_battary_level;
-      GUI_TEXT_nowPole.text = "Текущий уровень полня: " + poleLevel.ToString() + " (максимальный: 4)";
+      GUI_TEXT_nowPole.text = Store_CurrentFieldLevel + poleLevel.ToString() + Store_Maximum4;
       Off_Button_Bay_Pole();
 
       script_GameManager.Check_GameState("BayFuel"); // это сохранит на сервере Яндекса
-
-
-
     }
   }
-
 
   // вкыл/выкл UI магазина
   // Дополнительно отключем "текущая миссия", что бы не пересекалось с окном магазина.
@@ -212,10 +224,10 @@ public class StoreManager : MonoBehaviour {
     else {
       StoreUI.SetActive(true);
       flagStoreUIOn = true;
-      script_GameManager.Dialog_current_mission.SetActive(false);
-    }
+      script_GameManager.Dialog_current_mission.SetActive(false);    }
 
   }
+  
   // выкл UI магазина
   public void StoreUIOff() {
     StoreUI.SetActive(false);

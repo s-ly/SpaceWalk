@@ -15,10 +15,15 @@ public class MainMenu : MonoBehaviour {
 
   public TextMeshProUGUI text_game_name;
 
-  // для ассинхронной загрузки (пока не надо)
-  //private bool isLoading = false; //находится ли игра в состоянии загрузк
+
+  //LOCAL
+  // string main_UserID;
+
 
   void Start() {
+    // LOCAL
+    // main_UserID = TextManager.Inst_TextData.textsData.main_UserID;
+
     TextLoad.SetActive(false);
     Set_UserID_text_MainMenu("none");
     PlayerDataShowInMainMenu();
@@ -33,7 +38,7 @@ public class MainMenu : MonoBehaviour {
   }
 
   public void Set_UserID_text_MainMenu(string id_text) {
-    UserID_text_MainMenu.text = "Ваш id: " + id_text;
+    UserID_text_MainMenu.text = "id: " + id_text;
   }
 
   // Скрывает кнопку "Загрузить сохранённую игру"
@@ -43,6 +48,19 @@ public class MainMenu : MonoBehaviour {
 
   // Показывает данные игрока в главном меню.
   public void PlayerDataShowInMainMenu() {
+    // LOCAL
+    string main_PlDatStr_GamP = TextManager.Inst_TextData.textsData.main_PlDatStr_GamP;
+    string main_PlDatStr_Crys = TextManager.Inst_TextData.textsData.main_PlDatStr_Crys;
+    string main_PlDatStr_MaOx = TextManager.Inst_TextData.textsData.main_PlDatStr_MaOx;
+    string main_PlDatStr_Tech = TextManager.Inst_TextData.textsData.main_PlDatStr_Tech;
+    string main_PlDatStr_CurT = TextManager.Inst_TextData.textsData.main_PlDatStr_CurT;
+    string main_PlDatStr_WeRT = TextManager.Inst_TextData.textsData.main_PlDatStr_WeRT;
+    string main_PlDatStr_PSpe = TextManager.Inst_TextData.textsData.main_PlDatStr_PSpe;
+    string main_PlDatStr_Phea = TextManager.Inst_TextData.textsData.main_PlDatStr_Phea;
+    string main_PlDatStr_MaFu = TextManager.Inst_TextData.textsData.main_PlDatStr_MaFu;
+    string main_PlDatStr_PrFi = TextManager.Inst_TextData.textsData.main_PlDatStr_PrFi;
+    // END LOCAL
+
     string Crystal = ProgressManager.Instance.YandexDataOBJ.Crystal.ToString();
     string Oxygen = ProgressManager.Instance.YandexDataOBJ.Oxygen.ToString();
     string TechnicalContainer = ProgressManager.Instance.YandexDataOBJ.TechnicalContainer.ToString();
@@ -54,16 +72,16 @@ public class MainMenu : MonoBehaviour {
     string battary = ProgressManager.Instance.YandexDataOBJ.DATA_battary_level.ToString();
 
     string PlayerDataString = (
-        "Игровой прогресс: " + "\n" +
-        "Кристаллы: " + Crystal + "\n" +
-        "Максимальный запас кислорода: " + Oxygen + "\n" +
-        "Тех-контейнеры: " + TechnicalContainer + "\n" +
-        "Текущее задание: " + Level + "\n" +
-        "Время перезарядки оружия: " + Rifle_shot_pause + "\n" +
-        "Скорость игрока: " + player_speed + "\n" +
-        "Здоровье игрока: " + player_health + "\n" +
-        "Максимальный запас топлива: " + fuel + "\n" +
-        "Версия защитного поля: " + battary);
+        main_PlDatStr_GamP + "\n" +
+        main_PlDatStr_Crys + Crystal + "\n" +
+        main_PlDatStr_MaOx + Oxygen + "\n" +
+        main_PlDatStr_Tech + TechnicalContainer + "\n" +
+        main_PlDatStr_CurT + Level + "\n" +
+        main_PlDatStr_WeRT + Rifle_shot_pause + "\n" +
+        main_PlDatStr_PSpe + player_speed + "\n" +
+        main_PlDatStr_Phea + player_health + "\n" +
+        main_PlDatStr_MaFu + fuel + "\n" +
+        main_PlDatStr_PrFi + battary);
 
     PlayerDataText.text = PlayerDataString;
   }
@@ -93,7 +111,6 @@ public class MainMenu : MonoBehaviour {
     PlayerDataShowInMainMenu();
   }
 
-
   public void DEV_BUTTON_stat_3() {
     ProgressManager.Instance.YandexDataOBJ.GameState = 3;
     PlayerDataShowInMainMenu();
@@ -111,29 +128,6 @@ public class MainMenu : MonoBehaviour {
     PlayerDataShowInMainMenu();
   }
 
-  // для ассинхронной загрузки (пока не надо)
-  //public void LoadLevel() {
-  //    if (!isLoading) {
-  //        StartCoroutine(ENUM_LoadLevel());
-  //    }
-  //}
-
-  //IEnumerator ENUM_LoadLevel() {
-  //    isLoading = true;
-  //    ButtonStartGame.SetActive(false);
-  //    ButtonLoadGame.SetActive(false);
-  //    TextLoad.SetActive(true);
-  //    yield return null;
-  //    AsyncOperation asyncOp = SceneManager.LoadSceneAsync(1);
-
-  //    // Wait until the asynchronous scene fully loads
-  //    while (!asyncOp.isDone) {
-  //        yield return null;
-  //    }
-
-  //    isLoading = false;
-  //}
-
   public void LoadLevel() {
     StartCoroutine(ENUM_LoadLevel());
   }
@@ -147,20 +141,5 @@ public class MainMenu : MonoBehaviour {
     yield return new WaitUntil(() => TextLoad.gameObject.activeSelf);
 
     SceneManager.LoadScene(1);
-  }
-
-  public void UI_RUS() {
-    TextManager.InstanceTextData.LoadJsonLocal("RUS");
-    UpgradeUI();
-  }
-
-  public void UI_ENG() {
-    TextManager.InstanceTextData.LoadJsonLocal("ENG");
-    UpgradeUI();
-  }
-
-  public void UpgradeUI() {
-    text_game_name.text = TextManager.InstanceTextData.textsDataOBJ.game_name;
-    // ProgressManager.Instance.YandexDataOBJ.Crystal = 0;
   }
 }

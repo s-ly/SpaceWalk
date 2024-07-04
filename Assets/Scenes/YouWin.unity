@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0016344083, g: 0.0028533267, b: 0.0045273895, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -215,6 +215,51 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &27347229
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 27347231}
+  - component: {fileID: 27347230}
+  m_Layer: 0
+  m_Name: Local
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &27347230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27347229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be3559dfcbf03bc4cb6284ceca216933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Victory: {fileID: 1205156205}
+--- !u!4 &27347231
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27347229}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &210951435
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,6 +289,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaafd00ab211d3345829632ed17c45ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  img_base: {fileID: 0}
+  img_crystall: {fileID: 0}
+  img_radar: {fileID: 0}
+  img_weapon: {fileID: 0}
+  img_shuttle: {fileID: 0}
+  img_engine: {fileID: 0}
+  img_fuel: {fileID: 0}
+  img_cyberlab: {fileID: 0}
+  img_energy: {fileID: 0}
+  img_battery: {fileID: 0}
+  img_gun: {fileID: 0}
+  img_mission: {fileID: 0}
   BAG_IMG_Player_key: {fileID: 0}
   BAG_IMG_Player_fuel: {fileID: 0}
   BAG_IMG_Player_energy: {fileID: 0}
@@ -253,6 +310,11 @@ MonoBehaviour:
   Player: {fileID: 0}
   Text_Dialog_current_mission: {fileID: 0}
   Dialog_current_mission: {fileID: 0}
+  script_StoreManager: {fileID: 0}
+  StoreButton: {fileID: 0}
+  StoreButtonMission: {fileID: 0}
+  SpacePodZone: {fileID: 0}
+  Store: {fileID: 0}
   Trigger_Terminal_key: {fileID: 0}
   Trigger_Terminal_fuel: {fileID: 0}
   Trigger_Terminal_energy: {fileID: 0}
@@ -260,6 +322,13 @@ MonoBehaviour:
   GameState: 0
   crystalManager: {fileID: 0}
   script_Yandex: {fileID: 0}
+  DestroyBatteryAll: 0
+  SCRIPT_EngineBase: {fileID: 0}
+  SRC_LabBase: {fileID: 0}
+  STC_WeaponsBase: {fileID: 0}
+  EnergyBattery_1: {fileID: 0}
+  EnergyBattery_2: {fileID: 0}
+  EnergyBattery_3: {fileID: 0}
 --- !u!4 &210951437
 Transform:
   m_ObjectHideFlags: 0
@@ -1066,9 +1135,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46fd083b4d4b12c4ba9eec2018b051c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  script_fuel_manager: {fileID: 0}
   rig: {fileID: 0}
   Target: {fileID: 0}
-  speed: 1.8
   rotSpeed: 6
   gravity: 2
   jamp: 2
@@ -1077,7 +1146,9 @@ MonoBehaviour:
   animator: {fileID: 994113069}
   PlayerRifle: {fileID: 0}
   PlayerModeAttack: 0
+  button_move_jamp_engine: {fileID: 0}
   Engines: {fileID: 0}
+  engines_forward: {fileID: 0}
 --- !u!1 &1889495813
 GameObject:
   m_ObjectHideFlags: 0
@@ -1289,3 +1360,4 @@ SceneRoots:
   - {fileID: 1109608315}
   - {fileID: 1889495816}
   - {fileID: 210951437}
+  - {fileID: 27347231}

@@ -11,7 +11,12 @@ public class Manager_fps : MonoBehaviour
     [SerializeField] bool tes_d = false;
     private float fps;    
     private float TimeData = 0f;
+    string text_fps = "fps: ";
 
+    void Start(){
+      text_fps = TextManager.Inst_TextData.textsData.fps;
+    }
+    
     private void Update()
     {
         fps = 1.0f / Time.deltaTime; // ������� fps
@@ -23,7 +28,7 @@ public class Manager_fps : MonoBehaviour
     {        
         float fpsTEMP = fps;
         fpsTEMP = Mathf.Round(fpsTEMP); // ���������
-        text.text = ("Кадров в секунду: " + fpsTEMP.ToString());        
+        text.text = (text_fps + fpsTEMP.ToString());        
     }
 
     // ������

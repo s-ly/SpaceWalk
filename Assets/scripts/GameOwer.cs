@@ -28,7 +28,7 @@ public class GameOwer : MonoBehaviour {
 #endif
     }
     void TimerAdvStart() {
-        // ïîñëå ñìåðòè äåðæèì ýêðàí íåìíîãî
+        // Ð¿Ð¾ÑÐ»Ðµ ÑÐ¼ÐµÑ€Ñ‚Ð¸ Ð´ÐµÑ€Ð¶Ð¸Ð¼ ÑÐºÑ€Ð°Ð½ Ð½ÐµÐ¼Ð½Ð¾Ð³Ð¾
         if (Timer_Start_Adv > 0) {
             Timer_Start_Adv = Timer_Start_Adv - Time.deltaTime;
             if (Timer_Start_Adv <= 0) {
@@ -38,7 +38,7 @@ public class GameOwer : MonoBehaviour {
         }
     }
     void TimerShowRestartButton() {
-        // ïîñëå ñìåðòè äåðæèì ýêðàí íåìíîãî
+        // Ð¿Ð¾ÑÐ»Ðµ ÑÐ¼ÐµÑ€Ñ‚Ð¸ Ð´ÐµÑ€Ð¶Ð¸Ð¼ ÑÐºÑ€Ð°Ð½ Ð½ÐµÐ¼Ð½Ð¾Ð³Ð¾
         if (Timer_Show_Restart_Button > 0) {
             Timer_Show_Restart_Button = Timer_Show_Restart_Button - Time.deltaTime;
             if (Timer_Show_Restart_Button <= 0) {

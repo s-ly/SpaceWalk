@@ -552,7 +552,7 @@ GameObject:
   - component: {fileID: 1494391585447010575}
   - component: {fileID: 8971294811856465169}
   m_Layer: 5
-  m_Name: Button (where is the target)
+  m_Name: Radar_BUTT_Goal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1441,6 +1441,7 @@ GameObject:
   - component: {fileID: 2848911815440328727}
   - component: {fileID: 2848911815440328724}
   - component: {fileID: 2755652423087998687}
+  - component: {fileID: 5262707720877583376}
   m_Layer: 0
   m_Name: Radar
   m_TagString: Untagged
@@ -1612,6 +1613,22 @@ MonoBehaviour:
   vector_target_child: {fileID: 1114715293102766819}
   target_current_misson: {fileID: 2386564305959104806}
   target_battery_mission: {fileID: 5940441868734122051}
+--- !u!114 &5262707720877583376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2848911815440328730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6d6f9824b71a6349901adce6f3af231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Radar_BUTT_Goal: {fileID: 64769474658103568}
+  Radar_BUTT_Rotation: {fileID: 953297074121093248}
+  Radar_BUTT_Tilt: {fileID: 2338272989369235384}
+  Radar_BUTT_WhereIAm: {fileID: 4051367634910400916}
 --- !u!1 &2924298275773269075
 GameObject:
   m_ObjectHideFlags: 0
@@ -1988,13 +2005,13 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4341829995981930710}
   - {fileID: 1982424210057365289}
   - {fileID: 4248680313051077646}
   - {fileID: 1122392350041043127}
   - {fileID: 7561646055249847464}
   - {fileID: 5254997368629279279}
   - {fileID: 6494276638449787877}
-  - {fileID: 4341829995981930710}
   m_Father: {fileID: 2848911815440328725}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2111,7 +2128,7 @@ GameObject:
   - component: {fileID: 8351004163822811887}
   - component: {fileID: 853467088235671120}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: Radar_BUTT_Tilt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2792,7 +2809,7 @@ GameObject:
   - component: {fileID: 1856837353229011298}
   - component: {fileID: 6416528551601183044}
   m_Layer: 5
-  m_Name: Button (Where I am)
+  m_Name: Radar_BUTT_WhereIAm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2805,7 +2822,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8081101580447784455}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2815,7 +2832,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -182.1, y: 179.7}
+  m_AnchoredPosition: {x: -182.09993, y: 179.69995}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5179220624748898154
@@ -3188,7 +3205,7 @@ GameObject:
   - component: {fileID: 5713260659822354755}
   - component: {fileID: 899207527419388992}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Radar_BUTT_Rotation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
