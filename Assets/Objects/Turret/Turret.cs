@@ -1,354 +1,354 @@
-// Турель.
+// РўСѓСЂРµР»СЊ.
 
 using System.Collections;
 using UnityEngine;
 
 public class Turret : MonoBehaviour {
-    [SerializeField] private Transform turret; // цель поворота
-    [SerializeField] private float speedTurretRot; // скорость поворота
-    [SerializeField] private GameObject Bullet; //префаб пули
-    [SerializeField] private float TimeFire; // время между выстрелами
-    [SerializeField] GameObject turretCanvas;
-    [SerializeField] private int PauseRestartTurretSecond;
-    [SerializeField] private GameObject ButtonFirePlayer; // кнопка стрельбы игрока
+  [SerializeField] private Transform turret; // С†РµР»СЊ РїРѕРІРѕСЂРѕС‚Р°
+  [SerializeField] private float speedTurretRot; // СЃРєРѕСЂРѕСЃС‚СЊ РїРѕРІРѕСЂРѕС‚Р°
+  [SerializeField] private GameObject Bullet; //РїСЂРµС„Р°Р± РїСѓР»Рё
+  [SerializeField] private float TimeFire; // РІСЂРµРјСЏ РјРµР¶РґСѓ РІС‹СЃС‚СЂРµР»Р°РјРё
+  [SerializeField] GameObject turretCanvas;
+  [SerializeField] private int PauseRestartTurretSecond;
+  [SerializeField] private GameObject ButtonFirePlayer; // РєРЅРѕРїРєР° СЃС‚СЂРµР»СЊР±С‹ РёРіСЂРѕРєР°
 
-    // тех-контейнер
-    [SerializeField] private Transform GENERATE_technical_container; // место появления тех-контейнера
-    [SerializeField] private Transform GENERATE_2;
-    [SerializeField] private Transform GENERATE_3;
-    [SerializeField] private Transform GENERATE_4;
-    [SerializeField] private GameObject PREFAB_technical_container;  // префаб тех-контейнера
-    [SerializeField] private GameObject PREFAB_fuel_balon;
-    [SerializeField] private GameObject PREFAB_oxy_balon;
-    [SerializeField] private GameObject PREFAB_energy_container;
-    [SerializeField] private GameObject PREFAB_aid_container;
-    private GameObject CLONE_technical_container;  // клон тех-контейнера
-    private GameObject CLONE_fuel_balon;
-    private GameObject CLONE_oxy_balon;
-    private GameObject CLONE_energy_container;
-    private GameObject CLONE_aid_container;
+  // С‚РµС…-РєРѕРЅС‚РµР№РЅРµСЂ
+  [SerializeField] private Transform GENERATE_technical_container; // РјРµСЃС‚Рѕ РїРѕСЏРІР»РµРЅРёСЏ С‚РµС…-РєРѕРЅС‚РµР№РЅРµСЂР°
+  [SerializeField] private Transform GENERATE_2;
+  [SerializeField] private Transform GENERATE_3;
+  [SerializeField] private Transform GENERATE_4;
+  [SerializeField] private GameObject PREFAB_technical_container;  // РїСЂРµС„Р°Р± С‚РµС…-РєРѕРЅС‚РµР№РЅРµСЂР°
+  [SerializeField] private GameObject PREFAB_fuel_balon;
+  [SerializeField] private GameObject PREFAB_oxy_balon;
+  [SerializeField] private GameObject PREFAB_energy_container;
+  [SerializeField] private GameObject PREFAB_aid_container;
+  private GameObject CLONE_technical_container;  // РєР»РѕРЅ С‚РµС…-РєРѕРЅС‚РµР№РЅРµСЂР°
+  private GameObject CLONE_fuel_balon;
+  private GameObject CLONE_oxy_balon;
+  private GameObject CLONE_energy_container;
+  private GameObject CLONE_aid_container;
 
-    [SerializeField] private int healthTurret; // здоровье турели
-    private int healhTurretTEMP;
+  [SerializeField] private int healthTurret; // Р·РґРѕСЂРѕРІСЊРµ С‚СѓСЂРµР»Рё
+  private int healhTurretTEMP;
 
-    private bool LookAtTurret = false; // активарована ли турель
-    private bool LiveTurret = true; // жива ли турель
-    private GameObject turretTower; // башня турели
-    private GameObject turretBase; // подставка турели
-    private GameObject pivotRadiousTurret; //родитель для объекта на котором скрипт
-    private GameObject turretCanvasText;
-    private GameObject repairBase; // ремонтная база
+  private bool LookAtTurret = false; // Р°РєС‚РёРІР°СЂРѕРІР°РЅР° Р»Рё С‚СѓСЂРµР»СЊ
+  private bool LiveTurret = true; // Р¶РёРІР° Р»Рё С‚СѓСЂРµР»СЊ
+  private GameObject turretTower; // Р±Р°С€РЅСЏ С‚СѓСЂРµР»Рё
+  private GameObject turretBase; // РїРѕРґСЃС‚Р°РІРєР° С‚СѓСЂРµР»Рё
+  private GameObject pivotRadiousTurret; //СЂРѕРґРёС‚РµР»СЊ РґР»СЏ РѕР±СЉРµРєС‚Р° РЅР° РєРѕС‚РѕСЂРѕРј СЃРєСЂРёРїС‚
+  private GameObject turretCanvasText;
+  private GameObject repairBase; // СЂРµРјРѕРЅС‚РЅР°СЏ Р±Р°Р·Р°
 
-    // эфекты двигателей
-    private GameObject EngineVFX_0;
-    private GameObject EngineVFX_1;
-    private GameObject EngineVFX_2;
-    private GameObject EngineVFX_3;
+  // СЌС„РµРєС‚С‹ РґРІРёРіР°С‚РµР»РµР№
+  private GameObject EngineVFX_0;
+  private GameObject EngineVFX_1;
+  private GameObject EngineVFX_2;
+  private GameObject EngineVFX_3;
 
-    private GameObject clone; // объект пули
-    private float TimeFireTemp;
-    private GameObject Player;
-    //private GameObject PlayerPivot;
-    [SerializeField] private Animator animatorPlayer;
-    private Animator animatorRepairBase;
-    private player script_player;
-    private GameObject myCamera;
+  private GameObject clone; // РѕР±СЉРµРєС‚ РїСѓР»Рё
+  private float TimeFireTemp;
+  private GameObject Player;
+  //private GameObject PlayerPivot;
+  [SerializeField] private Animator animatorPlayer;
+  private Animator animatorRepairBase;
+  private player script_player;
+  private GameObject myCamera;
 
-    private GameObject Explosion; // взрыв 
-    private GameObject Exploded_turret_base; // exploded_turret_base
-    private GameObject Exploded_turret_tower; // exploded_turret_tower
+  private GameObject Explosion; // РІР·СЂС‹РІ 
+  private GameObject Exploded_turret_base; // exploded_turret_base
+  private GameObject Exploded_turret_tower; // exploded_turret_tower
 
-    private GameObject PlayerMesh; // меш игрока и на нём аниматор
-    private bool FLAG_generate_technical_Container = true; // можно ли генерировать тех-к. (против дублирования)
+  private GameObject PlayerMesh; // РјРµС€ РёРіСЂРѕРєР° Рё РЅР° РЅС‘Рј Р°РЅРёРјР°С‚РѕСЂ
+  private bool FLAG_generate_technical_Container = true; // РјРѕР¶РЅРѕ Р»Рё РіРµРЅРµСЂРёСЂРѕРІР°С‚СЊ С‚РµС…-Рє. (РїСЂРѕС‚РёРІ РґСѓР±Р»РёСЂРѕРІР°РЅРёСЏ)
 
 
-    // Start is called before the first frame update
-    void Start() {
-        ButtonFirePlayer.SetActive(false); // отключаю кнопку стрельбы игрока
-        turretTower = this.gameObject.transform.GetChild(0).gameObject; // ищем объект башни турели как дочерний
-        pivotRadiousTurret = this.gameObject.transform.parent.gameObject; // находим родителя
-        turretBase = pivotRadiousTurret.gameObject.transform.GetChild(1).gameObject; // второй ребёнок (подставка)
-        repairBase = pivotRadiousTurret.gameObject.transform.GetChild(3).gameObject; // четвёртый ребёнок (ремонтная база)
+  // Start is called before the first frame update
+  void Start() {
+    ButtonFirePlayer.SetActive(false); // РѕС‚РєР»СЋС‡Р°СЋ РєРЅРѕРїРєСѓ СЃС‚СЂРµР»СЊР±С‹ РёРіСЂРѕРєР°
+    turretTower = this.gameObject.transform.GetChild(0).gameObject; // РёС‰РµРј РѕР±СЉРµРєС‚ Р±Р°С€РЅРё С‚СѓСЂРµР»Рё РєР°Рє РґРѕС‡РµСЂРЅРёР№
+    pivotRadiousTurret = this.gameObject.transform.parent.gameObject; // РЅР°С…РѕРґРёРј СЂРѕРґРёС‚РµР»СЏ
+    turretBase = pivotRadiousTurret.gameObject.transform.GetChild(1).gameObject; // РІС‚РѕСЂРѕР№ СЂРµР±С‘РЅРѕРє (РїРѕРґСЃС‚Р°РІРєР°)
+    repairBase = pivotRadiousTurret.gameObject.transform.GetChild(3).gameObject; // С‡РµС‚РІС‘СЂС‚С‹Р№ СЂРµР±С‘РЅРѕРє (СЂРµРјРѕРЅС‚РЅР°СЏ Р±Р°Р·Р°)
 
-        // доступ к двигателям ремонтной базы
-        EngineVFX_0 = repairBase.gameObject.transform.GetChild(0).gameObject;
-        EngineVFX_1 = repairBase.gameObject.transform.GetChild(1).gameObject;
-        EngineVFX_2 = repairBase.gameObject.transform.GetChild(2).gameObject;
-        EngineVFX_3 = repairBase.gameObject.transform.GetChild(3).gameObject;
+    // РґРѕСЃС‚СѓРї Рє РґРІРёРіР°С‚РµР»СЏРј СЂРµРјРѕРЅС‚РЅРѕР№ Р±Р°Р·С‹
+    EngineVFX_0 = repairBase.gameObject.transform.GetChild(0).gameObject;
+    EngineVFX_1 = repairBase.gameObject.transform.GetChild(1).gameObject;
+    EngineVFX_2 = repairBase.gameObject.transform.GetChild(2).gameObject;
+    EngineVFX_3 = repairBase.gameObject.transform.GetChild(3).gameObject;
 
-        EngineRepairBaseOn(false); // отключаем двигатели ремонтной базы
+    EngineRepairBaseOn(false); // РѕС‚РєР»СЋС‡Р°РµРј РґРІРёРіР°С‚РµР»Рё СЂРµРјРѕРЅС‚РЅРѕР№ Р±Р°Р·С‹
 
-        // пятый ребёнок (взрыв)
-        Explosion = pivotRadiousTurret.gameObject.transform.GetChild(4).gameObject;
-        Explosion.SetActive(false);
+    // РїСЏС‚С‹Р№ СЂРµР±С‘РЅРѕРє (РІР·СЂС‹РІ)
+    Explosion = pivotRadiousTurret.gameObject.transform.GetChild(4).gameObject;
+    Explosion.SetActive(false);
 
-        // Взорванная тураль, ссылки и деактивация:
-        Exploded_turret_base = pivotRadiousTurret.gameObject.transform.GetChild(5).gameObject; //exploded_turret_base
-        Exploded_turret_tower = pivotRadiousTurret.gameObject.transform.GetChild(6).gameObject; //exploded_turret_tower
-        Exploded_turret_base.GetComponent<Renderer>().enabled = false;
-        Exploded_turret_tower.GetComponent<Renderer>().enabled = false;
+    // Р’Р·РѕСЂРІР°РЅРЅР°СЏ С‚СѓСЂР°Р»СЊ, СЃСЃС‹Р»РєРё Рё РґРµР°РєС‚РёРІР°С†РёСЏ:
+    Exploded_turret_base = pivotRadiousTurret.gameObject.transform.GetChild(5).gameObject; //exploded_turret_base
+    Exploded_turret_tower = pivotRadiousTurret.gameObject.transform.GetChild(6).gameObject; //exploded_turret_tower
+    Exploded_turret_base.GetComponent<Renderer>().enabled = false;
+    Exploded_turret_tower.GetComponent<Renderer>().enabled = false;
 
-        animatorRepairBase = repairBase.GetComponent<Animator>();
+    animatorRepairBase = repairBase.GetComponent<Animator>();
 
-        healhTurretTEMP = healthTurret; // работаем с TEMP
-        turretCanvasText = turretCanvas.transform.GetChild(0).gameObject; // ссылка на текст
-        turretCanvasText.GetComponent<TMPro.TextMeshProUGUI>().text = healhTurretTEMP.ToString();
-        turretCanvasText.SetActive(false); // спрятать текст турели
+    healhTurretTEMP = healthTurret; // СЂР°Р±РѕС‚Р°РµРј СЃ TEMP
+    turretCanvasText = turretCanvas.transform.GetChild(0).gameObject; // СЃСЃС‹Р»РєР° РЅР° С‚РµРєСЃС‚
+    turretCanvasText.GetComponent<TMPro.TextMeshProUGUI>().text = healhTurretTEMP.ToString();
+    turretCanvasText.SetActive(false); // СЃРїСЂСЏС‚Р°С‚СЊ С‚РµРєСЃС‚ С‚СѓСЂРµР»Рё
 
-        myCamera = GameObject.FindGameObjectWithTag("MainCamera"); // ссылка на камеру
-        TimeFireTemp = TimeFire;
-        Player = GameObject.FindGameObjectWithTag("Player");
-        //PlayerPivot = GameObject.FindGameObjectWithTag("PlayerPivot");
-        //animatorPlayer = Player.GetComponent<Animator>();
-        script_player = Player.GetComponent<player>();
+    myCamera = GameObject.FindGameObjectWithTag("MainCamera"); // СЃСЃС‹Р»РєР° РЅР° РєР°РјРµСЂСѓ
+    TimeFireTemp = TimeFire;
+    Player = GameObject.FindGameObjectWithTag("Player");
+    //PlayerPivot = GameObject.FindGameObjectWithTag("PlayerPivot");
+    //animatorPlayer = Player.GetComponent<Animator>();
+    script_player = Player.GetComponent<player>();
+  }
+
+  // Update is called once per frame
+  void Update() {
+    if (LookAtTurret) {
+      DirectionTurret(); // РµСЃР»Рё С‚СѓСЂРµР»СЊ Р°РєС‚РёРІРёСЂРѕРІР°РЅРЅР° С‚Рѕ РїРѕРІРѕСЂР°С‡РёРІР°РµРј РµС‘ Р·Р° РёРіСЂРѕРєРѕРј
+      Fire(); // СЃС‚СЂРµР»СЏРµРј
+    }
+    CanvasTurretLookAt();
+  }
+
+  // РІ Р·РѕРЅСѓ С‚СѓСЂРµР»Рё С‡С‚Рѕ-С‚Рѕ РІС…РѕРґРёС‚
+  private void OnTriggerEnter(Collider other) {
+    // Р’ Р·РѕРЅСѓ РІРѕС€С‘Р» РёРіСЂРѕРє Рё С‚СѓСЂРµР»СЊ Р¶РёРІР°
+    if (other.gameObject.CompareTag("Player") && LiveTurret) {
+      LookAtTurret = true;
+      Debug.Log("Р’РёР¶Сѓ С†РµР»СЊ");
+
+      // Р°РєС‚РёРІР°С†РёСЏ СЂРµР¶РёРјР° РёРіСЂРѕРєР° (Р±РѕР№)
+      animatorPlayer.SetBool("Attack_mode", true);
+      script_player.PlayerModeAttack = true;
+
+      turretCanvasText.SetActive(true); // РїРѕРєР°Р·Р°С‚СЊ С‚РµРєСЃС‚ С‚СѓСЂРµР»Рё
+                                        //ButtonFirePlayer.SetActive(true); // РІРєС‹Р» РєРЅРѕРїРєСѓ СЃС‚СЂРµР»СЊР±С‹ РёРіСЂРѕРєР°
+    }
+  }
+
+  // РёР· Р·РѕРЅС‹ С‚СѓСЂРµР»Рё С‡С‚Рѕ-С‚Рѕ РІС‹С€Р»Рѕ
+  private void OnTriggerExit(Collider other) {
+    // Р’ Р·РѕРЅСѓ РІРѕС€С‘Р» РёРіСЂРѕРє Рё С‚СѓСЂРµР»СЊ Р¶РёРІР°
+    if (other.gameObject.CompareTag("Player") && LiveTurret) {
+      LookAtTurret = false;
+      Debug.Log("РџРѕС‚РµСЂСЏР» С†РµР»СЊ");
+      //GenerateBullet();
+
+      // Р”Р•Р°РєС‚РёРІР°С†РёСЏ СЂРµР¶РёРјР° РёРіСЂРѕРєР° (Р±РѕР№)
+      animatorPlayer.SetBool("Attack_mode", false);
+      script_player.PlayerModeAttack = false;
+
+      turretCanvasText.SetActive(false); // СЃРїСЂСЏС‚Р°С‚СЊ С‚РµРєСЃС‚ С‚СѓСЂРµР»Рё
+                                         //ButtonFirePlayer.SetActive(false); // РѕС‚РєР»СЋС‡Р°СЋ РєРЅРѕРїРєСѓ СЃС‚СЂРµР»СЊР±С‹ РёРіСЂРѕРєР°
+    }
+  }
+
+  // РІ Р·РѕРЅРµ С‡С‚Рѕ-С‚Рѕ РЅР°С…РѕРґРёС‚СЃСЏ
+  private void OnTriggerStay(Collider other) {
+    // Р’ Р·РѕРЅСѓ РІРѕС€С‘Р» РёРіСЂРѕРє Рё С‚СѓСЂРµР»СЊ Р¶РёРІР°
+    if (other.gameObject.CompareTag("Player") && LiveTurret) {
+      LookAtTurret = true;
+      // Р°РєС‚РёРІР°С†РёСЏ СЂРµР¶РёРјР° РёРіСЂРѕРєР° (Р±РѕР№)
+      animatorPlayer.SetBool("Attack_mode", true);
+      script_player.PlayerModeAttack = true;
+
+      turretCanvasText.SetActive(true); // РїРѕРєР°Р·Р°С‚СЊ С‚РµРєСЃС‚ С‚СѓСЂРµР»Рё
+                                        //ButtonFirePlayer.SetActive(true); // РІРєС‹Р» РєРЅРѕРїРєСѓ СЃС‚СЂРµР»СЊР±С‹ РёРіСЂРѕРєР°
+    }
+  }
+
+  // РїРѕРІРѕСЂРѕС‚ С‚СѓСЂРµР»Рё
+  void DirectionTurret() {
+    // РїР»Р°РІРЅС‹Р№ РїРѕРІРѕСЂРѕС‚ Рє С†РµР»Рё
+    Vector3 direction = turret.transform.position - transform.position;
+    Quaternion rotation = Quaternion.LookRotation(direction);
+    transform.rotation = Quaternion.Lerp(transform.rotation, rotation, speedTurretRot * Time.deltaTime);
+
+    // РїРѕРІРѕСЂРѕС‚ С‚РѕР»СЊРєРѕ РїРѕ РѕСЃРё Y
+    float y = transform.localEulerAngles.y; // Р±РµСЂС‘Рј Р»РѕРєР°Р»СЊРЅСѓСЋ РѕСЃСЊ Y
+    float x = transform.localEulerAngles.x; // Р±РµСЂС‘Рј Р»РѕРєР°Р»СЊРЅСѓСЋ РѕСЃСЊ Y
+    transform.localEulerAngles = new Vector3(x, y, 0); // РѕР±РЅСѓР»СЏРµРј РІСЃРµ РїРѕРІРѕСЂРѕС‚С‹ РєСЂРѕРјРµ РѕСЃРё Y
+  }
+
+  // РђРєС‚РёРІР°С†РёСЏ Рё РґРµР°РєС‚РёРІР°С†РёСЏ РґРІРёРіР°С‚РµР»РµР№ СЂРµРјРѕРЅС‚РЅРѕР№ Р±Р°Р·С‹.
+  private void EngineRepairBaseOn(bool On) {
+    if (On) {
+      EngineVFX_0.SetActive(true);
+      EngineVFX_1.SetActive(true);
+      EngineVFX_2.SetActive(true);
+      EngineVFX_3.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update() {
-        if (LookAtTurret) {
-            DirectionTurret(); // если турель активированна то поворачиваем её за игроком
-            Fire(); // стреляем
-        }
-        CanvasTurretLookAt();
+    else {
+      EngineVFX_0.SetActive(false);
+      EngineVFX_1.SetActive(false);
+      EngineVFX_2.SetActive(false);
+      EngineVFX_3.SetActive(false);
+    }
+  }
+
+  // РІС‹СЃС‚СЂРµР»С‹
+  void Fire() {
+    TimeFireTemp = TimeFireTemp - Time.deltaTime;
+    if (TimeFireTemp <= 0) {
+      GenerateBullet();
+      TimeFireTemp = TimeFire;
+    }
+  }
+
+  // РіРµРЅРµСЂР°С†РёСЏ РїСѓР»Рё
+  void GenerateBullet() {
+    clone = Instantiate(Bullet, transform.position, transform.rotation);
+    //clone.transform.Translate(Vector3.up * Time.deltaTime, Space.World);
+    Destroy(clone, 10f); // СѓРЅРёС‡С‚РѕР¶РµРЅРёРµ С‡РµСЂРµР· 10 СЃРµРє
+  }
+
+  // РіРµРЅРµСЂР°С†РёСЏ С‚РµС…-РєРѕРЅС‚РµР№РЅРµСЂР° РЅР° РјРµСЃС‚Рµ GENERATE_technical_container
+  // РЅР° СЃР°РјРѕРј РґРµР»Рµ РіРµРЅРµСЂРёСЂСѓСЋ РІСЃРµ РїРѕРґР°СЂРєРё
+  void Generate_Technical_Container() {
+    int random_slot_2 = 0;
+    int random_slot_3 = 0;
+    int random_slot_4 = 0;
+    random_slot_2 = Random.Range(0, 5);
+    random_slot_3 = Random.Range(0, 5);
+    random_slot_4 = Random.Range(0, 5);
+
+    CLONE_technical_container = Instantiate(
+        PREFAB_technical_container,
+        GENERATE_technical_container.transform.position,
+        GENERATE_technical_container.transform.rotation);
+    if (random_slot_2 != 0) {
+      if (random_slot_2 == 1) {
+        CLONE_fuel_balon = Instantiate(PREFAB_fuel_balon, GENERATE_2.transform.position, GENERATE_2.transform.rotation);
+      }
+      if (random_slot_2 == 2) {
+        CLONE_fuel_balon = Instantiate(PREFAB_oxy_balon, GENERATE_2.transform.position, GENERATE_2.transform.rotation);
+      }
+      if (random_slot_2 == 3) {
+        CLONE_fuel_balon = Instantiate(PREFAB_aid_container, GENERATE_2.transform.position, GENERATE_2.transform.rotation);
+      }
+      if (random_slot_2 == 4) {
+        CLONE_fuel_balon = Instantiate(PREFAB_energy_container, GENERATE_2.transform.position, GENERATE_2.transform.rotation);
+      }
+    }
+    if (random_slot_3 != 0) {
+      if (random_slot_3 == 1) {
+        CLONE_fuel_balon = Instantiate(PREFAB_fuel_balon, GENERATE_3.transform.position, GENERATE_3.transform.rotation);
+      }
+      if (random_slot_3 == 2) {
+        CLONE_fuel_balon = Instantiate(PREFAB_oxy_balon, GENERATE_3.transform.position, GENERATE_3.transform.rotation);
+      }
+      if (random_slot_3 == 3) {
+        CLONE_fuel_balon = Instantiate(PREFAB_aid_container, GENERATE_3.transform.position, GENERATE_3.transform.rotation);
+      }
+      if (random_slot_3 == 4) {
+        CLONE_fuel_balon = Instantiate(PREFAB_energy_container, GENERATE_3.transform.position, GENERATE_3.transform.rotation);
+      }
+    }
+    if (random_slot_4 != 0) {
+      if (random_slot_4 == 1) {
+        CLONE_fuel_balon = Instantiate(PREFAB_fuel_balon, GENERATE_4.transform.position, GENERATE_4.transform.rotation);
+      }
+      if (random_slot_4 == 2) {
+        CLONE_fuel_balon = Instantiate(PREFAB_oxy_balon, GENERATE_4.transform.position, GENERATE_4.transform.rotation);
+      }
+      if (random_slot_4 == 3) {
+        CLONE_fuel_balon = Instantiate(PREFAB_aid_container, GENERATE_4.transform.position, GENERATE_4.transform.rotation);
+      }
+      if (random_slot_4 == 4) {
+        CLONE_fuel_balon = Instantiate(PREFAB_energy_container, GENERATE_4.transform.position, GENERATE_4.transform.rotation);
+      }
+    }
+  }
+
+  // РўСѓСЂРµР»СЊ РїРѕР»СѓС‡Р°РµС‚ СѓСЂРѕРЅ. Р’С‹Р·С‹РІР°РµС‚СЃСЏ РёР· СЃРєСЂРёРїС‚Р° РїСѓР»Рё РёРіСЂРѕРєР°
+  public void TakesDamage() {
+    Debug.Log("РІ Р±Р°С€РЅСЋ РїРѕРїР°РґР°РЅРёРµ");
+    healhTurretTEMP -= 10;
+    turretCanvasText.GetComponent<TMPro.TextMeshProUGUI>().text = healhTurretTEMP.ToString();
+    if (healhTurretTEMP <= 0) {
+      TurretDisabled();
+    }
+  }
+
+  // РўСѓСЂРµР»СЊ РїРѕРґРѕСЂРІР°РЅР°
+  public void TurretDisabled() {
+    Debug.Log("Р±Р°С€РЅСЏ РїРѕРґРѕСЂРІР°РЅР°");
+    LookAtTurret = false;
+    LiveTurret = false;
+    // Generate_Technical_Container(); // РіРµРЅРµСЂР°С†РёСЏ С‚РµС…-РєРѕРЅС‚РµР№РЅРµСЂР°
+    Explosion.SetActive(true); // РІР·СЂС‹РІ
+
+    // РїРѕРєР°Р·С‹РІР°РµРј РІР·РѕСЂРІР°РЅРЅСѓСЋ С‚СѓСЂРµР»СЊ
+    Exploded_turret_base.GetComponent<Renderer>().enabled = true;
+    Exploded_turret_tower.GetComponent<Renderer>().enabled = true;
+
+    // РћС‚РєР»СЋС‡Р°РµРј СЂРµРЅРґРµСЂ Р±Р°С€РЅРё Рё РїРѕРґСЃС‚Р°РІРєРё С‚СѓСЂРµР»Рё
+    turretTower.gameObject.GetComponent<MeshRenderer>().enabled = false;
+    turretBase.gameObject.GetComponent<MeshRenderer>().enabled = false;
+
+    // Р”Р•Р°РєС‚РёРІР°С†РёСЏ СЂРµР¶РёРјР° РёРіСЂРѕРєР° (Р±РѕР№)
+    animatorPlayer.SetBool("Attack_mode", false);
+    script_player.PlayerModeAttack = false;
+
+    turretCanvasText.SetActive(false); // СЃРїСЂСЏС‚Р°С‚СЊ С‚РµРєСЃС‚ С‚СѓСЂРµР»Рё
+                                       //ButtonFirePlayer.SetActive(false); // РѕС‚РєР»СЋС‡Р°СЋ РєРЅРѕРїРєСѓ СЃС‚СЂРµР»СЊР±С‹ РёРіСЂРѕРєР°
+    if (FLAG_generate_technical_Container) {
+      Generate_Technical_Container(); // РіРµРЅРµСЂР°С†РёСЏ С‚РµС…-РєРѕРЅС‚РµР№РЅРµСЂР°
+      FLAG_generate_technical_Container = false;
     }
 
-    // в зону турели что-то входит
-    private void OnTriggerEnter(Collider other) {
-        // В зону вошёл игрок и турель жива
-        if (other.gameObject.CompareTag("Player") && LiveTurret) {
-            LookAtTurret = true;
-            Debug.Log("Вижу цель");
 
-            // активация режима игрока (бой)
-            animatorPlayer.SetBool("Attack_mode", true);
-            script_player.PlayerModeAttack = true;
+    StartCoroutine(PauseRestartTurret(PauseRestartTurretSecond)); // РџРµСЂРµР·Р°РїСѓСЃРє РўСѓСЂРµР»Рё РїРѕСЃР»Рµ РїР°СѓР·С‹
+  }
 
-            turretCanvasText.SetActive(true); // показать текст турели
-            //ButtonFirePlayer.SetActive(true); // вкыл кнопку стрельбы игрока
-        }
-    }
+  // РІС‹СЂР°РІРЅРёРІР°РµС‚ С…РѕР»СЃС‚ С‚СѓСЂРµР»Рё РїРѕ РєР°РјРµСЂРµ
+  private void CanvasTurretLookAt() {
+    turretCanvas.transform.LookAt(myCamera.transform);
+    float y = turretCanvas.transform.localEulerAngles.y;
+    turretCanvas.transform.localEulerAngles = new Vector3(0, y, 0);
+  }
 
-    // из зоны турели что-то вышло
-    private void OnTriggerExit(Collider other) {
-        // В зону вошёл игрок и турель жива
-        if (other.gameObject.CompareTag("Player") && LiveTurret) {
-            LookAtTurret = false;
-            Debug.Log("Потерял цель");
-            //GenerateBullet();
+  // РїР°СѓР·Р° РїРµСЂРµРґ СЂРµСЃС‚Р°СЂС‚РѕРј РўСѓСЂРµР»Рё
+  IEnumerator PauseRestartTurret(int sec) {
 
-            // ДЕактивация режима игрока (бой)
-            animatorPlayer.SetBool("Attack_mode", false);
-            script_player.PlayerModeAttack = false;
+    yield return new WaitForSeconds(sec);
+    FLAG_generate_technical_Container = true; // СЃРЅРѕРІР° РјРѕР¶РЅРѕ РіРµРЅРµСЂРёСЂРѕРІР°С‚СЊ С‚РµС…-Рє.
+    animatorRepairBase.SetTrigger("activateRepairBase");// С‚СЂРёРіРµСЂ РїРµСЂРµРєР»СЋС‡РµРЅРёСЏ Р°РЅРёРјР°С†РёРё СЂРµРјРѕРЅС‚РЅРѕР№ Р±Р°Р·С‹
 
-            turretCanvasText.SetActive(false); // спрятать текст турели
-            //ButtonFirePlayer.SetActive(false); // отключаю кнопку стрельбы игрока
-        }
-    }
+    EngineRepairBaseOn(true); // РІРєР»СЋС‡Р°РµРј РґРІРёРіР°С‚РµР»Рё СЂРµРјРѕРЅС‚РЅРѕР№ Р±Р°Р·С‹
 
-    // в зоне что-то находится
-    private void OnTriggerStay(Collider other) {
-        // В зону вошёл игрок и турель жива
-        if (other.gameObject.CompareTag("Player") && LiveTurret) {
-            LookAtTurret = true;
-            // активация режима игрока (бой)
-            animatorPlayer.SetBool("Attack_mode", true);
-            script_player.PlayerModeAttack = true;
+    // РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Р№ С„Р»Р°Рі - С‚СѓСЂРµР»СЊ СЃР»РѕРјР°РЅРЅР°, РјРѕР¶РЅРѕ СЂРµРјРѕРЅС‚РёСЂРѕРІР°С‚СЊ
+    // Р·Р°С‰РёС‚Р° РѕС‚ РїРѕРІС‚РѕСЂРЅС‹СЃ СЃСЂР°Р±Р°С‚РѕРІР°РЅРёР№
+    animatorRepairBase.SetBool("TurretBroken", true);
 
-            turretCanvasText.SetActive(true); // показать текст турели
-            //ButtonFirePlayer.SetActive(true); // вкыл кнопку стрельбы игрока
-        }
-    }
+    // Р”РѕРїРѕСЂР»РЅРёС‚РµР»СЊРЅР°СЏ Р·Р°РґРµСЂР¶РєР°. РљРѕРіРґР° С‚СѓСЂРµР»СЊ СѓР¶Рµ РїСЂРёР»РµС‚РµР»Р°, РЅРѕ РµС‰С‘ РЅРµ РІР·Р»РµС‚РµР»Р°,
+    // РїРѕС‚РѕРј С‚СѓСЂРµР»СЊ "РѕР¶РёРІР°РµС‚".
+    int dop_sec = 13;
+    yield return new WaitForSeconds(dop_sec);
+    RestartTurret();
+    yield return new WaitForSeconds(5); // Р¶РґС‘Рј РµС‰С‘ 5 СЃРµРє РїРµСЂРµРґ РѕС‚РєР»СЋС‡РµРЅРёРµ РґРІРёРіР°С‚РµР»РµР№
+    EngineRepairBaseOn(false); // РѕС‚РєР»СЋС‡Р°РµРј РґРІРёРіР°С‚РµР»Рё СЂРµРјРѕРЅС‚РЅРѕР№ Р±Р°Р·С‹
+  }
 
-    // поворот турели
-    void DirectionTurret() {
-        // плавный поворот к цели
-        Vector3 direction = turret.transform.position - transform.position;
-        Quaternion rotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, speedTurretRot * Time.deltaTime);
+  // Р РµСЃС‚Р°СЂС‚ РўСѓСЂРµР»Рё
+  private void RestartTurret() {
+    LiveTurret = true;
+    Explosion.SetActive(false); // РѕС‚РєР»СЋС‡Р°РµРј РІР·СЂС‹РІ
+    animatorRepairBase.SetBool("TurretBroken", false); // РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Р№ С„Р»Р°Рі - С‚СѓСЂРµР»СЊ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅР°, СЂРµРјРѕРЅС‚РёСЂРѕРІР°С‚СЊ РЅРµР»СЊР·СЏ
 
-        // поворот только по оси Y
-        float y = transform.localEulerAngles.y; // берём локальную ось Y
-        float x = transform.localEulerAngles.x; // берём локальную ось Y
-        transform.localEulerAngles = new Vector3(x, y, 0); // обнуляем все повороты кроме оси Y
-    }
+    // РІРѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµРј Р·РґРѕСЂРѕРІСЊРµ Рё РѕР±РЅРѕРІР»СЏРµРј РєР°РЅРІР°СЃ
+    healhTurretTEMP = healthTurret;
+    turretCanvasText.GetComponent<TMPro.TextMeshProUGUI>().text = healhTurretTEMP.ToString();
 
-    // Активация и деактивация двигателей ремонтной базы.
-    private void EngineRepairBaseOn(bool On) {
-        if (On) {
-            EngineVFX_0.SetActive(true);
-            EngineVFX_1.SetActive(true);
-            EngineVFX_2.SetActive(true);
-            EngineVFX_3.SetActive(true);
-        }
+    // Р’РєР»СЋС‡Р°РµРј СЂРµРЅРґРµСЂ Р±Р°С€РЅРё Рё РїРѕРґСЃС‚Р°РІРєРё С‚СѓСЂРµР»Рё
+    turretTower.gameObject.GetComponent<MeshRenderer>().enabled = true;
+    turretBase.gameObject.GetComponent<MeshRenderer>().enabled = true;
 
-        else {
-            EngineVFX_0.SetActive(false);
-            EngineVFX_1.SetActive(false);
-            EngineVFX_2.SetActive(false);
-            EngineVFX_3.SetActive(false);
-        }
-    }
-
-    // выстрелы
-    void Fire() {
-        TimeFireTemp = TimeFireTemp - Time.deltaTime;
-        if (TimeFireTemp <= 0) {
-            GenerateBullet();
-            TimeFireTemp = TimeFire;
-        }
-    }
-
-    // генерация пули
-    void GenerateBullet() {
-        clone = Instantiate(Bullet, transform.position, transform.rotation);
-        //clone.transform.Translate(Vector3.up * Time.deltaTime, Space.World);
-        Destroy(clone, 10f); // уничтожение через 10 сек
-    }
-
-    // генерация тех-контейнера на месте GENERATE_technical_container
-    // на самом деле генерирую все подарки
-    void Generate_Technical_Container() {
-        int random_slot_2 = 0;
-        int random_slot_3 = 0;
-        int random_slot_4 = 0;
-        random_slot_2 = Random.Range(0, 5);
-        random_slot_3 = Random.Range(0, 5);
-        random_slot_4 = Random.Range(0, 5);
-
-        CLONE_technical_container = Instantiate(
-            PREFAB_technical_container,
-            GENERATE_technical_container.transform.position,
-            GENERATE_technical_container.transform.rotation);
-        if (random_slot_2 != 0) {
-            if (random_slot_2 == 1) {
-                CLONE_fuel_balon = Instantiate(PREFAB_fuel_balon, GENERATE_2.transform.position, GENERATE_2.transform.rotation);
-            }
-            if (random_slot_2 == 2) {
-                CLONE_fuel_balon = Instantiate(PREFAB_oxy_balon, GENERATE_2.transform.position, GENERATE_2.transform.rotation);
-            }
-            if (random_slot_2 == 3) {
-                CLONE_fuel_balon = Instantiate(PREFAB_aid_container, GENERATE_2.transform.position, GENERATE_2.transform.rotation);
-            }
-            if (random_slot_2 == 4) {
-                CLONE_fuel_balon = Instantiate(PREFAB_energy_container, GENERATE_2.transform.position, GENERATE_2.transform.rotation);
-            }
-        }
-        if (random_slot_3 != 0) {
-            if (random_slot_3 == 1) {
-                CLONE_fuel_balon = Instantiate(PREFAB_fuel_balon, GENERATE_3.transform.position, GENERATE_3.transform.rotation);
-            }
-            if (random_slot_3 == 2) {
-                CLONE_fuel_balon = Instantiate(PREFAB_oxy_balon, GENERATE_3.transform.position, GENERATE_3.transform.rotation);
-            }
-            if (random_slot_3 == 3) {
-                CLONE_fuel_balon = Instantiate(PREFAB_aid_container, GENERATE_3.transform.position, GENERATE_3.transform.rotation);
-            }
-            if (random_slot_3 == 4) {
-                CLONE_fuel_balon = Instantiate(PREFAB_energy_container, GENERATE_3.transform.position, GENERATE_3.transform.rotation);
-            }
-        }
-        if (random_slot_4 != 0) {
-            if (random_slot_4 == 1) {
-                CLONE_fuel_balon = Instantiate(PREFAB_fuel_balon, GENERATE_4.transform.position, GENERATE_4.transform.rotation);
-            }
-            if (random_slot_4 == 2) {
-                CLONE_fuel_balon = Instantiate(PREFAB_oxy_balon, GENERATE_4.transform.position, GENERATE_4.transform.rotation);
-            }
-            if (random_slot_4 == 3) {
-                CLONE_fuel_balon = Instantiate(PREFAB_aid_container, GENERATE_4.transform.position, GENERATE_4.transform.rotation);
-            }
-            if (random_slot_4 == 4) {
-                CLONE_fuel_balon = Instantiate(PREFAB_energy_container, GENERATE_4.transform.position, GENERATE_4.transform.rotation);
-            }
-        }
-    }
-
-    // Турель получает урон. Вызывается из скрипта пули игрока
-    public void TakesDamage() {
-        Debug.Log("в башню попадание");
-        healhTurretTEMP -= 10;
-        turretCanvasText.GetComponent<TMPro.TextMeshProUGUI>().text = healhTurretTEMP.ToString();
-        if (healhTurretTEMP <= 0) {
-            TurretDisabled();
-        }
-    }
-
-    // Турель подорвана
-    public void TurretDisabled() {
-        Debug.Log("башня подорвана");
-        LookAtTurret = false;
-        LiveTurret = false;
-        // Generate_Technical_Container(); // генерация тех-контейнера
-        Explosion.SetActive(true); // взрыв
-
-        // показываем взорванную турель
-        Exploded_turret_base.GetComponent<Renderer>().enabled = true;
-        Exploded_turret_tower.GetComponent<Renderer>().enabled = true;
-
-        // Отключаем рендер башни и подставки турели
-        turretTower.gameObject.GetComponent<MeshRenderer>().enabled = false;
-        turretBase.gameObject.GetComponent<MeshRenderer>().enabled = false;
-
-        // ДЕактивация режима игрока (бой)
-        animatorPlayer.SetBool("Attack_mode", false);
-        script_player.PlayerModeAttack = false;
-
-        turretCanvasText.SetActive(false); // спрятать текст турели
-        //ButtonFirePlayer.SetActive(false); // отключаю кнопку стрельбы игрока
-        if (FLAG_generate_technical_Container) {
-            Generate_Technical_Container(); // генерация тех-контейнера
-            FLAG_generate_technical_Container = false;
-        }
-
-
-        StartCoroutine(PauseRestartTurret(PauseRestartTurretSecond)); // Перезапуск Турели после паузы
-    }
-
-    // выравнивает холст турели по камере
-    private void CanvasTurretLookAt() {
-        turretCanvas.transform.LookAt(myCamera.transform);
-        float y = turretCanvas.transform.localEulerAngles.y;
-        turretCanvas.transform.localEulerAngles = new Vector3(0, y, 0);
-    }
-
-    // пауза перед рестартом Турели
-    IEnumerator PauseRestartTurret(int sec) {
-
-        yield return new WaitForSeconds(sec);
-        FLAG_generate_technical_Container = true; // снова можно генерировать тех-к.
-        animatorRepairBase.SetTrigger("activateRepairBase");// тригер переключения анимации ремонтной базы
-
-        EngineRepairBaseOn(true); // включаем двигатели ремонтной базы
-
-        // дополнительный флаг - турель сломанна, можно ремонтировать
-        // защита от повторныс срабатований
-        animatorRepairBase.SetBool("TurretBroken", true);
-
-        // Допорлнительная задержка. Когда турель уже прилетела, но ещё не взлетела,
-        // потом турель "оживает".
-        int dop_sec = 13;
-        yield return new WaitForSeconds(dop_sec);
-        RestartTurret();
-        yield return new WaitForSeconds(5); // ждём ещё 5 сек перед отключение двигателей
-        EngineRepairBaseOn(false); // отключаем двигатели ремонтной базы
-    }
-
-    // Рестарт Турели
-    private void RestartTurret() {
-        LiveTurret = true;
-        Explosion.SetActive(false); // отключаем взрыв
-        animatorRepairBase.SetBool("TurretBroken", false); // дополнительный флаг - турель восстановлена, ремонтировать нельзя
-
-        // восстанавливаем здоровье и обновляем канвас
-        healhTurretTEMP = healthTurret;
-        turretCanvasText.GetComponent<TMPro.TextMeshProUGUI>().text = healhTurretTEMP.ToString();
-
-        // Включаем рендер башни и подставки турели
-        turretTower.gameObject.GetComponent<MeshRenderer>().enabled = true;
-        turretBase.gameObject.GetComponent<MeshRenderer>().enabled = true;
-
-        // Отключаем рендер взорванной турели
-        Exploded_turret_base.GetComponent<Renderer>().enabled = false;
-        Exploded_turret_tower.GetComponent<Renderer>().enabled = false;
-    }
+    // РћС‚РєР»СЋС‡Р°РµРј СЂРµРЅРґРµСЂ РІР·РѕСЂРІР°РЅРЅРѕР№ С‚СѓСЂРµР»Рё
+    Exploded_turret_base.GetComponent<Renderer>().enabled = false;
+    Exploded_turret_tower.GetComponent<Renderer>().enabled = false;
+  }
 }
