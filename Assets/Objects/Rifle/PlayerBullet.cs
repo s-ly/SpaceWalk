@@ -1,86 +1,100 @@
-// пуля игрока
+// РїСѓР»СЏ РёРіСЂРѕРєР°
 
 using UnityEngine;
 
-public class PlayerBullet : MonoBehaviour
-{
-    [SerializeField] private float speedBullet;
-    [SerializeField] private GameObject Explosion_Bullet; // взрыв пули
+public class PlayerBullet : MonoBehaviour {
+  [SerializeField] private float speedBullet;
+  [SerializeField] private GameObject Explosion_Bullet; // РІР·СЂС‹РІ РїСѓР»Рё
 
-    private GameObject turret;
-    private Turret turret_script;
-    private GameObject clone_Explosion_Bullet; // клон взрыва пули
-    
-    EnergyBattery SCRIPT_EnergyBattery;
-    //GameObject EnergyBattery;
+  private GameObject turret;
+  private Turret turret_script;
+  private GameObject clone_Explosion_Bullet; // РєР»РѕРЅ РІР·СЂС‹РІР° РїСѓР»Рё
 
-    // так как колаидер, по которому стреляет игрок ниже в ирархии робота
-    // при попадании в коллидер мы используем его родителя, это будет основной объект робота.
-    robot_scout robot_scout_SCRIPT;
+  EnergyBattery SCRIPT_EnergyBattery;
+  //GameObject EnergyBattery;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+  // С‚Р°Рє РєР°Рє РєРѕР»Р°РёРґРµСЂ, РїРѕ РєРѕС‚РѕСЂРѕРјСѓ СЃС‚СЂРµР»СЏРµС‚ РёРіСЂРѕРє РЅРёР¶Рµ РІ РёСЂР°СЂС…РёРё СЂРѕР±РѕС‚Р°
+  // РїСЂРё РїРѕРїР°РґР°РЅРёРё РІ РєРѕР»Р»РёРґРµСЂ РјС‹ РёСЃРїРѕР»СЊР·СѓРµРј РµРіРѕ СЂРѕРґРёС‚РµР»СЏ, СЌС‚Рѕ Р±СѓРґРµС‚ РѕСЃРЅРѕРІРЅРѕР№ РѕР±СЉРµРєС‚ СЂРѕР±РѕС‚Р°.
+  robot_scout robot_scout_SCRIPT;
+
+  // Start is called before the first frame update
+  void Start() {
+
+  }
+
+  // Update is called once per frame
+  void Update() {
+    transform.Translate(Vector3.forward * speedBullet * Time.deltaTime, Space.Self);
+  }
+
+  // РџСѓР»СЏ РєСѓРґР°-С‚Рѕ РїРѕРїР°Р»Р°
+  private void OnTriggerEnter(Collider other) {
+
+    // РџСѓР»СЏ РїРѕРїР°Р»Р° РІ Enemy_3
+    if (other.gameObject.CompareTag("Enemy_3")) {
+      Debug.Log("РџРЈР›РЇ РџРћРџРђР›Рђ!!!--------------------------!!!!");
+      GameObject missileTurret = other.gameObject;
+      MissileTurret SCRIPT_missileTurret = missileTurret.GetComponent<MissileTurret>();
+      SCRIPT_missileTurret.fsm(MissileTurret.EventFSM.TakingDamage);
+      
+      // if (SCRIPT_missileTurret._state != MissileTurret.StateFSM.Destroyed) {
+      //   SCRIPT_missileTurret.Damage();
+      // }
+
+      // РІР·СЂС‹РІ РїСѓР»Рё
+      clone_Explosion_Bullet = Instantiate(Explosion_Bullet, transform.position, transform.rotation);
+      Destroy(clone_Explosion_Bullet, 2f); // СѓРЅРёС‡С‚РѕР¶РµРЅРёРµ С‡РµСЂРµР· 2 СЃРµРє
+      Destroy(gameObject); // СѓР±РёРІР°РµРј РїСѓР»СЋ РёРіСЂРѕРєР°
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        transform.Translate(Vector3.forward * speedBullet * Time.deltaTime, Space.Self);
+    // РџСѓР»СЏ РїРѕРїР°Р»Р° РІ РўСѓСЂРµР»СЊ
+    if (other.gameObject.CompareTag("Enemy")) {
+      Debug.Log("РџРЈР›РЇ РџРћРџРђР›Рђ!!!!!!!");
+      /* РЅР°С…РѕРґРёРј РѕР±СЉРµРєС‚ С‚СѓСЂРµР»Рё, РєРѕС‚РѕСЂС‹Р№ РЅРёР¶Рµ РїРѕ РёСЂР°СЂС…РёРё,
+      РїРѕР»СѓС‡Р°РµРј РµРіРѕ СЃРєСЂРёРїС‚ Рё РІС‹Р·С‹РІР°РµРј РјРµС‚РѕРґ РїРѕР»СѓС‡РµРЅРёСЏ СѓСЂРѕРЅР°. */
+      turret = other.gameObject.transform.GetChild(0).gameObject;
+      turret_script = turret.GetComponent<Turret>();
+      turret_script.TakesDamage();
+
+      // РІР·СЂС‹РІ РїСѓР»Рё
+      clone_Explosion_Bullet = Instantiate(Explosion_Bullet, transform.position, transform.rotation);
+      Destroy(clone_Explosion_Bullet, 2f); // СѓРЅРёС‡С‚РѕР¶РµРЅРёРµ С‡РµСЂРµР· 2 СЃРµРє
+
+      Destroy(gameObject); // СѓР±РёРІР°РµРј РїСѓР»СЋ РёРіСЂРѕРєР°
     }
 
-    // Пуля куда-то попала
-    private void OnTriggerEnter(Collider other)
-    {
-        // Пуля попала в Турель
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            /* находим объект турели, который ниже по ирархии,
-            получаем его скрипт и вызываем метод получения урона. */
-            turret = other.gameObject.transform.GetChild(0).gameObject;
-            turret_script = turret.GetComponent<Turret>();
-            turret_script.TakesDamage();
+    // РџСѓР»СЏ РїРѕРїР°Р»Р° РІ Р РѕР±РѕС‚Р°
+    if (other.gameObject.CompareTag("Enemy_2")) {
 
-            // взрыв пули
-            clone_Explosion_Bullet = Instantiate(Explosion_Bullet, transform.position, transform.rotation);
-            Destroy(clone_Explosion_Bullet, 2f); // уничтожение через 2 сек
-
-            Destroy(gameObject); // убиваем пулю игрока
-        }
-
-        // Пуля попала в Робота
-        if (other.gameObject.CompareTag("Enemy_2")) {
-
-            // получаем родителя, то-есть самого робота
-            robot_scout_SCRIPT = other.gameObject.GetComponentInParent<robot_scout>();
-            robot_scout_SCRIPT.Damage();
+      // РїРѕР»СѓС‡Р°РµРј СЂРѕРґРёС‚РµР»СЏ, С‚Рѕ-РµСЃС‚СЊ СЃР°РјРѕРіРѕ СЂРѕР±РѕС‚Р°
+      robot_scout_SCRIPT = other.gameObject.GetComponentInParent<robot_scout>();
+      robot_scout_SCRIPT.Damage();
 
 
-            // взрыв пули
-            clone_Explosion_Bullet = Instantiate(Explosion_Bullet, transform.position, transform.rotation);
-            Destroy(clone_Explosion_Bullet, 2f); // уничтожение через 2 сек
+      // РІР·СЂС‹РІ РїСѓР»Рё
+      clone_Explosion_Bullet = Instantiate(Explosion_Bullet, transform.position, transform.rotation);
+      Destroy(clone_Explosion_Bullet, 2f); // СѓРЅРёС‡С‚РѕР¶РµРЅРёРµ С‡РµСЂРµР· 2 СЃРµРє
 
-            Destroy(gameObject); // убиваем пулю игрока
-        }
-
-        // Пуля попала в Робота
-        if (other.gameObject.CompareTag("Enemy_battery")) {
-            
-            // получаем родителя родителя родителя
-            GameObject energy_battery;             
-            energy_battery = other.gameObject.transform.parent.gameObject;
-            energy_battery = energy_battery.transform.parent.gameObject;
-            energy_battery = energy_battery.transform.parent.gameObject;
-            SCRIPT_EnergyBattery = energy_battery.GetComponent<EnergyBattery>();
-            SCRIPT_EnergyBattery.Damage();
-            Debug.Log("----Damage>");
-
-            // взрыв пули
-            clone_Explosion_Bullet = Instantiate(Explosion_Bullet, transform.position, transform.rotation);
-            Destroy(clone_Explosion_Bullet, 2f); // уничтожение через 2 сек
-
-            Destroy(gameObject); // убиваем пулю игрока
-        }
+      Destroy(gameObject); // СѓР±РёРІР°РµРј РїСѓР»СЋ РёРіСЂРѕРєР°
     }
+
+    // РџСѓР»СЏ РїРѕРїР°Р»Р° РІ Р РѕР±РѕС‚Р°
+    if (other.gameObject.CompareTag("Enemy_battery")) {
+
+      // РїРѕР»СѓС‡Р°РµРј СЂРѕРґРёС‚РµР»СЏ СЂРѕРґРёС‚РµР»СЏ СЂРѕРґРёС‚РµР»СЏ
+      GameObject energy_battery;
+      energy_battery = other.gameObject.transform.parent.gameObject;
+      energy_battery = energy_battery.transform.parent.gameObject;
+      energy_battery = energy_battery.transform.parent.gameObject;
+      SCRIPT_EnergyBattery = energy_battery.GetComponent<EnergyBattery>();
+      SCRIPT_EnergyBattery.Damage();
+      Debug.Log("----Damage>");
+
+      // РІР·СЂС‹РІ РїСѓР»Рё
+      clone_Explosion_Bullet = Instantiate(Explosion_Bullet, transform.position, transform.rotation);
+      Destroy(clone_Explosion_Bullet, 2f); // СѓРЅРёС‡С‚РѕР¶РµРЅРёРµ С‡РµСЂРµР· 2 СЃРµРє
+
+      Destroy(gameObject); // СѓР±РёРІР°РµРј РїСѓР»СЋ РёРіСЂРѕРєР°
+    }
+  }
 }

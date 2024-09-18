@@ -4,21 +4,21 @@ using TMPro;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-// Управляет врагом, роботом разведчиком.
+// РЈРїСЂР°РІР»СЏРµС‚ РІСЂР°РіРѕРј, СЂРѕР±РѕС‚РѕРј СЂР°Р·РІРµРґС‡РёРєРѕРј.
 public class robot_scout : MonoBehaviour {
     [SerializeField] TextMeshProUGUI robot_scout_canvas_text;
     [SerializeField] GameObject robot_scout_canvas;
-    [SerializeField] GameObject Explosion;// взрыв
-    GameObject Explosion_CLONE;// взрыв для робота
-    int robot_scout_health = 100; // здоровье
-    GameObject ground; // Луна
+    [SerializeField] GameObject Explosion;// РІР·СЂС‹РІ
+    GameObject Explosion_CLONE;// РІР·СЂС‹РІ РґР»СЏ СЂРѕР±РѕС‚Р°
+    int robot_scout_health = 100; // Р·РґРѕСЂРѕРІСЊРµ
+    GameObject ground; // Р›СѓРЅР°
     Transform target_ground;
     Rigidbody rigid;
     float gravity = 2.0f;
     string debug_obj_name = "bot_scout: ";
     float distance_player;
     GameObject player_collider;
-    float speed_rot_robot_scout = 2.5f; // было 1.5
+    float speed_rot_robot_scout = 2.5f; // Р±С‹Р»Рѕ 1.5
     float speed_walk = 10f;
     public bool rot_robot_scout = false;
     GameObject myCamera;
@@ -28,19 +28,19 @@ public class robot_scout : MonoBehaviour {
     private player script_player;
     [SerializeField] private Animator animatorPlayer;
 
-    bool robot_destroy = false; // робот уничтожен
+    bool robot_destroy = false; // СЂРѕР±РѕС‚ СѓРЅРёС‡С‚РѕР¶РµРЅ
 
-    // стрельба
+    // СЃС‚СЂРµР»СЊР±Р°
     [SerializeField] GameObject Gun;
-    [SerializeField] GameObject Bullet; //префаб пули
-    GameObject cloneBullet; // клон пули
-    float TimeFire = 0.3f; // время между выстрелами
+    [SerializeField] GameObject Bullet; //РїСЂРµС„Р°Р± РїСѓР»Рё
+    GameObject cloneBullet; // РєР»РѕРЅ РїСѓР»Рё
+    float TimeFire = 0.3f; // РІСЂРµРјСЏ РјРµР¶РґСѓ РІС‹СЃС‚СЂРµР»Р°РјРё
     float TimeFireTemp;
 
     GameObject RADIUS_robot_scout;
 
 
-    // генерация призов
+    // РіРµРЅРµСЂР°С†РёСЏ РїСЂРёР·РѕРІ
     public Transform slot_generate_1;
     public Transform slot_generate_2;
     public Transform slot_generate_3;
@@ -57,7 +57,7 @@ public class robot_scout : MonoBehaviour {
     GameObject CLONE_aid_container;
 
 
-    // Генерирует призы после взрыва
+    // Р“РµРЅРµСЂРёСЂСѓРµС‚ РїСЂРёР·С‹ РїРѕСЃР»Рµ РІР·СЂС‹РІР°
     void GeneratePrize() {
         int random_slot_1 = 0;
         int random_slot_2 = 0;
@@ -197,13 +197,13 @@ public class robot_scout : MonoBehaviour {
         RADIUS_robot_scout = transform.parent.gameObject;
         rigid = transform.GetComponent<Rigidbody>();
         ground = GameObject.Find("/ground");
-        myCamera = GameObject.FindGameObjectWithTag("MainCamera"); // ссылка на камеру
+        myCamera = GameObject.FindGameObjectWithTag("MainCamera"); // СЃСЃС‹Р»РєР° РЅР° РєР°РјРµСЂСѓ
         target_ground = ground.GetComponent<Transform>();
-        robot_scout_canvas_text.text = robot_scout_health.ToString(); // показываем здоровье
+        robot_scout_canvas_text.text = robot_scout_health.ToString(); // РїРѕРєР°Р·С‹РІР°РµРј Р·РґРѕСЂРѕРІСЊРµ
         robot_scout_canvas_text.enabled = false;
         Player = GameObject.FindGameObjectWithTag("Player");
         script_player = Player.GetComponent<player>();
-        Explosion.SetActive(false); // взрыв пока не нужен
+        Explosion.SetActive(false); // РІР·СЂС‹РІ РїРѕРєР° РЅРµ РЅСѓР¶РµРЅ
         TimeFireTemp = TimeFire;
 
     }
@@ -220,11 +220,11 @@ public class robot_scout : MonoBehaviour {
     void FixedUpdate() {
         Gravity();
         if (rot_robot_scout) {
-            rigid.AddForce(transform.forward * speed_walk); // движение вперёд
+            rigid.AddForce(transform.forward * speed_walk); // РґРІРёР¶РµРЅРёРµ РІРїРµСЂС‘Рґ
         }
     }
 
-    // выстрелы
+    // РІС‹СЃС‚СЂРµР»С‹
     void Fire() {
         TimeFireTemp = TimeFireTemp - Time.deltaTime;
         if (TimeFireTemp <= 0) {
@@ -233,106 +233,106 @@ public class robot_scout : MonoBehaviour {
         }
     }
 
-    // генерация пули
+    // РіРµРЅРµСЂР°С†РёСЏ РїСѓР»Рё
     void GenerateBullet() {
         cloneBullet = Instantiate(Bullet, Gun.transform.position, Gun.transform.rotation);
-        Destroy(cloneBullet, 10f); // уничтожение через 10 сек
+        Destroy(cloneBullet, 10f); // СѓРЅРёС‡С‚РѕР¶РµРЅРёРµ С‡РµСЂРµР· 10 СЃРµРє
     }
 
     void Gravity() {
-        // Выравнивание игрока к центру планеты.
-        Vector3 pos = (target_ground.position - transform.position).normalized; // нормальный вектор направление к планете от игрока
-        Quaternion rot = Quaternion.FromToRotation(-transform.up, pos);  // кватернион, поворачивающий игрока по вектору к центру планеты
-        transform.rotation = rot * transform.rotation;                   // Применяем кватернион к игроку
+        // Р’С‹СЂР°РІРЅРёРІР°РЅРёРµ РёРіСЂРѕРєР° Рє С†РµРЅС‚СЂСѓ РїР»Р°РЅРµС‚С‹.
+        Vector3 pos = (target_ground.position - transform.position).normalized; // РЅРѕСЂРјР°Р»СЊРЅС‹Р№ РІРµРєС‚РѕСЂ РЅР°РїСЂР°РІР»РµРЅРёРµ Рє РїР»Р°РЅРµС‚Рµ РѕС‚ РёРіСЂРѕРєР°
+        Quaternion rot = Quaternion.FromToRotation(-transform.up, pos);  // РєРІР°С‚РµСЂРЅРёРѕРЅ, РїРѕРІРѕСЂР°С‡РёРІР°СЋС‰РёР№ РёРіСЂРѕРєР° РїРѕ РІРµРєС‚РѕСЂСѓ Рє С†РµРЅС‚СЂСѓ РїР»Р°РЅРµС‚С‹
+        transform.rotation = rot * transform.rotation;                   // РџСЂРёРјРµРЅСЏРµРј РєРІР°С‚РµСЂРЅРёРѕРЅ Рє РёРіСЂРѕРєСѓ
 
-        rigid.AddForce(pos * gravity);                                     // гравитация для игрока
+        rigid.AddForce(pos * gravity);                                     // РіСЂР°РІРёС‚Р°С†РёСЏ РґР»СЏ РёРіСЂРѕРєР°
     }
 
-    // в зону турели что-то входит
+    // РІ Р·РѕРЅСѓ С‚СѓСЂРµР»Рё С‡С‚Рѕ-С‚Рѕ РІС…РѕРґРёС‚
     private void OnTriggerEnter(Collider other) {
-        // В зону вошёл игрок 
+        // Р’ Р·РѕРЅСѓ РІРѕС€С‘Р» РёРіСЂРѕРє 
         if (other.gameObject.CompareTag("Player")) {
-            player_collider = other.gameObject; // ссылка на игрока
+            player_collider = other.gameObject; // СЃСЃС‹Р»РєР° РЅР° РёРіСЂРѕРєР°
             rot_robot_scout = true;
-            Debug.Log(debug_obj_name + "Нашёл цель");
+            Debug.Log(debug_obj_name + "РќР°С€С‘Р» С†РµР»СЊ");
             robot_scout_canvas_text.enabled = true;
 
-            // активация режима игрока (бой)
+            // Р°РєС‚РёРІР°С†РёСЏ СЂРµР¶РёРјР° РёРіСЂРѕРєР° (Р±РѕР№)
             animatorPlayer.SetBool("Attack_mode", true);
             script_player.PlayerModeAttack = true;
         }
     }
 
-    // из зоны турели что-то вышло
+    // РёР· Р·РѕРЅС‹ С‚СѓСЂРµР»Рё С‡С‚Рѕ-С‚Рѕ РІС‹С€Р»Рѕ
     private void OnTriggerExit(Collider other) {
-        // В зону вошёл игрок 
+        // Р’ Р·РѕРЅСѓ РІРѕС€С‘Р» РёРіСЂРѕРє 
         if (other.gameObject.CompareTag("Player")) {
-            // дополнительная проверка растояния между игроком и роботом.
-            // потому-то были ложные срабатывания при их столкновении
+            // РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅР°СЏ РїСЂРѕРІРµСЂРєР° СЂР°СЃС‚РѕСЏРЅРёСЏ РјРµР¶РґСѓ РёРіСЂРѕРєРѕРј Рё СЂРѕР±РѕС‚РѕРј.
+            // РїРѕС‚РѕРјСѓ-С‚Рѕ Р±С‹Р»Рё Р»РѕР¶РЅС‹Рµ СЃСЂР°Р±Р°С‚С‹РІР°РЅРёСЏ РїСЂРё РёС… СЃС‚РѕР»РєРЅРѕРІРµРЅРёРё
             Vector3 playerPosition = Player.transform.position;
             Vector3 robotPosition = transform.position;
             float distance = Vector3.Distance(playerPosition, robotPosition);
             if (distance >= 5f) {
-                Debug.Log(debug_obj_name + "Потерял цель");
+                Debug.Log(debug_obj_name + "РџРѕС‚РµСЂСЏР» С†РµР»СЊ");
                 rot_robot_scout = false;
                 robot_scout_canvas_text.enabled = false;
 
-                // ДЕактивация режима игрока (бой)
+                // Р”Р•Р°РєС‚РёРІР°С†РёСЏ СЂРµР¶РёРјР° РёРіСЂРѕРєР° (Р±РѕР№)
                 animatorPlayer.SetBool("Attack_mode", false);
                 script_player.PlayerModeAttack = false;
             }
         }
     }
-    // в зоне что-то находится
+    // РІ Р·РѕРЅРµ С‡С‚Рѕ-С‚Рѕ РЅР°С…РѕРґРёС‚СЃСЏ
     private void OnTriggerStay(Collider other) {
-        // В зону вошёл игрок 
+        // Р’ Р·РѕРЅСѓ РІРѕС€С‘Р» РёРіСЂРѕРє 
         if (other.gameObject.CompareTag("Player") && (robot_destroy == false)) {
-            distance_player = Vector3.Distance(other.transform.position, transform.position); // определяю расстояние до игрока
+            distance_player = Vector3.Distance(other.transform.position, transform.position); // РѕРїСЂРµРґРµР»СЏСЋ СЂР°СЃСЃС‚РѕСЏРЅРёРµ РґРѕ РёРіСЂРѕРєР°
                                                                                               // rot_robot_scout = true;
 
-            //Debug.Log(debug_obj_name + "Наблюдаю цель, до игрока: " + distance_player.ToString());
+            //Debug.Log(debug_obj_name + "РќР°Р±Р»СЋРґР°СЋ С†РµР»СЊ, РґРѕ РёРіСЂРѕРєР°: " + distance_player.ToString());
 
-            // активация режима игрока (бой)
+            // Р°РєС‚РёРІР°С†РёСЏ СЂРµР¶РёРјР° РёРіСЂРѕРєР° (Р±РѕР№)
             animatorPlayer.SetBool("Attack_mode", true);
             script_player.PlayerModeAttack = true;
         }
     }
-    // поворот робота к игроку
+    // РїРѕРІРѕСЂРѕС‚ СЂРѕР±РѕС‚Р° Рє РёРіСЂРѕРєСѓ
     void Direction_robot_scout() {
-        Vector3 pos = (player_collider.transform.position - transform.position).normalized; // нормальный вектор направление к игроку
-        Quaternion rot = Quaternion.FromToRotation(transform.forward, pos);  // кватернион, поворачивающий робота по вектору кигроку
-        Quaternion new_rot = rot * transform.rotation;                   // новый кватернион поворота робота к игроку
-        transform.rotation = Quaternion.Lerp(transform.rotation, new_rot, speed_rot_robot_scout * Time.deltaTime); // плавно поворачиваем
+        Vector3 pos = (player_collider.transform.position - transform.position).normalized; // РЅРѕСЂРјР°Р»СЊРЅС‹Р№ РІРµРєС‚РѕСЂ РЅР°РїСЂР°РІР»РµРЅРёРµ Рє РёРіСЂРѕРєСѓ
+        Quaternion rot = Quaternion.FromToRotation(transform.forward, pos);  // РєРІР°С‚РµСЂРЅРёРѕРЅ, РїРѕРІРѕСЂР°С‡РёРІР°СЋС‰РёР№ СЂРѕР±РѕС‚Р° РїРѕ РІРµРєС‚РѕСЂСѓ РєРёРіСЂРѕРєСѓ
+        Quaternion new_rot = rot * transform.rotation;                   // РЅРѕРІС‹Р№ РєРІР°С‚РµСЂРЅРёРѕРЅ РїРѕРІРѕСЂРѕС‚Р° СЂРѕР±РѕС‚Р° Рє РёРіСЂРѕРєСѓ
+        transform.rotation = Quaternion.Lerp(transform.rotation, new_rot, speed_rot_robot_scout * Time.deltaTime); // РїР»Р°РІРЅРѕ РїРѕРІРѕСЂР°С‡РёРІР°РµРј
     }
 
-    // выравнивает холст робота по камере
+    // РІС‹СЂР°РІРЅРёРІР°РµС‚ С…РѕР»СЃС‚ СЂРѕР±РѕС‚Р° РїРѕ РєР°РјРµСЂРµ
     private void CanvasTurretLookAt() {
         robot_scout_canvas.transform.LookAt(myCamera.transform);
         float y = robot_scout_canvas.transform.localEulerAngles.y;
         robot_scout_canvas.transform.localEulerAngles = new Vector3(0, y, 0);
     }
 
-    // урон робота
+    // СѓСЂРѕРЅ СЂРѕР±РѕС‚Р°
     public void Damage() {
         robot_scout_health -= 10;
-        robot_scout_canvas_text.text = robot_scout_health.ToString(); // показываем здоровье
+        robot_scout_canvas_text.text = robot_scout_health.ToString(); // РїРѕРєР°Р·С‹РІР°РµРј Р·РґРѕСЂРѕРІСЊРµ
         if (robot_scout_health <= 0) {
             GeneratePrize();
             Dead();
         }
     }
 
-    // робот иничтожен
+    // СЂРѕР±РѕС‚ РёРЅРёС‡С‚РѕР¶РµРЅ
     public void Dead() {
         robot_destroy = true;
-        // ДЕактивация режима игрока (бой)
+        // Р”Р•Р°РєС‚РёРІР°С†РёСЏ СЂРµР¶РёРјР° РёРіСЂРѕРєР° (Р±РѕР№)
         animatorPlayer.SetBool("Attack_mode", false);
         script_player.PlayerModeAttack = false;
 
-        // экземпляр взрыва
+        // СЌРєР·РµРјРїР»СЏСЂ РІР·СЂС‹РІР°
         Explosion_CLONE = Instantiate(Explosion, transform.position, transform.rotation);
         Explosion_CLONE.SetActive(true);
-        Destroy(Explosion_CLONE, 6.0f); // уничтожение через 2 сек
+        Destroy(Explosion_CLONE, 6.0f); // СѓРЅРёС‡С‚РѕР¶РµРЅРёРµ С‡РµСЂРµР· 2 СЃРµРє
         Destroy(RADIUS_robot_scout);
     }
 }

@@ -10,6 +10,8 @@ TagManager:
   - Tech_Container
   - Enemy_2
   - Enemy_battery
+  - Enemy_3
+  - Destroyed_Enemy
   layers:
   - Default
   - TransparentFX

@@ -5,124 +5,129 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnergyBattery : MonoBehaviour {
-    public int num_battery = 0; // порядковый номер (1-3)
-    public GameManager SRC_GameManager;
+  public int num_battery = 0; // РїРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ (1-3)
+  public GameManager SRC_GameManager;
 
-    public GameObject Base_On;
-    public GameObject Base_Off;
-    public TextMeshProUGUI text;
-    public GameObject canvas;
+  public GameObject Base_On;
+  public GameObject Base_Off;
+  public TextMeshProUGUI text;
+  public GameObject canvas;
 
-    GameObject Player;
-    player SCRIPT_player;
-    Animator ANIMATOR_player;
+  GameObject Player;
+  public player SCRIPT_player;
+  public Animator ANIMATOR_player;
 
-    int health = 200; // здоровье
-    public bool destroy = false;
-    public bool active = false;
+  int health = 200; // Р·РґРѕСЂРѕРІСЊРµ
+  public bool destroy = false;
+  public bool active = false;
 
-    public GameObject Explosion;// взрыв
-    GameObject Explosion_CLONE;// взрыв для робота
+  public GameObject Explosion;// РІР·СЂС‹РІ
+  GameObject Explosion_CLONE;// РІР·СЂС‹РІ РґР»СЏ СЂРѕР±РѕС‚Р°
 
-    bool DamageOn = false; // получает ли урон
+  public bool DamageOn = false; // РїРѕР»СѓС‡Р°РµС‚ Р»Рё СѓСЂРѕРЅ
 
-    // Start is called before the first frame update
-    void Start() {
-        canvas.SetActive(false);
-        Base_Off.SetActive(false);
-        Player = GameObject.FindGameObjectWithTag("Player");
-        SCRIPT_player = Player.GetComponent<player>();
-        ANIMATOR_player = Player.GetComponent<Animator>();
-        text.text = health.ToString(); // показываем здоровье
+  // Start is called before the first frame update
+  void Start() {
+    canvas.SetActive(false);
+    Base_Off.SetActive(false);
+    Player = GameObject.FindGameObjectWithTag("Player");
+    SCRIPT_player = Player.GetComponent<player>();
+    ANIMATOR_player = Player.GetComponentInChildren<Animator>();
+    text.text = health.ToString(); // РїРѕРєР°Р·С‹РІР°РµРј Р·РґРѕСЂРѕРІСЊРµ
 
-        if (ProgressManager.Instance.YandexDataOBJ.GameState == 9) {
-            ActivationBattery();
-        }
-
-        if (ProgressManager.Instance.YandexDataOBJ.GameState >= 10) {
-            destroy = true;
-            active = false;
-            Base_Off.SetActive(true);
-            Base_On.SetActive(false);
-        }
+    if (ProgressManager.Instance.YandexDataOBJ.GameState == 9) {
+      ActivationBattery();
     }
 
-    // Update is called once per frame
-    void Update() {
-
+    if (ProgressManager.Instance.YandexDataOBJ.GameState >= 10) {
+      destroy = true;
+      active = false;
+      Base_Off.SetActive(true);
+      Base_On.SetActive(false);
     }
+  }
 
-    public void ActivationBattery() {
-        Debug.Log("АКТИВАЦИЯ БАТАРЕИ" + num_battery);
-        active = true;
+  // Update is called once per frame
+  void Update() {
 
+  }
+
+  public void ActivationBattery() {
+    Debug.Log("РђРљРўРР’РђР¦РРЇ Р‘РђРўРђР Р•Р" + num_battery);
+    active = true;
+
+  }
+
+  // РІ Р·РѕРЅСѓ С‚СѓСЂРµР»Рё С‡С‚Рѕ-С‚Рѕ РІС…РѕРґРёС‚
+  private void OnTriggerEnter(Collider other) {
+    // Р’ Р·РѕРЅСѓ РІРѕС€С‘Р» РёРіСЂРѕРє 
+    if (other.gameObject.CompareTag("Player") && !destroy && active) {
+      canvas.SetActive(true);
+      DamageOn = true;
+      // Р°РєС‚РёРІР°С†РёСЏ СЂРµР¶РёРјР° РёРіСЂРѕРєР° (Р±РѕР№)
+      ANIMATOR_player.SetBool("Attack_mode", true);
+      SCRIPT_player.PlayerModeAttack = true;
     }
+  }
 
-    // в зону турели что-то входит
-    private void OnTriggerEnter(Collider other) {
-        // В зону вошёл игрок 
-        if (other.gameObject.CompareTag("Player") && !destroy && active) {
-            canvas.SetActive(true);
-            DamageOn = true;
-            // активация режима игрока (бой)
-            ANIMATOR_player.SetBool("Attack_mode", true);
-            SCRIPT_player.PlayerModeAttack = true;
-        }
+  // РёР· Р·РѕРЅС‹ С‚СѓСЂРµР»Рё С‡С‚Рѕ-С‚Рѕ РІС‹С€Р»Рѕ
+  private void OnTriggerExit(Collider other) {
+    // Р’ Р·РѕРЅСѓ РІРѕС€С‘Р» РёРіСЂРѕРє 
+    if (other.gameObject.CompareTag("Player") && !destroy && active) {
+      canvas.SetActive(false);
+      DamageOn = false;
+      // Р”Р•Р°РєС‚РёРІР°С†РёСЏ СЂРµР¶РёРјР° РёРіСЂРѕРєР° (Р±РѕР№)
+      ANIMATOR_player.SetBool("Attack_mode", false);
+      SCRIPT_player.PlayerModeAttack = false;
     }
+  }
 
-    // из зоны турели что-то вышло
-    private void OnTriggerExit(Collider other) {
-        // В зону вошёл игрок 
-        if (other.gameObject.CompareTag("Player") && !destroy && active) {
-            canvas.SetActive(false);
-            DamageOn = false;
-            // ДЕактивация режима игрока (бой)
-            ANIMATOR_player.SetBool("Attack_mode", false);
-            SCRIPT_player.PlayerModeAttack = false;
-        }
+  // РІ Р·РѕРЅРµ С‡С‚Рѕ-С‚Рѕ РЅР°С…РѕРґРёС‚СЃСЏ
+  private void OnTriggerStay(Collider other) {
+    // Р’ Р·РѕРЅСѓ РІРѕС€С‘Р» РёРіСЂРѕРє 
+    if (other.gameObject.CompareTag("Player") && !destroy && active) {
+      canvas.SetActive(true);
+      DamageOn = true;
+      // Р°РєС‚РёРІР°С†РёСЏ СЂРµР¶РёРјР° РёРіСЂРѕРєР° (Р±РѕР№)
+      ANIMATOR_player.SetBool("Attack_mode", true);
+      SCRIPT_player.PlayerModeAttack = true;
     }
+  }
 
-    // в зоне что-то находится
-    private void OnTriggerStay(Collider other) {
-        // В зону вошёл игрок 
-        if (other.gameObject.CompareTag("Player") && !destroy && active) {
-            canvas.SetActive(true);
-            DamageOn = true;
-            // активация режима игрока (бой)
-            ANIMATOR_player.SetBool("Attack_mode", true);
-            SCRIPT_player.PlayerModeAttack = true;
-        }
+  void BatteryDestroy() {
+    Debug.Log("!!!!!!!!! РІР·СЂС‹РІ Р±Р°С‚Р°СЂРµРё");
+    destroy = true;
+    active = false;
+
+    // Р”Р•Р°РєС‚РёРІР°С†РёСЏ СЂРµР¶РёРјР° РёРіСЂРѕРєР° (Р±РѕР№)
+    ANIMATOR_player.SetBool("Attack_mode", false);
+    Debug.Log("!!!!!!!!! РІР·СЂС‹РІ Р±Р°С‚Р°СЂРµРё - РєРѕРЅРµС† С„СѓРЅРєС†РёРё");
+    SCRIPT_player.PlayerModeAttack = false;
+
+    // СЌРєР·РµРјРїР»СЏСЂ РІР·СЂС‹РІР°
+    Transform child_base;
+    child_base = transform.GetChild(0);
+    Explosion_CLONE = Instantiate(Explosion, child_base.position, child_base.rotation);
+    Explosion_CLONE.transform.localScale = Vector3.one * 7f;
+    Explosion_CLONE.transform.localPosition += Vector3.up * 1f;
+    Explosion_CLONE.SetActive(true);
+    Destroy(Explosion_CLONE, 1.18f); // СѓРЅРёС‡С‚РѕР¶РµРЅРёРµ С‡РµСЂРµР· 2 СЃРµРє
+    Base_On.SetActive(false);
+    Base_Off.SetActive(true);
+    canvas.SetActive(false);
+
+    SRC_GameManager.CheckDestroyBatteryNum(num_battery);
+    SRC_GameManager.Check_GameState("Battery"); // РџСЂРѕРІРµСЂРєР° СЃРѕСЃС‚РѕСЏРЅРёСЏ РёРіСЂС‹
+  }
+
+  public void Damage() {
+    if (active && DamageOn) {
+      health -= 10;
+      text.text = health.ToString(); // РїРѕРєР°Р·С‹РІР°РµРј Р·РґРѕСЂРѕРІСЊРµ
+      if (health <= 0) {
+        
+        BatteryDestroy();
+      }
     }
-
-    void Destroy() {
-        destroy = true;
-        active = false;
-
-        // ДЕактивация режима игрока (бой)
-        ANIMATOR_player.SetBool("Attack_mode", false);
-        SCRIPT_player.PlayerModeAttack = false;
-
-        // экземпляр взрыва
-        Transform child_base;
-        child_base = transform.GetChild(0);
-        Explosion_CLONE = Instantiate(Explosion, child_base.position, child_base.rotation);   
-        Explosion_CLONE.transform.localScale = Vector3.one * 7f;
-        Explosion_CLONE.transform.localPosition += Vector3.up * 1f;
-        Explosion_CLONE.SetActive(true);
-        Destroy(Explosion_CLONE, 1.18f); // уничтожение через 2 сек
-        Base_On.SetActive(false);
-        Base_Off.SetActive(true);
-        canvas.SetActive(false);
-
-        SRC_GameManager.CheckDestroyBatteryNum(num_battery);
-        SRC_GameManager.Check_GameState("Battery"); // Проверка состояния игры
-    }
-
-    public void Damage() {
-        if (active && DamageOn) {
-            health -= 10;
-            text.text = health.ToString(); // показываем здоровье
-            if (health <= 0) Destroy();
-        }
-    }
+  }
 }

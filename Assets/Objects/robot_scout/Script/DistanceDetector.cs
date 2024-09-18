@@ -35,7 +35,7 @@ public class DistanceDetector : MonoBehaviour {
     // Gizmos.DrawWireSphere(targetPosition, 0.5f);
 
     if (GizmosOn) {
-      Gizmos.color = Color.red;
+      Gizmos.color = Color.yellow;
       Gizmos.DrawWireSphere(obj.position, minDistance);
     }
   }
