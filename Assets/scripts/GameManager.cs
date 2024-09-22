@@ -10,6 +10,8 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
   //[DllImport("__Internal")] private static extern void JS_MyWebLog(string my_log);
 
+  [SerializeField] ArrowManager arrowManager; // управляет стрелками
+
   public Sprite img_base;
   public Sprite img_crystall;
   public Sprite img_radar;
@@ -106,7 +108,9 @@ public class GameManager : MonoBehaviour {
   void Start() {
     InIt_TextDialog();
     GameState = ProgressManager.Instance.YandexDataOBJ.GameState; // Загрузка Состояния игры
-                                                                  //TouchKeyboardActive = ProgressManager.Instance.YandexDataOBJ.TouchKeyboardActive;
+    arrowManager.ArrowControl(GameState);
+
+    //TouchKeyboardActive = ProgressManager.Instance.YandexDataOBJ.TouchKeyboardActive;
 
     // доступ к скриптам игрока и менеджера кристалов
     scripc_player = Player.GetComponent<player>();
@@ -185,6 +189,7 @@ public class GameManager : MonoBehaviour {
           if (GameState == 0) {
             GameState = 1;
             ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями 
+            arrowManager.ArrowControl(GameState);
             OpenDialogMission();
           }
 #if UNITY_WEBGL
@@ -197,6 +202,7 @@ public class GameManager : MonoBehaviour {
           if (GameState == 1) {
             GameState = 2;
             ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
+            arrowManager.ArrowControl(GameState);
             OpenDialogMission();
 #if UNITY_WEBGL
             script_Yandex.Button_Save();
@@ -209,6 +215,7 @@ public class GameManager : MonoBehaviour {
           if (GameState == 2) {
             GameState = 3;
             ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
+            arrowManager.ArrowControl(GameState);
             OpenDialogMission();
 #if UNITY_WEBGL
             script_Yandex.Button_Save();
@@ -221,6 +228,7 @@ public class GameManager : MonoBehaviour {
           if (GameState == 3) {
             GameState = 4;
             ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
+            arrowManager.ArrowControl(GameState);
             OpenDialogMission();
 #if UNITY_WEBGL
             script_Yandex.Button_Save();
@@ -233,6 +241,7 @@ public class GameManager : MonoBehaviour {
           if (GameState == 5) {
             GameState = 6;
             ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
+            arrowManager.ArrowControl(GameState);
             OpenDialogMission();
             TriggerActivation();
 #if UNITY_WEBGL
@@ -246,6 +255,7 @@ public class GameManager : MonoBehaviour {
           if (GameState == 7) {
             GameState = 8;
             ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
+            arrowManager.ArrowControl(GameState);
             OpenDialogMission();
             TriggerActivation();
 
@@ -260,6 +270,7 @@ public class GameManager : MonoBehaviour {
           if (GameState == 9 && DestroyBatteryAll) {
             GameState = 10;
             ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
+            arrowManager.ArrowControl(GameState);
             OpenDialogMission();
             TriggerActivation();
 
@@ -274,6 +285,7 @@ public class GameManager : MonoBehaviour {
           if (GameState == 4) {
             GameState = 5;
             ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
+            arrowManager.ArrowControl(GameState);
             OpenDialogMission();
           }
 
@@ -282,6 +294,7 @@ public class GameManager : MonoBehaviour {
             GameState = 7;
             ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
             BAG_Player(false, false, false); // у игрока в сумке ничего нет
+            arrowManager.ArrowControl(GameState);
             OpenDialogMission();
           }
           // Состояние 8 - игрок должен принести на базу ENERGY.
@@ -292,6 +305,7 @@ public class GameManager : MonoBehaviour {
             SRC_EnergyBattery_1.ActivationBattery();
             SRC_EnergyBattery_2.ActivationBattery();
             SRC_EnergyBattery_3.ActivationBattery();
+            arrowManager.ArrowControl(GameState);
             OpenDialogMission();
           }
           // Состояние 10 - игрок должен принести на базу KEY.
@@ -308,6 +322,7 @@ public class GameManager : MonoBehaviour {
           break;
         }
     }
+    // arrowManager.ArrowControl(GameState);
   }
 
   // Показывает Диалог

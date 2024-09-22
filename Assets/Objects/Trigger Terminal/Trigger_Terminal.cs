@@ -7,6 +7,7 @@ public class Trigger_Terminal : MonoBehaviour
 {
     [SerializeField] private GameObject GameManager; // ГЛАВНЫЙ АРХИТЕКТОР
     private GameManager script_GameManager; // скрипт ГЛАВНОГО АРХИТЕКТОРА
+    [SerializeField] ArrowManager arrowManager; // управляет стрелками
 
     // какой именно терминал
     [SerializeField] bool on_key = false;
@@ -39,6 +40,7 @@ public class Trigger_Terminal : MonoBehaviour
         if (other.gameObject.CompareTag("Player") && ActiveTerminal)
         {
             script_GameManager.BAG_Player(on_key, on_fuel, on_energy); // кладём в сумку игрока
+            arrowManager.ArrowControl(4); // переключение вспомогательных стрелок
             ActiveTermonal(false);
         }
     }

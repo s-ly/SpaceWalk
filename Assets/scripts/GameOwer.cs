@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameOwer : MonoBehaviour {
     [DllImport("__Internal")] private static extern void JS_ShowAdv();
     float Timer_Start_Adv = 1.8f;
-    float Timer_Show_Restart_Button = 5.0f;
+    float Timer_Show_Restart_Button = 0.5f;
     public GameObject ButtonRestart;
     public GameObject TextLoad;
 
@@ -19,7 +19,7 @@ public class GameOwer : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        TimerAdvStart();
+        // TimerAdvStart();
         TimerShowRestartButton();
     }
     void ShowAdv() {
@@ -50,10 +50,19 @@ public class GameOwer : MonoBehaviour {
         ButtonRestart.SetActive(true);
     }
 
+    // загрузка уровня по нажатию "Рестарт"
     public void LoadLevel() {
-        StartCoroutine(ENUM_LoadLevel());
+      ShowAdv();
+        // StartCoroutine(ENUM_LoadLevel());
     }
 
+    public void StartReload(){
+      StartCoroutine(ENUM_LoadLevel());
+    }
+
+    // Перед тем, как загрузить уровень, корутина ждё пока точно
+    // скроется кнопка "Рестарт" и появится текст "Загрузка",
+    // только потом загружается уровень.
     IEnumerator ENUM_LoadLevel() {
         ButtonRestart.SetActive(false);
         yield return new WaitUntil(() => !ButtonRestart.gameObject.activeSelf);
