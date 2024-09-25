@@ -138,6 +138,10 @@ public class GameManager : MonoBehaviour {
     //dev_text = ProgressManager.Instance.YandexDataOBJ.DeviceInfo;
     //JS_MyWebLog(TouchKeyboardActive.ToString());
     //touch_keyboard_obj.SetActive(TouchKeyboardActive);
+
+#if UNITY_WEBGL
+    script_Yandex.GameStart(); // отчёт Яндексу
+#endif
   }
 
   // Update is called once per frame
@@ -420,14 +424,21 @@ public class GameManager : MonoBehaviour {
       StoreButtonMission.SetActive(true);
     }
     Time.timeScale = 1; // Убираем паузу
+
+    
   }
 
   public void LoadLevel() {
     SceneManager.LoadScene(1);  // Загрузка уровня
+    // script_Yandex.GameStart();
   }
 
   public void LoadMainMenu() {
+#if UNITY_WEBGL
+    script_Yandex.GameStop(); // отчёт Яндексу
+#endif
     SceneManager.LoadScene(0);  // Загрузка главного меню
+    // script_Yandex.GameStop();
   }
 
   public void LoadHelp() {
@@ -435,7 +446,11 @@ public class GameManager : MonoBehaviour {
   }
 
   public void ReloadGame() {
+#if UNITY_WEBGL
+    script_Yandex.GameStop(); // отчёт Яндексу
+#endif
     SceneManager.LoadScene(0);  // Загрузка игры снова (после выигрыша)
+    // script_Yandex.GameStart();
   }
 
   // игрок умер
@@ -449,6 +464,9 @@ public class GameManager : MonoBehaviour {
   // Игрок победил
   public void YouWin() {
     Debug.Log("You Win!");
+#if UNITY_WEBGL
+    script_Yandex.GameStop(); // отчёт Яндексу
+#endif
     SceneManager.LoadScene(3);  // Загрузка You Win!
   }
 
@@ -475,6 +493,10 @@ public class GameManager : MonoBehaviour {
     STC_WeaponsBase.Store_off();
 
     Time.timeScale = 0; // Пауза
+
+#if UNITY_WEBGL
+    script_Yandex.GameStop(); // отчёт Яндексу
+#endif
   }
   public void CloseDialog_menu() {
     Dialog_Menu.SetActive(false);
@@ -492,6 +514,9 @@ public class GameManager : MonoBehaviour {
     SCRIPT_EngineBase.flag_ui_on = true;
 
     Time.timeScale = 1; // Убираем паузу
+#if UNITY_WEBGL
+    script_Yandex.GameStart(); // отчёт Яндексу
+#endif
   }
 
   // Качество графики

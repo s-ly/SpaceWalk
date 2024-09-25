@@ -34,6 +34,8 @@ public class MainMenu : MonoBehaviour {
     script_Yandex.Button_LogUserID(); // показывает id пользователя
     script_Yandex.Button_Load();
     //script_Yandex.Yandex_JS_DeviceInfo(); // узнать платформу
+
+    script_Yandex.GameReady(); // отчёт Яндексу
 #endif
   }
 

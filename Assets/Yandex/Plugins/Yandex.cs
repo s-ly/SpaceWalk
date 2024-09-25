@@ -8,6 +8,9 @@ public class Yandex : MonoBehaviour {
   [DllImport("__Internal")] private static extern void JS_Save(string data);
   [DllImport("__Internal")] private static extern void JS_Load();
   [DllImport("__Internal")] private static extern void JS_ShowAdv();
+   [DllImport("__Internal")] private static extern void JS_GameReady();
+  [DllImport("__Internal")] private static extern void JS_GameStart();
+  [DllImport("__Internal")] private static extern void JS_GameStop();
 
 
   [SerializeField] MainMenu script_MainMenu;
@@ -83,6 +86,26 @@ public class Yandex : MonoBehaviour {
   public void ShowAdv() {
 #if UNITY_WEBGL
     JS_ShowAdv();
+#endif
+  }
+
+  // Сообщает Яндекс что игра загружена
+  public void GameReady() {
+#if UNITY_WEBGL
+    JS_GameReady();
+#endif
+  }
+
+  // Методы для управления геймплеем
+  public void GameStart() {
+#if UNITY_WEBGL
+    JS_GameStart();
+#endif
+  }
+
+  public void GameStop() {
+#if UNITY_WEBGL
+    JS_GameStop();
 #endif
   }
 

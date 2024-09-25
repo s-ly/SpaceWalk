@@ -72,4 +72,21 @@ mergeInto(LibraryManager.library, {
     })
   },
 
+  JS_GameReady: function () {
+    ysdk.features.LoadingAPI.ready();
+    // if (ysdk.features && ysdk.features.GameplayAPI) {
+    //   // ysdk.features.GameplayAPI.ready();
+    //   ysdk.features.LoadingAPI.ready();
+    //   console.log("-------GameplayAPI?.ready()->|");
+    // }
+  },
+
+  JS_GameStart: function () {
+    ysdk.features.GameplayAPI.start();
+  },
+
+  JS_GameStop: function () {
+    ysdk.features.GameplayAPI.stop();
+  }
+
 });
