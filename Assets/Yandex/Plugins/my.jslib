@@ -72,21 +72,23 @@ mergeInto(LibraryManager.library, {
     })
   },
 
+  //================================== отчёт Яндексу
   JS_GameReady: function () {
-    ysdk.features.LoadingAPI.ready();
-    // if (ysdk.features && ysdk.features.GameplayAPI) {
-    //   // ysdk.features.GameplayAPI.ready();
-    //   ysdk.features.LoadingAPI.ready();
-    //   console.log("-------GameplayAPI?.ready()->|");
-    // }
+    if (ysdk.features) {
+      ysdk.features.LoadingAPI.ready();
+    }
   },
 
   JS_GameStart: function () {
-    ysdk.features.GameplayAPI.start();
+    if (ysdk.features) {
+      ysdk.features.GameplayAPI.start();
+    }
   },
 
   JS_GameStop: function () {
-    ysdk.features.GameplayAPI.stop();
+    if (ysdk.features) {
+      ysdk.features.GameplayAPI.stop();
+    }
   }
-
+  //==================================================
 });

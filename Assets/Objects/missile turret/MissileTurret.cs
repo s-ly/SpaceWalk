@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class MissileTurret : MonoBehaviour {
   [SerializeField] TextMeshProUGUI textDebug;
@@ -45,6 +46,7 @@ public class MissileTurret : MonoBehaviour {
 
   GameObject _camera;
   GameObject _mssileTurret_tower;
+  GameObject _mssileTurret_trunk;
   public StateFSM _state;
   int _healthl = 100; // здоровье турели
   float _speed_rot = 1.5f; // поворот башни
@@ -59,6 +61,14 @@ public class MissileTurret : MonoBehaviour {
     Transform _mssileTurret_tower_TRANS = mesh_Active.transform.GetChild(0);
     _mssileTurret_tower = _mssileTurret_tower_TRANS.gameObject;
 
+    // init trunk and rot x -0.01
+    Transform _mssileTurret_trunk_TRANS = _mssileTurret_tower.transform.GetChild(0);
+    _mssileTurret_trunk = _mssileTurret_trunk_TRANS.gameObject;
+    // Vector3 rotTrunk = _mssileTurret_trunk.transform.eulerAngles;
+    // rotTrunk.x = -0.01f;
+    // _mssileTurret_trunk.transform.rotation = Quaternion.Euler(rotTrunk);
+
+
     SCRIPT_dist = transform.GetComponent<DistanceDetectorGlobal>();
     // _text_canvas = _canvas.GetComponentInChildren<>
     _text_canvas = _canvas.GetComponentInChildren<TextMeshProUGUI>();
@@ -72,6 +82,7 @@ public class MissileTurret : MonoBehaviour {
     CheckDistance();
     CanvasLookAt();
     DirectionTower();
+    DirectionTrunkOn();
   }
 
   void CanvasUpdate() {
@@ -216,23 +227,42 @@ public class MissileTurret : MonoBehaviour {
   // 4 - плавно поворачиваем
   void DirectionTower() {
     if (_state == StateFSM.Active) {
-
       float x = _mssileTurret_tower.transform.localEulerAngles.x;
       float z = _mssileTurret_tower.transform.localEulerAngles.z;
-      // float z = _mssileTurret_tower.transform.rotation.z;
-      // Debug.Log("DirectionTower");
       Vector3 pos = (player.transform.position - _mssileTurret_tower.transform.position).normalized; // 1
-      // Debug.Log("DirectionTower - pos: " + pos);
       Quaternion rot = Quaternion.FromToRotation(_mssileTurret_tower.transform.forward, pos); //2      
       Quaternion new_rot = rot * _mssileTurret_tower.transform.rotation; //3      
-      _mssileTurret_tower.transform.rotation = Quaternion.Lerp(_mssileTurret_tower.transform.rotation, new_rot, _speed_rot * Time.deltaTime); //4
-      
+      _mssileTurret_tower.transform.rotation = Quaternion.Lerp(_mssileTurret_tower.transform.rotation, new_rot, _speed_rot * Time.deltaTime); //4      
       float y = _mssileTurret_tower.transform.localEulerAngles.y;
-      _mssileTurret_tower.transform.localEulerAngles = new Vector3(x,y,z);
+      _mssileTurret_tower.transform.localEulerAngles = new Vector3(x, y, z);
+    }
+  }
 
-      // float y = _mssileTurret_tower.transform.rotation.y;
-      // _mssileTurret_tower.transform.Rotate(x,y,z);
-      // _mssileTurret_tower.transform.localEulerAngles.x = x;
+  // поворот ствола
+  void DirectionTrunkOn() {
+    if (_state == StateFSM.Active) {
+      float speed = 30f;
+      float angle_stop = -50f;
+
+      float currentAngleX = _mssileTurret_trunk.transform.localEulerAngles.x;
+      // Нормализуем угол в диапазоне от -180 до 180 градусов
+      float normalizedAngleX = currentAngleX > 180 ? currentAngleX - 360 : currentAngleX;
+      if (normalizedAngleX > angle_stop) {
+        _mssileTurret_trunk.transform.Rotate(-speed * Time.deltaTime, 0, 0, Space.Self);
+        // Debug.Log(normalizedAngleX);
+      }
+    }
+    if (_state == StateFSM.Start) {
+      float speed = 30f;
+      float angle_stop = 0f;
+
+      float currentAngleX = _mssileTurret_trunk.transform.localEulerAngles.x;
+      // Нормализуем угол в диапазоне от -180 до 180 градусов
+      float normalizedAngleX = currentAngleX > 180 ? currentAngleX - 360 : currentAngleX;
+      if (normalizedAngleX < angle_stop) {
+        _mssileTurret_trunk.transform.Rotate(speed * Time.deltaTime, 0, 0, Space.Self);
+        // Debug.Log(normalizedAngleX);
+      }
     }
   }
 }

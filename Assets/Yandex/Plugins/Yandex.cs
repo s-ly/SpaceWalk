@@ -8,7 +8,7 @@ public class Yandex : MonoBehaviour {
   [DllImport("__Internal")] private static extern void JS_Save(string data);
   [DllImport("__Internal")] private static extern void JS_Load();
   [DllImport("__Internal")] private static extern void JS_ShowAdv();
-   [DllImport("__Internal")] private static extern void JS_GameReady();
+  [DllImport("__Internal")] private static extern void JS_GameReady();
   [DllImport("__Internal")] private static extern void JS_GameStart();
   [DllImport("__Internal")] private static extern void JS_GameStop();
 
