@@ -6,15 +6,20 @@ using System;
 
 public class MissileTurret : MonoBehaviour {
   [SerializeField] TextMeshProUGUI textDebug;
+  [SerializeField] TextMeshProUGUI UIHealth;
+  [SerializeField] GameObject UIPoint;
   [SerializeField] bool GizmosOn = false;
   [SerializeField] GameObject mesh_Active;
   [SerializeField] GameObject mesh_Destroy;
   [SerializeField] GameObject _canvas;
+  [SerializeField] GameObject CanvasHealth;
   [SerializeField] GameObject _explosion; // взрыв
 
   // работа с дистанцией
   DistanceDetectorGlobal SCRIPT_dist;
   bool distanceFlag = false;
+
+  Camera mainCamera;
 
   ///////////////////// КОЛХОЗ!!!
   // мы не должны перекладывать ответсьвеннойть на переход игрока в режим боя,
@@ -56,6 +61,7 @@ public class MissileTurret : MonoBehaviour {
 
   // Start is called before the first frame update
   void Start() {
+    mainCamera = Camera.main; // Получаем основную камеру
     _camera = GameObject.FindGameObjectWithTag("MainCamera"); // ссылка на камеру
 
     Transform _mssileTurret_tower_TRANS = mesh_Active.transform.GetChild(0);
@@ -75,6 +81,7 @@ public class MissileTurret : MonoBehaviour {
     init_player_source();
     fsm(EventFSM.Default);
     CanvasUpdate(); _explosion.SetActive(false); // взрыв пока не нужен
+    CanvasHealth.SetActive(false);
   }
 
   // Update is called once per frame
@@ -83,10 +90,12 @@ public class MissileTurret : MonoBehaviour {
     CanvasLookAt();
     DirectionTower();
     DirectionTrunkOn();
+    UIPosition();
   }
 
   void CanvasUpdate() {
     _text_canvas.text = _healthl.ToString();
+    UIHealth.text = _healthl.ToString();
   }
 
   // урон
@@ -96,6 +105,12 @@ public class MissileTurret : MonoBehaviour {
     if (_healthl <= 0) {
       fsm(EventFSM.Explosion);
     }
+  }
+
+  void UIPosition() {
+    Vector3 worldPosition = UIPoint.transform.position; // Получаем позицию точки привязки в мировых координатах
+    Vector3 screenPosition = mainCamera.WorldToScreenPoint(worldPosition); // Преобразуем мировые координаты в экранные
+    UIHealth.transform.position = screenPosition; // Устанавливаем позицию текста на экране
   }
 
 
@@ -159,12 +174,14 @@ public class MissileTurret : MonoBehaviour {
       case EventFSM.DistanceTrue:
         if (_state != StateFSM.Destroyed) {
           _state = StateFSM.Active;
+          CanvasHealth.SetActive(true);
           combat_mode_player(true);
         }
         break;
       case EventFSM.DistanceFalse:
         if (_state != StateFSM.Destroyed) {
           _state = StateFSM.Start;
+          CanvasHealth.SetActive(false);
           combat_mode_player(false);
         }
         break;
@@ -184,7 +201,8 @@ public class MissileTurret : MonoBehaviour {
         if (_state != StateFSM.Destroyed) {
           mesh_Active.SetActive(false);
           mesh_Destroy.SetActive(true);
-          _canvas.SetActive(false);
+          _canvas.SetActive(false); // старая версия
+          CanvasHealth.SetActive(false); //новая
           _state = StateFSM.Destroyed;
           combat_mode_player(false);
 
