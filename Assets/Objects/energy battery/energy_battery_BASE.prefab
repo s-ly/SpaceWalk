@@ -246,7 +246,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.65
+  m_fontSize: 30.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -299,7 +299,7 @@ GameObject:
   - component: {fileID: 142640319303592227}
   - component: {fileID: 4680628794412110920}
   - component: {fileID: 8597361159160131260}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: energy_battery_BASE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,6 +343,7 @@ MonoBehaviour:
   destroy: 0
   active: 0
   Explosion: {fileID: 3064272157172441927, guid: 9a6e3b7635a45ed42abddeddbd76fd2e, type: 3}
+  DamageOn: 0
 --- !u!135 &8597361159160131260
 SphereCollider:
   m_ObjectHideFlags: 0

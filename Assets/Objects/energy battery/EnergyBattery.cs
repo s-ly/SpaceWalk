@@ -13,9 +13,9 @@ public class EnergyBattery : MonoBehaviour {
   public TextMeshProUGUI text;
   public GameObject canvas;
 
-  GameObject Player;
-  public player SCRIPT_player;
-  public Animator ANIMATOR_player;
+  // GameObject Player;
+  // public player SCRIPT_player;
+  // public Animator ANIMATOR_player;
 
   int health = 200; // здоровье
   public bool destroy = false;
@@ -30,9 +30,9 @@ public class EnergyBattery : MonoBehaviour {
   void Start() {
     canvas.SetActive(false);
     Base_Off.SetActive(false);
-    Player = GameObject.FindGameObjectWithTag("Player");
-    SCRIPT_player = Player.GetComponent<player>();
-    ANIMATOR_player = Player.GetComponentInChildren<Animator>();
+    // Player = GameObject.FindGameObjectWithTag("Player");
+    // SCRIPT_player = Player.GetComponent<player>();
+    // ANIMATOR_player = Player.GetComponentInChildren<Animator>();
     text.text = health.ToString(); // показываем здоровье
 
     if (ProgressManager.Instance.YandexDataOBJ.GameState == 9) {
@@ -65,8 +65,8 @@ public class EnergyBattery : MonoBehaviour {
       canvas.SetActive(true);
       DamageOn = true;
       // активация режима игрока (бой)
-      ANIMATOR_player.SetBool("Attack_mode", true);
-      SCRIPT_player.PlayerModeAttack = true;
+      // ANIMATOR_player.SetBool("Attack_mode", true);
+      // SCRIPT_player.PlayerModeAttack = true;
     }
   }
 
@@ -77,8 +77,8 @@ public class EnergyBattery : MonoBehaviour {
       canvas.SetActive(false);
       DamageOn = false;
       // ДЕактивация режима игрока (бой)
-      ANIMATOR_player.SetBool("Attack_mode", false);
-      SCRIPT_player.PlayerModeAttack = false;
+      // ANIMATOR_player.SetBool("Attack_mode", false);
+      // SCRIPT_player.PlayerModeAttack = false;
     }
   }
 
@@ -89,8 +89,8 @@ public class EnergyBattery : MonoBehaviour {
       canvas.SetActive(true);
       DamageOn = true;
       // активация режима игрока (бой)
-      ANIMATOR_player.SetBool("Attack_mode", true);
-      SCRIPT_player.PlayerModeAttack = true;
+      // ANIMATOR_player.SetBool("Attack_mode", true);
+      // SCRIPT_player.PlayerModeAttack = true;
     }
   }
 
@@ -100,9 +100,9 @@ public class EnergyBattery : MonoBehaviour {
     active = false;
 
     // ДЕактивация режима игрока (бой)
-    ANIMATOR_player.SetBool("Attack_mode", false);
-    Debug.Log("!!!!!!!!! взрыв батареи - конец функции");
-    SCRIPT_player.PlayerModeAttack = false;
+    // ANIMATOR_player.SetBool("Attack_mode", false);
+    // Debug.Log("!!!!!!!!! взрыв батареи - конец функции");
+    // SCRIPT_player.PlayerModeAttack = false;
 
     // экземпляр взрыва
     Transform child_base;

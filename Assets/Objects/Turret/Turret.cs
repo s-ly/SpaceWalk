@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine;
 
 public class Turret : MonoBehaviour {
+  DistanceDetectorGlobal distDetect;
   [SerializeField] private Transform turret; // цель поворота
   [SerializeField] private float speedTurretRot; // скорость поворота
   [SerializeField] private GameObject Bullet; //префаб пули
@@ -51,7 +52,7 @@ public class Turret : MonoBehaviour {
   //private GameObject PlayerPivot;
   [SerializeField] private Animator animatorPlayer;
   private Animator animatorRepairBase;
-  private player script_player;
+  public player script_player;
   private GameObject myCamera;
 
   private GameObject Explosion; // взрыв 
@@ -64,6 +65,8 @@ public class Turret : MonoBehaviour {
 
   // Start is called before the first frame update
   void Start() {
+    distDetect = transform.GetComponent<DistanceDetectorGlobal>();
+
     ButtonFirePlayer.SetActive(false); // отключаю кнопку стрельбы игрока
     turretTower = this.gameObject.transform.GetChild(0).gameObject; // ищем объект башни турели как дочерний
     pivotRadiousTurret = this.gameObject.transform.parent.gameObject; // находим родителя
@@ -83,10 +86,11 @@ public class Turret : MonoBehaviour {
     Explosion.SetActive(false);
 
     // Взорванная тураль, ссылки и деактивация:
-    Exploded_turret_base = pivotRadiousTurret.gameObject.transform.GetChild(5).gameObject; //exploded_turret_base
-    Exploded_turret_tower = pivotRadiousTurret.gameObject.transform.GetChild(6).gameObject; //exploded_turret_tower
-    Exploded_turret_base.GetComponent<Renderer>().enabled = false;
-    Exploded_turret_tower.GetComponent<Renderer>().enabled = false;
+    Exploded_turret_base = pivotRadiousTurret.gameObject.transform.GetChild(5).gameObject;
+    Exploded_turret_tower = pivotRadiousTurret.gameObject.transform.GetChild(6).gameObject;
+
+    Exploded_turret_base.SetActive(false);
+    Exploded_turret_tower.SetActive(false);
 
     animatorRepairBase = repairBase.GetComponent<Animator>();
 
@@ -105,6 +109,9 @@ public class Turret : MonoBehaviour {
 
   // Update is called once per frame
   void Update() {
+
+    checkDistance();
+
     if (LookAtTurret) {
       DirectionTurret(); // если турель активированна то поворачиваем её за игроком
       Fire(); // стреляем
@@ -112,50 +119,26 @@ public class Turret : MonoBehaviour {
     CanvasTurretLookAt();
   }
 
-  // в зону турели что-то входит
-  private void OnTriggerEnter(Collider other) {
-    // В зону вошёл игрок и турель жива
-    if (other.gameObject.CompareTag("Player") && LiveTurret) {
+  void checkDistance() {
+    // игрок в зоне действия (на нужном растоянии)
+    // и турель жива
+    if (distDetect.distanceFlag && LiveTurret) {
       LookAtTurret = true;
-      Debug.Log("Вижу цель");
-
+      Debug.Log("Чувствую цель");
       // активация режима игрока (бой)
-      animatorPlayer.SetBool("Attack_mode", true);
-      script_player.PlayerModeAttack = true;
+      //animatorPlayer.SetBool("Attack_mode", true);
+      //script_player.PlayerModeAttack = true;
 
       turretCanvasText.SetActive(true); // показать текст турели
-                                        //ButtonFirePlayer.SetActive(true); // вкыл кнопку стрельбы игрока
     }
-  }
-
-  // из зоны турели что-то вышло
-  private void OnTriggerExit(Collider other) {
-    // В зону вошёл игрок и турель жива
-    if (other.gameObject.CompareTag("Player") && LiveTurret) {
+    else {
       LookAtTurret = false;
-      Debug.Log("Потерял цель");
-      //GenerateBullet();
-
+      Debug.Log("Не чувчтвую цель");
       // ДЕактивация режима игрока (бой)
-      animatorPlayer.SetBool("Attack_mode", false);
-      script_player.PlayerModeAttack = false;
+      //animatorPlayer.SetBool("Attack_mode", false);
+      //script_player.PlayerModeAttack = false;
 
       turretCanvasText.SetActive(false); // спрятать текст турели
-                                         //ButtonFirePlayer.SetActive(false); // отключаю кнопку стрельбы игрока
-    }
-  }
-
-  // в зоне что-то находится
-  private void OnTriggerStay(Collider other) {
-    // В зону вошёл игрок и турель жива
-    if (other.gameObject.CompareTag("Player") && LiveTurret) {
-      LookAtTurret = true;
-      // активация режима игрока (бой)
-      animatorPlayer.SetBool("Attack_mode", true);
-      script_player.PlayerModeAttack = true;
-
-      turretCanvasText.SetActive(true); // показать текст турели
-                                        //ButtonFirePlayer.SetActive(true); // вкыл кнопку стрельбы игрока
     }
   }
 
@@ -263,6 +246,21 @@ public class Turret : MonoBehaviour {
     }
   }
 
+  // void checkDanage(){
+
+  // }
+
+
+  private void OnTriggerEnter(Collider other) {
+
+
+    if (other.gameObject.CompareTag("PlayerBullet")) {
+      Debug.Log("ПУЛЯ ПОПАЛА--");
+      TakesDamage();
+    }
+
+  }
+
   // Турель получает урон. Вызывается из скрипта пули игрока
   public void TakesDamage() {
     Debug.Log("в башню попадание");
@@ -282,25 +280,23 @@ public class Turret : MonoBehaviour {
     Explosion.SetActive(true); // взрыв
 
     // показываем взорванную турель
-    Exploded_turret_base.GetComponent<Renderer>().enabled = true;
-    Exploded_turret_tower.GetComponent<Renderer>().enabled = true;
+    Exploded_turret_base.SetActive(true);
+    Exploded_turret_tower.SetActive(true);
 
     // Отключаем рендер башни и подставки турели
-    turretTower.gameObject.GetComponent<MeshRenderer>().enabled = false;
-    turretBase.gameObject.GetComponent<MeshRenderer>().enabled = false;
+    turretBase.SetActive(false);
+    turretTower.SetActive(false);
 
     // ДЕактивация режима игрока (бой)
-    animatorPlayer.SetBool("Attack_mode", false);
-    script_player.PlayerModeAttack = false;
+    // animatorPlayer.SetBool("Attack_mode", false);
+    //script_player.PlayerModeAttack = false;
 
     turretCanvasText.SetActive(false); // спрятать текст турели
-                                       //ButtonFirePlayer.SetActive(false); // отключаю кнопку стрельбы игрока
+    //ButtonFirePlayer.SetActive(false); // отключаю кнопку стрельбы игрока
     if (FLAG_generate_technical_Container) {
       Generate_Technical_Container(); // генерация тех-контейнера
       FLAG_generate_technical_Container = false;
     }
-
-
     StartCoroutine(PauseRestartTurret(PauseRestartTurretSecond)); // Перезапуск Турели после паузы
   }
 
@@ -343,12 +339,12 @@ public class Turret : MonoBehaviour {
     healhTurretTEMP = healthTurret;
     turretCanvasText.GetComponent<TMPro.TextMeshProUGUI>().text = healhTurretTEMP.ToString();
 
-    // Включаем рендер башни и подставки турели
-    turretTower.gameObject.GetComponent<MeshRenderer>().enabled = true;
-    turretBase.gameObject.GetComponent<MeshRenderer>().enabled = true;
+    // Включаем рендер башни и подставки турели    
+    turretBase.SetActive(true);
+    turretTower.SetActive(true);
 
     // Отключаем рендер взорванной турели
-    Exploded_turret_base.GetComponent<Renderer>().enabled = false;
-    Exploded_turret_tower.GetComponent<Renderer>().enabled = false;
+    Exploded_turret_base.SetActive(false);
+    Exploded_turret_tower.SetActive(false);
   }
 }

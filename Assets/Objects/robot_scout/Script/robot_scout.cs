@@ -258,8 +258,8 @@ public class robot_scout : MonoBehaviour {
             robot_scout_canvas_text.enabled = true;
 
             // активация режима игрока (бой)
-            animatorPlayer.SetBool("Attack_mode", true);
-            script_player.PlayerModeAttack = true;
+            // animatorPlayer.SetBool("Attack_mode", true);
+            // script_player.PlayerModeAttack = true;
         }
     }
 
@@ -278,8 +278,8 @@ public class robot_scout : MonoBehaviour {
                 robot_scout_canvas_text.enabled = false;
 
                 // ДЕактивация режима игрока (бой)
-                animatorPlayer.SetBool("Attack_mode", false);
-                script_player.PlayerModeAttack = false;
+                // animatorPlayer.SetBool("Attack_mode", false);
+                // script_player.PlayerModeAttack = false;
             }
         }
     }
@@ -293,8 +293,8 @@ public class robot_scout : MonoBehaviour {
             //Debug.Log(debug_obj_name + "Наблюдаю цель, до игрока: " + distance_player.ToString());
 
             // активация режима игрока (бой)
-            animatorPlayer.SetBool("Attack_mode", true);
-            script_player.PlayerModeAttack = true;
+            // animatorPlayer.SetBool("Attack_mode", true);
+            // script_player.PlayerModeAttack = true;
         }
     }
     // поворот робота к игроку
@@ -326,8 +326,8 @@ public class robot_scout : MonoBehaviour {
     public void Dead() {
         robot_destroy = true;
         // ДЕактивация режима игрока (бой)
-        animatorPlayer.SetBool("Attack_mode", false);
-        script_player.PlayerModeAttack = false;
+        // animatorPlayer.SetBool("Attack_mode", false);
+        // script_player.PlayerModeAttack = false;
 
         // экземпляр взрыва
         Explosion_CLONE = Instantiate(Explosion, transform.position, transform.rotation);

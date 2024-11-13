@@ -58,11 +58,11 @@ public class player : MonoBehaviour {
 
     /* Прыжок. Так-как он должен сработать только в момент отпускания клавиши, 
    * то помощаю его в Update(). Иначе, может не всегда сработать. */
-    if (Input.GetKeyDown(KeyCode.UpArrow)) {
+    if (Input.GetKeyDown(KeyCode.Space)) {
       jumpPlayer();
     }
 
-    if (Input.GetKeyDown(KeyCode.DownArrow)) {
+    if (Input.GetKeyDown(KeyCode.E)) {
       MoveJumpPlayer();
     }
 

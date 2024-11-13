@@ -333,11 +333,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3113771928436643900}
-  - component: {fileID: 954610694}
-  - component: {fileID: 954610693}
   m_Layer: 0
   m_Name: pivotRadious (turret)
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -369,54 +367,6 @@ Transform:
   - {fileID: 8422882028316759806}
   m_Father: {fileID: 3113771928714732079}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &954610694
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3113771928436643903}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!135 &954610693
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3113771928436643903}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 2.95
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3113771928511567022
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,7 +377,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3113771928511567023}
   - component: {fileID: 3113771928511567021}
-  - component: {fileID: 3113771928511567020}
+  - component: {fileID: 1327836246794610301}
+  - component: {fileID: 3532090335350029161}
   m_Layer: 0
   m_Name: turret_tower_script
   m_TagString: Untagged
@@ -481,27 +432,49 @@ MonoBehaviour:
   PREFAB_aid_container: {fileID: 8001728291159762589, guid: a1c892167c6caa342880d25ebc694423, type: 3}
   healthTurret: 100
   animatorPlayer: {fileID: 0}
---- !u!135 &3113771928511567020
-SphereCollider:
+  script_player: {fileID: 0}
+--- !u!114 &1327836246794610301
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3113771928511567022}
-  m_Material: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b840eb5645fc93428aa6bcc9fd2411f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceFlag: 0
+  minDistance: 23.5
+  GizmosOn: 1
+--- !u!54 &3532090335350029161
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3113771928511567022}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 23
-  m_Center: {x: 0, y: 0, z: 0}
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3113771928714732078
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,7 +897,7 @@ GameObject:
   - component: {fileID: 1863617931}
   m_Layer: 0
   m_Name: turret_tower
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

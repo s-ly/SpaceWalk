@@ -1004,7 +1004,7 @@ GameObject:
   - component: {fileID: 118423210551652078}
   - component: {fileID: 9220017316578051710}
   - component: {fileID: 430102123139212367}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: robot_scout
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}

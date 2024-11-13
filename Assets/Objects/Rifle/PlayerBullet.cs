@@ -48,14 +48,9 @@ public class PlayerBullet : MonoBehaviour {
     }
 
     // Пуля попала в Турель
-    if (other.gameObject.CompareTag("Enemy")) {
-      Debug.Log("ПУЛЯ ПОПАЛА!!!!!!!");
-      /* находим объект турели, который ниже по ирархии,
-      получаем его скрипт и вызываем метод получения урона. */
-      turret = other.gameObject.transform.GetChild(0).gameObject;
-      turret_script = turret.GetComponent<Turret>();
-      turret_script.TakesDamage();
-
+    if (!other.gameObject.CompareTag("NoBullet")) {
+      
+      Debug.Log("ПУЛЯ ПОПАЛА не важно куда");
       // взрыв пули
       clone_Explosion_Bullet = Instantiate(Explosion_Bullet, transform.position, transform.rotation);
       Destroy(clone_Explosion_Bullet, 2f); // уничтожение через 2 сек

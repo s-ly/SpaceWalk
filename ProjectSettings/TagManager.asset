@@ -12,6 +12,10 @@ TagManager:
   - Enemy_battery
   - Enemy_3
   - Destroyed_Enemy
+  - PlayerProps
+  - NoBullet
+  - PlayerAnimator
+  - ExplodetEnemy
   layers:
   - Default
   - TransparentFX

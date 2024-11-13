@@ -104,6 +104,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: robot_scout
       objectReference: {fileID: 0}
+    - target: {fileID: 5479432739324214738, guid: 8194dc32af1d82f44b2dcf32adb51da3, type: 3}
+      propertyPath: m_TagString
+      value: NoBullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 6413503731798347460, guid: 8194dc32af1d82f44b2dcf32adb51da3, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8143776216436961330, guid: 8194dc32af1d82f44b2dcf32adb51da3, type: 3}
       propertyPath: m_Enabled
       value: 1
