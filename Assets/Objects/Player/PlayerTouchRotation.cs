@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerTouchRotation : MonoBehaviour {
-  float rotationSpeed = 1f; // Скорость поворота
+  float rotationSpeed = 30f; // Скорость поворота (градусов в секунду)
   public Transform Camera; // Ссылка на основную камеру
   Vector2 initialTouchPosition; // Начальная позиция касания
 
   public bool isRotating = false; // Флаг, указывающий, происходит ли поворот
-  public float rotationAngleX = 0f;
-  public float rotationAngleY = 0f;
+  public float currentRotationX = 0f; // Текущий угол поворота по оси X
+  public float currentRotationY = 0f; // Текущий угол поворота по оси Y
 
   // Start is called before the first frame update
   void Start() {
@@ -32,23 +32,28 @@ public class PlayerTouchRotation : MonoBehaviour {
         }
 
         // Проверяем, перемещается ли палец и происходит ли поворот
-        if ((touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) && isRotating && touch.position.x >= Screen.width / 2) {
+        if (touch.phase == TouchPhase.Moved && isRotating && touch.position.x >= Screen.width / 2) {
           // Вычисляем смещение касания
           Vector2 touchDelta = touch.position - initialTouchPosition;
 
           // Вычисляем угол поворота на основе смещения касания
-          rotationAngleX = touchDelta.x * rotationSpeed * Time.deltaTime;
-          rotationAngleY = touchDelta.y * rotationSpeed * Time.deltaTime;
+          float rotationAngleX = touchDelta.x * rotationSpeed * Time.deltaTime;
+          float rotationAngleY = touchDelta.y * rotationSpeed * Time.deltaTime;
+
+          // Обновляем текущий угол поворота
+          currentRotationX += rotationAngleX;
+          currentRotationY += rotationAngleY;
 
           // Поворачиваем игрока и камеру
-          RotatePlayerAndCamera(rotationAngleX, rotationAngleY);
+          RotatePlayerAndCamera(currentRotationX, currentRotationY);
+
+          // Обновляем начальную позицию касания
+          initialTouchPosition = touch.position;
         }
 
         // палец убран
         if (touch.phase == TouchPhase.Ended && touch.position.x >= Screen.width / 2) {
           isRotating = false;
-          rotationAngleX = 0f;
-          rotationAngleY = 0f;
         }
       }
     }
@@ -57,9 +62,10 @@ public class PlayerTouchRotation : MonoBehaviour {
   // Метод для поворота игрока и камеры
   void RotatePlayerAndCamera(float angleX, float angleY) {
     // Поворачиваем игрока
-    transform.Rotate(Vector3.up, angleX);
+    // transform.rotation = Quaternion.Euler(0f, angleX, 0f);
+    // transform.Rotate(Vector3.up, angleX * 0.25f);
 
     // Поворачиваем камеру
-    Camera.Rotate(Vector3.left, angleY);
+    Camera.localRotation = Quaternion.Euler(-angleY, 0f, 0f);
   }
 }
