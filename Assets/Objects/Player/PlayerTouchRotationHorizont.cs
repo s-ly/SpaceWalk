@@ -62,29 +62,12 @@ public class PlayerTouchRotationHorizont : MonoBehaviour {
       float dir = 1f;
       if (angleX > tmpRotx){
         dir = 1f;
-        transform.Rotate(Vector3.up * 1f * dir);
+        // transform.Rotate(Vector3.up * 1f * dir);
         tmpRotx = angleX;
       }else {
         dir = -1f;
       }
         transform.Rotate(Vector3.up * 1f * dir);
         tmpRotx = angleX;
-
-      //       if (angleX > tmpRotx){
-      //   transform.Rotate(Vector3.up * 0.2f);
-      //   tmpRotx = angleX;
-      // }else {
-      //   transform.Rotate(Vector3.up * -0.2f);
-      //   tmpRotx = angleX;
-      // }
-      
-      // float tmpX = transform.rotation.x;
-      // float tmpY = transform.rotation.y;
-      //       float tmpXloc = transform.localEulerAngles.x;
-      // float tmpYloc = transform.localEulerAngles.y;
-        // Поворачиваем игрока
-        // transform.rotation = Quaternion.Euler(tmpXloc, angleX, tmpYloc);
-        // transform.Rotate(Vector3.up * angleX);
-        // transform.Rotate(Vector3.up * 0.2f);
     }
 }

@@ -17,9 +17,9 @@ public class Manager_DeviceInfo : MonoBehaviour {
 
   [SerializeField] PlayerControl scriptPlayerControl;
   [SerializeField] PlayerTouchMove scriptPlayerTouchMove;
-  [SerializeField] PlayerTouchRotationVerical scriptPlayerTouchRotationVerical;
-  [SerializeField] PlayerTouchRotationHorizont scriptPlayerTouchRotationHorizont;
   // [SerializeField] PlayerTouchRotation scriptPlayerTouchRotation;
+  // [SerializeField] PlayerTouchRotationHorizont scriptPlayerTouchRotationHorizont;
+  [SerializeField] PlayerTouchRotation scriptPlayerTouchRotation;
 
   // Функция java-script
   [DllImport("__Internal")] private static extern void JS_DeviceInfo();
@@ -48,18 +48,18 @@ public class Manager_DeviceInfo : MonoBehaviour {
 
       scriptPlayerControl.enabled = true;
       scriptPlayerTouchMove.enabled = false;
-      scriptPlayerTouchRotationVerical.enabled = false;
-      scriptPlayerTouchRotationHorizont.enabled = false;
-      // scriptPlayerTouchRotation.enabled = false;
+      // scriptPlayerTouchRotationVerical.enabled = false;
+      // scriptPlayerTouchRotationHorizont.enabled = false;
+      scriptPlayerTouchRotation.enabled = false;
 
 
     }
     else {
       scriptPlayerControl.enabled = false;
       scriptPlayerTouchMove.enabled = true;
-      scriptPlayerTouchRotationVerical.enabled = true;
-      scriptPlayerTouchRotationHorizont.enabled = true;
-      // scriptPlayerTouchRotation.enabled = true;
+      // scriptPlayerTouchRotationVerical.enabled = true;
+      // scriptPlayerTouchRotationHorizont.enabled = true;
+      scriptPlayerTouchRotation.enabled = true;
     }
   }
 }
