@@ -12,6 +12,9 @@ public class PlayerControl : MonoBehaviour {
 
   bool control = true; // временное отключение управления
 
+  public float mouseX;
+  public float mouseY;
+
   // Start is called before the first frame update
   void Start() {
     Init();
@@ -25,8 +28,8 @@ public class PlayerControl : MonoBehaviour {
 
   void Control() {
     // Получаем ввод мыши
-    float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-    float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+     mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+     mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
     xRotation -= mouseY; // Поворот камеры по оси X (вверх-вниз)
 
