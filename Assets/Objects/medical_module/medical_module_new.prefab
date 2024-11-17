@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 1958697636480900443}
   - component: {fileID: 8479430312387503927}
   - component: {fileID: 8727100929441600220}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: script
   m_TagString: Untagged
   m_Icon: {fileID: 0}

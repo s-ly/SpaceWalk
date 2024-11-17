@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerTouchRotation : MonoBehaviour {
   [SerializeField] Transform camera;
-  float sensitivity = 200f; // чувствительность
+  float sensitivity = 250f; // чувствительность
   private Vector2 initialTouchPosition; // Начальная позиция касания
   private bool isTouch = false;
   public float mouseX; // Значение для оси X

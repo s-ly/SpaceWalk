@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class PlayerTouchMove : MonoBehaviour {
   Vector2 initialTouchPosition; // Начальная позиция касания
-  float sensitivity = 15f; // чувствительность
+  float sensitivity = 25f; // чувствительность
   float playerSpeed = 22f;
 
   public bool isTouch = false;
@@ -17,6 +17,7 @@ public class PlayerTouchMove : MonoBehaviour {
   public float forceFront = 0;
 
   Rigidbody rigPlayer;
+  player scriptPlayer;
 
   // Start is called before the first frame update
   void Start() {
@@ -54,6 +55,7 @@ public class PlayerTouchMove : MonoBehaviour {
           Debug.Log("Абсолютное смещение: " + absoluteDelta + ". Текущая нормализованная позиция: " + normalizedPosition);
 
           MakeForce(absoluteDelta);
+          PlayerAnimation(true);
         }
 
         // палец убран
@@ -61,6 +63,7 @@ public class PlayerTouchMove : MonoBehaviour {
           forceSide = 0;
           forceFront = 0;
           isTouch = false;
+          PlayerAnimation(false);
         }
       }
     }
@@ -86,12 +89,22 @@ public class PlayerTouchMove : MonoBehaviour {
 
   void Init() {
     rigPlayer = GetComponent<Rigidbody>();
+    scriptPlayer = GetComponent<player>();
   }
 
   void AddPlayerForce() {
     if (isTouch) {
       rigPlayer.AddForce(transform.forward * playerSpeed * forceFront);
       rigPlayer.AddForce(transform.right * playerSpeed * forceSide);
+    }
+  }
+
+  void PlayerAnimation(bool on) {
+    if (on) {
+      scriptPlayer.animator.SetBool("run", true);
+    }
+    else {
+      scriptPlayer.animator.SetBool("run", false);
     }
   }
 }

@@ -19,7 +19,7 @@ public class player : MonoBehaviour {
 
   [SerializeField] private float speedOld;
   [SerializeField] private float rot;
-  [SerializeField] private Animator animator;
+  [SerializeField] public Animator animator;
   [SerializeField] private GameObject PlayerRifle;
   private Player_Rifle script_PlayerRifle;
 

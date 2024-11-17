@@ -5,20 +5,14 @@ using UnityEngine;
 
 // Скрывает сенсорную клавиатуру если запуск на компе
 public class Manager_DeviceInfo : MonoBehaviour {
+  public bool deviseInfoDesktop = true;  
+
   // Сенсорная клавиатура
-  [SerializeField] GameObject touch_keyboard_obj_1;
-  [SerializeField] GameObject touch_keyboard_obj_2;
-  [SerializeField] GameObject touch_keyboard_obj_3;
-  [SerializeField] GameObject touch_keyboard_obj_4;
-  [SerializeField] GameObject touch_keyboard_obj_5;
-  [SerializeField] GameObject touch_keyboard_obj_6;
-  [SerializeField] GameObject touch_keyboard_obj_7;
-  [SerializeField] GameObject touch_keyboard_obj_8;
+  [SerializeField] GameObject touch_keyboard_up;
+  [SerializeField] GameObject touch_keyboard_down;
 
   [SerializeField] PlayerControl scriptPlayerControl;
   [SerializeField] PlayerTouchMove scriptPlayerTouchMove;
-  // [SerializeField] PlayerTouchRotation scriptPlayerTouchRotation;
-  // [SerializeField] PlayerTouchRotationHorizont scriptPlayerTouchRotationHorizont;
   [SerializeField] PlayerTouchRotation scriptPlayerTouchRotation;
 
   // Функция java-script
@@ -37,28 +31,18 @@ public class Manager_DeviceInfo : MonoBehaviour {
   // иначе отключает управление мышкой
   public void Touch_Keyboard_SetActive(string Device) {
     if (Device == "desktop") {
-      touch_keyboard_obj_1.SetActive(false);
-      touch_keyboard_obj_2.SetActive(false);
-      touch_keyboard_obj_3.SetActive(false);
-      touch_keyboard_obj_4.SetActive(false);
-      touch_keyboard_obj_5.SetActive(false);
-      touch_keyboard_obj_6.SetActive(false);
-      touch_keyboard_obj_7.SetActive(false);
-      touch_keyboard_obj_8.SetActive(false);
+      deviseInfoDesktop = true;
+      touch_keyboard_up.SetActive(false);
+      touch_keyboard_down.SetActive(false);
 
       scriptPlayerControl.enabled = true;
       scriptPlayerTouchMove.enabled = false;
-      // scriptPlayerTouchRotationVerical.enabled = false;
-      // scriptPlayerTouchRotationHorizont.enabled = false;
       scriptPlayerTouchRotation.enabled = false;
-
-
     }
     else {
+      deviseInfoDesktop = false;
       scriptPlayerControl.enabled = false;
       scriptPlayerTouchMove.enabled = true;
-      // scriptPlayerTouchRotationVerical.enabled = true;
-      // scriptPlayerTouchRotationHorizont.enabled = true;
       scriptPlayerTouchRotation.enabled = true;
     }
   }

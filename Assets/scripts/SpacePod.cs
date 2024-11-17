@@ -21,6 +21,9 @@ public class SpacePod : MonoBehaviour {
   private crystalManager scriptCrystalManager;
   private StoreManager scriptStoreManager;
   private TechnicalContainerManager SCRIPT_TechnicalContainerManager;
+  PlayerControl scriptPlayerControl;
+
+
 
   // Start is called before the first frame update
   void Start() {
@@ -31,6 +34,8 @@ public class SpacePod : MonoBehaviour {
     scriptStoreManager = StoreManager.GetComponent<StoreManager>();
     script_GameManager = GameManager.GetComponent<GameManager>();
 
+    GameObject playerObj = GameObject.FindWithTag("Player");
+    scriptPlayerControl = playerObj.GetComponent<PlayerControl>();
     PlayerExitBase();
   }
 
@@ -45,9 +50,17 @@ public class SpacePod : MonoBehaviour {
       SCRIPT_TechnicalContainerManager.StoreTechnicalContainer(); // кладём Тех-К в хранилище
       SCRIPT_TechnicalContainerManager.SaveDataTechnicalContainerManager(); // сохраняем Тех-К меж-ур
       ButtnStore.SetActive(true); // вкыл кнопка магазина     
-      ButtnStoreMission.SetActive(true);       
-                                  // FindObjectOfType<healthManager>().healthPlayerRestart(); // рестарт здоровья игрока            
+      ButtnStoreMission.SetActive(true);
+      scriptPlayerControl.MouseCursorLock(false);
       script_GameManager.Check_GameState("PlayerEnterSpacePod"); // Проверка состояния игры
+    }
+  }
+
+  void OnTriggerStay(Collider other) {
+    if (other.gameObject.CompareTag("Player")) {
+      if (scriptPlayerControl.CursorModeLock) {
+        scriptPlayerControl.MouseCursorLock(false);
+      }
     }
   }
 
@@ -55,6 +68,7 @@ public class SpacePod : MonoBehaviour {
   private void OnTriggerExit(Collider other) {
     if (other.gameObject.CompareTag("Player")) {
       PlayerExitBase();
+      scriptPlayerControl.MouseCursorLock(true);
     }
   }
 
@@ -66,5 +80,7 @@ public class SpacePod : MonoBehaviour {
     scriptStoreManager.flagStoreUIOn = false; // флаг видимости магазина тоже надо переключить
     ButtnStore.SetActive(false); // выкл кнопка магазина
     ButtnStoreMission.SetActive(false);
+
   }
+
 }

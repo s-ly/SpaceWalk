@@ -4,65 +4,74 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class LabBase : MonoBehaviour {
-    public GameObject Zone;
-    public GameObject store;
-    public GameManager SRC_GameManager;
-    public bool flag_ui_on = true;
-    int GameState;
+  public GameObject Zone;
+  public GameObject store;
+  public GameManager SRC_GameManager;
+  public bool flag_ui_on = true;
+  int GameState;
+  PlayerControl scriptPlayerControl;
 
-    // Start is called before the first frame update
-    void Start() {
-        Zone.SetActive(false);
-        store.SetActive(false);
-    }
+  // Start is called before the first frame update
+  void Start() {
+    Zone.SetActive(false);
+    store.SetActive(false);
 
-    // Update is called once per frame
-    void Update() {
+    GameObject playerObj = GameObject.FindWithTag("Player");
+    scriptPlayerControl = playerObj.GetComponent<PlayerControl>();
+  }
 
-    }
-    // в зону что-то входит
-    private void OnTriggerEnter(Collider other) {
-        // В зону вошёл игрок 
-        if (other.gameObject.CompareTag("Player") && flag_ui_on) {
-            GameState = ProgressManager.Instance.YandexDataOBJ.GameState;
-            SRC_GameManager.Check_GameState("Lab_base"); // Проверка состояния игры
-            if (GameState != 7) {
-                Zone.SetActive(true);
-                store.SetActive(true);
-            }
-        }
-    }
-    // из зоны что-то вышло
-    private void OnTriggerExit(Collider other) {
-        // В зону вошёл игрок 
-        if (other.gameObject.CompareTag("Player")) {
-            Zone.SetActive(false);
-            store.SetActive(false);
-        }
-    }
+  // Update is called once per frame
+  void Update() {
 
-    private void OnTriggerStay(Collider other) {
-        if (other.gameObject.CompareTag("Player") && flag_ui_on) {
-            SRC_GameManager.Check_GameState("Lab_base"); // Проверка состояния игры
-            Zone.SetActive(true);
-            store.SetActive(true);
-        }
-    }
-
-    // менят активность Canvas (для исключение перекрытия окон интерфейса)
-    public void SwitchActive() {
-        if (store.activeSelf && Zone.activeSelf) store.SetActive(false);
-        else if (!store.activeSelf && Zone.activeSelf) store.SetActive(true);
-    }
-
-    public void Store_on() {
+  }
+  
+  // РІ Р·РѕРЅСѓ С‡С‚Рѕ-С‚Рѕ РІС…РѕРґРёС‚
+  private void OnTriggerEnter(Collider other) {
+    // Р’ Р·РѕРЅСѓ РІРѕС€С‘Р» РёРіСЂРѕРє 
+    if (other.gameObject.CompareTag("Player") && flag_ui_on) {
+      GameState = ProgressManager.Instance.YandexDataOBJ.GameState;
+      SRC_GameManager.Check_GameState("Lab_base"); // РџСЂРѕРІРµСЂРєР° СЃРѕСЃС‚РѕСЏРЅРёСЏ РёРіСЂС‹
+      if (GameState != 7) {
         Zone.SetActive(true);
         store.SetActive(true);
-        flag_ui_on = true;
+        scriptPlayerControl.MouseCursorLock(false);
+      }
     }
-    public void Store_off() {
-        Zone.SetActive(false);
-        store.SetActive(false);
-        flag_ui_on = false;
+  }
+
+  // РёР· Р·РѕРЅС‹ С‡С‚Рѕ-С‚Рѕ РІС‹С€Р»Рѕ
+  private void OnTriggerExit(Collider other) {
+    // Р’ Р·РѕРЅСѓ РІРѕС€С‘Р» РёРіСЂРѕРє 
+    if (other.gameObject.CompareTag("Player")) {
+      Zone.SetActive(false);
+      store.SetActive(false);
+      scriptPlayerControl.MouseCursorLock(true);
     }
+  }
+
+  private void OnTriggerStay(Collider other) {
+    if (other.gameObject.CompareTag("Player") && flag_ui_on) {
+      SRC_GameManager.Check_GameState("Lab_base"); // РџСЂРѕРІРµСЂРєР° СЃРѕСЃС‚РѕСЏРЅРёСЏ РёРіСЂС‹
+      Zone.SetActive(true);
+      store.SetActive(true);
+      scriptPlayerControl.MouseCursorLock(false);
+    }
+  }
+
+  // РјРµРЅСЏС‚ Р°РєС‚РёРІРЅРѕСЃС‚СЊ Canvas (РґР»СЏ РёСЃРєР»СЋС‡РµРЅРёРµ РїРµСЂРµРєСЂС‹С‚РёСЏ РѕРєРѕРЅ РёРЅС‚РµСЂС„РµР№СЃР°)
+  public void SwitchActive() {
+    if (store.activeSelf && Zone.activeSelf) store.SetActive(false);
+    else if (!store.activeSelf && Zone.activeSelf) store.SetActive(true);
+  }
+
+  public void Store_on() {
+    Zone.SetActive(true);
+    store.SetActive(true);
+    flag_ui_on = true;
+  }
+  public void Store_off() {
+    Zone.SetActive(false);
+    store.SetActive(false);
+    flag_ui_on = false;
+  }
 }

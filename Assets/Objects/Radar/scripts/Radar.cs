@@ -6,6 +6,7 @@ using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 using UnityEngine.XR;
 using static UnityEngine.GraphicsBuffer;
+using TMPro;
 
 public class Radar : MonoBehaviour {
   GameObject RadarMap;
@@ -16,6 +17,9 @@ public class Radar : MonoBehaviour {
 
   GameObject GameManager;
   GameManager script_GameManager;
+
+  public GameObject managerDeviceInfo;
+  Manager_DeviceInfo scriptManagerDeviceInfo;
 
   float Player_x;
   float Player_y;
@@ -29,8 +33,10 @@ public class Radar : MonoBehaviour {
 
 
   public GameObject Canvas;
-  public Button button_radar_1;
-  public Button button_radar_2;
+  public GameObject buttonsCanvas;
+  public Button button_radar_1; // ВОЗМОЖНО НЕНУЖНО
+  public Button button_radar_2; // ВОЗМОЖНО НЕНУЖНО
+  public TextMeshProUGUI pressUseRadar;
 
   public float speed_rot = 45f;
 
@@ -38,6 +44,8 @@ public class Radar : MonoBehaviour {
 
   public GameObject map_point_mission_battery;
   [SerializeField] AudioSource ping;
+
+  bool radarHotKey = false; // для горячей кнопки радара
 
   // Orient system
   public GameObject vector_target; // выравнивается к цели на карте
@@ -49,6 +57,8 @@ public class Radar : MonoBehaviour {
 
 
   void Start() {
+    managerDeviceInfo = GameObject.FindWithTag("DeviceInfo");
+    scriptManagerDeviceInfo = managerDeviceInfo.GetComponent<Manager_DeviceInfo>();
     map_point_mission_battery.SetActive(false);
     Player = GameObject.FindWithTag("Player");
     CameraPlayer = GameObject.FindWithTag("MainCamera");
@@ -58,9 +68,16 @@ public class Radar : MonoBehaviour {
     map_point_current_mission = RadarMap.transform.GetChild(1).gameObject;
     target_current_misson = map_point_current_mission.transform.GetChild(0).gameObject;
     RadarMap.SetActive(false);
-
     GameManager = GameObject.Find("/GameManager");
     script_GameManager = GameManager.GetComponent<GameManager>();
+
+    if (!scriptManagerDeviceInfo.deviseInfoDesktop){
+      pressUseRadar.enabled = false;
+      buttonsCanvas.SetActive(true);
+    } else{
+      pressUseRadar.enabled = true;
+      buttonsCanvas.SetActive(false);
+    }
   }
 
   void Update() {
@@ -76,6 +93,7 @@ public class Radar : MonoBehaviour {
         Orient_rotate_to_camera();
         Orient_CopyRot();
       }
+    Control();
     }
   }
 
@@ -250,6 +268,19 @@ public class Radar : MonoBehaviour {
     Orient_stop_map();
     Orient_vector_target_mission();
     Orien_child_vector();
+  }
+
+  // Управление радаром
+  void Control() {
+    if (Input.GetKeyDown(KeyCode.R)) {
+      radarHotKey = !radarHotKey;
+      if (radarHotKey) {
+        Orient_Where_I_am();
+      }
+      else {
+        Orient_Where_is_the_target();
+      }
+    }
   }
   /////////////////////////////////////////////////////////
 }

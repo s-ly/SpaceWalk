@@ -61,6 +61,8 @@ public class GameManager : MonoBehaviour {
   Trigger_Terminal script_rigger_Terminal_energy;
 
   private player scripc_player;
+  PlayerControl scriptPlayerControl;
+
   [SerializeField] private Animator animatorPlayer;
   private float TimerDeath = 1.8f;
   private bool DeathTriger = false;
@@ -106,6 +108,7 @@ public class GameManager : MonoBehaviour {
 
   // Start is called before the first frame update
   void Start() {
+    scriptPlayerControl = Player.GetComponent<PlayerControl>();
     InIt_TextDialog();
     GameState = ProgressManager.Instance.YandexDataOBJ.GameState; // Загрузка Состояния игры
     arrowManager.ArrowControl(GameState);
@@ -409,6 +412,7 @@ public class GameManager : MonoBehaviour {
     }
 
     Time.timeScale = 0; // Пауза
+    scriptPlayerControl.MouseCursorLock(false);
   }
 
   // Закрывает Диалог
@@ -424,8 +428,7 @@ public class GameManager : MonoBehaviour {
       StoreButtonMission.SetActive(true);
     }
     Time.timeScale = 1; // Убираем паузу
-
-    
+    scriptPlayerControl.MouseCursorLock(true);
   }
 
   public void LoadLevel() {
@@ -493,6 +496,7 @@ public class GameManager : MonoBehaviour {
     STC_WeaponsBase.Store_off();
 
     Time.timeScale = 0; // Пауза
+    scriptPlayerControl.MouseCursorLock(false);
 
 #if UNITY_WEBGL
     script_Yandex.GameStop(); // отчёт Яндексу
@@ -514,6 +518,7 @@ public class GameManager : MonoBehaviour {
     SCRIPT_EngineBase.flag_ui_on = true;
 
     Time.timeScale = 1; // Убираем паузу
+    scriptPlayerControl.MouseCursorLock(true);
 #if UNITY_WEBGL
     script_Yandex.GameStart(); // отчёт Яндексу
 #endif

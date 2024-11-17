@@ -16,6 +16,7 @@ TagManager:
   - NoBullet
   - PlayerAnimator
   - ExplodetEnemy
+  - DeviceInfo
   layers:
   - Default
   - TransparentFX

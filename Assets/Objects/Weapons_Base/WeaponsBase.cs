@@ -9,10 +9,14 @@ public class WeaponsBase : MonoBehaviour {
   public GameManager SRC_GameManager;
   public bool flag_ui_on = true;
   int GameState;
+  PlayerControl scriptPlayerControl;
   // Start is called before the first frame update
   void Start() {
     Zone.SetActive(false);
     store.SetActive(false);
+
+    GameObject playerObj = GameObject.FindWithTag("Player");
+    scriptPlayerControl = playerObj.GetComponent<PlayerControl>();
   }
 
   // Update is called once per frame
@@ -28,6 +32,7 @@ public class WeaponsBase : MonoBehaviour {
       if (GameState != 3) {
         Zone.SetActive(true);
         store.SetActive(true);
+        scriptPlayerControl.MouseCursorLock(false);
       }
     }
   }
@@ -37,6 +42,7 @@ public class WeaponsBase : MonoBehaviour {
     if (other.gameObject.CompareTag("Player")) {
       Zone.SetActive(false);
       store.SetActive(false);
+      scriptPlayerControl.MouseCursorLock(true);
     }
   }
 
@@ -45,6 +51,7 @@ public class WeaponsBase : MonoBehaviour {
       SRC_GameManager.Check_GameState("Weapons_Base"); // Проверка состояния игры
       Zone.SetActive(true);
       store.SetActive(true);
+      scriptPlayerControl.MouseCursorLock(false);
     }
   }
 
