@@ -59,6 +59,7 @@ public class LocalData_ENG {
   public string Radar_BUTT_Tilt = "Tilt of the map";
   public string Radar_BUTT_WhereIAm = "Where I am?";
   public string Radar_CurrentGoal = "Current goal: ";
+  public string Radar_PressR = "R - use radar";
 
   public string Restart = "Restart";
   public string GameOver = "Game Over";

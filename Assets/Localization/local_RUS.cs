@@ -59,6 +59,7 @@ public class LocalData_RUS {
   public string Radar_BUTT_Tilt = "Наклон карты";
   public string Radar_BUTT_WhereIAm = "Где я?";
   public string Radar_CurrentGoal = "Текущая цель: ";
+  public string Radar_PressR = "R - использовать радар"; //R - use radar
 
   public string Restart = "Рестарт";
   public string GameOver = "Проигрыш";

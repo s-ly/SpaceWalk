@@ -14,6 +14,7 @@ public class Radar : MonoBehaviour {
   GameObject map_point_player_orient;
   GameObject map_point_current_mission;
   GameObject Player;
+  player scriptPlayer;
 
   GameObject GameManager;
   GameManager script_GameManager;
@@ -61,6 +62,7 @@ public class Radar : MonoBehaviour {
     scriptManagerDeviceInfo = managerDeviceInfo.GetComponent<Manager_DeviceInfo>();
     map_point_mission_battery.SetActive(false);
     Player = GameObject.FindWithTag("Player");
+    scriptPlayer = Player.GetComponent<player>();
     CameraPlayer = GameObject.FindWithTag("MainCamera");
     RadarMap = transform.GetChild(0).gameObject;
     map_point_player = RadarMap.transform.GetChild(0).gameObject;
@@ -107,6 +109,7 @@ public class Radar : MonoBehaviour {
       script_GameManager.Dialog_current_mission.SetActive(true);
       map_point_current_mission.SetActive(true);
       current_mission_activate();
+      scriptPlayer.actionZone = true;
     }
   }
 
@@ -117,7 +120,7 @@ public class Radar : MonoBehaviour {
       RadarMap.SetActive(false);
       Canvas.SetActive(false);
       script_GameManager.Dialog_current_mission.SetActive(false);
-
+      scriptPlayer.actionZone = false;
     }
   }
 

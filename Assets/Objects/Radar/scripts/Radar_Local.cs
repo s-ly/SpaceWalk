@@ -8,6 +8,7 @@ public class Radar_Local : MonoBehaviour {
   public TextMeshProUGUI Radar_BUTT_Rotation;
   public TextMeshProUGUI Radar_BUTT_Tilt;
   public TextMeshProUGUI Radar_BUTT_WhereIAm;
+  public TextMeshProUGUI Radar_TEXT_PressR; 
 
   // Start is called before the first frame update
   void Start() {
@@ -24,5 +25,6 @@ public class Radar_Local : MonoBehaviour {
     Radar_BUTT_Rotation.text = TextManager.Inst_TextData.textsData.Radar_BUTT_Rotation;
     Radar_BUTT_Tilt.text = TextManager.Inst_TextData.textsData.Radar_BUTT_Tilt;
     Radar_BUTT_WhereIAm.text = TextManager.Inst_TextData.textsData.Radar_BUTT_WhereIAm;
+    Radar_TEXT_PressR.text = TextManager.Inst_TextData.textsData.Radar_PressR;
   }
 }

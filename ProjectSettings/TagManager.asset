@@ -17,6 +17,7 @@ TagManager:
   - PlayerAnimator
   - ExplodetEnemy
   - DeviceInfo
+  - Radar
   layers:
   - Default
   - TransparentFX

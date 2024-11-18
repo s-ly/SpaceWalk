@@ -24,6 +24,11 @@ public class player : MonoBehaviour {
   private Player_Rifle script_PlayerRifle;
 
   public bool PlayerModeAttack = false; // режим атаки игрока    
+  [SerializeField] Manager_DeviceInfo scriptManagerDeviceInfo;
+
+  // особые зоны, например радар (для отключения ui)
+  public bool actionZone = false;
+  public bool deviceDesktop = true;
 
   // Прыжки
   bool PlayerOnGround = false; //Player находится на поверхности и может прыгать
@@ -32,6 +37,7 @@ public class player : MonoBehaviour {
   bool PlayerJumpEngineForward_enter = false; // Player совершил реактивный прижок вперед
 
   [SerializeField] private GameObject button_move_jamp_engine;
+  [SerializeField] private GameObject button_up_jamp_engine;
 
   [SerializeField] GameObject Engines; // двигатели
   [SerializeField] GameObject engines_forward; // двигатели вперед
@@ -46,6 +52,7 @@ public class player : MonoBehaviour {
 
   // Start is called before the first frame update
   void Start() {
+    deviceDesktop = scriptManagerDeviceInfo.deviseInfoDesktop;
     script_PlayerRifle = PlayerRifle.GetComponent<Player_Rifle>();
     Engines.SetActive(false);
     engines_forward.SetActive(false);
@@ -55,6 +62,21 @@ public class player : MonoBehaviour {
 
   // Update is called once per frame
   void Update() {
+
+    if (!deviceDesktop) {
+      if (actionZone) {
+        // button_move_jamp_engine.SetActive(false);
+        button_up_jamp_engine.SetActive(false);
+        button_move_jamp_engine.SetActive(false);
+      }
+      else {
+        button_up_jamp_engine.SetActive(true);
+      }
+    }
+    else {
+      button_up_jamp_engine.SetActive(false);
+      button_move_jamp_engine.SetActive(false);
+    }
 
     /* Прыжок. Так-как он должен сработать только в момент отпускания клавиши, 
    * то помощаю его в Update(). Иначе, может не всегда сработать. */
@@ -157,7 +179,7 @@ public class player : MonoBehaviour {
       PlayerJumpBase_enter = true;
       PlayerJumpEngine_enter = false;
       PlayerJumpEngineForward_enter = false;
-      button_move_jamp_engine.SetActive(true);
+      if (!deviceDesktop) button_move_jamp_engine.SetActive(true);
     }
     else if (PlayerJumpBase_enter == true && PlayerJumpEngine_enter == false) {
       if (script_fuel_manager.JumpRequest()) {
@@ -175,7 +197,7 @@ public class player : MonoBehaviour {
         PlayerJumpBase_enter = true;
         PlayerJumpEngineForward_enter = true;
         engines_forward.SetActive(true);
-        button_move_jamp_engine.SetActive(false);
+        if (!deviceDesktop) button_move_jamp_engine.SetActive(false);
       }
     }
   }

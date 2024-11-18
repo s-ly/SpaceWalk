@@ -6,9 +6,10 @@ public class PlayerTouchRotation : MonoBehaviour {
   [SerializeField] Transform camera;
   float sensitivity = 250f; // чувствительность
   private Vector2 initialTouchPosition; // Начальная позиция касания
-  private bool isTouch = false;
+  public bool isTouch = false;
   public float mouseX; // Значение для оси X
   public float mouseY; // Значение для оси Y
+  int touchId = -1;
 
   // Update is called once per frame
   void Update() {
@@ -17,19 +18,23 @@ public class PlayerTouchRotation : MonoBehaviour {
 
   void Control() {
     if (Input.touchCount > 0) {
+
+
       foreach (Touch touch in Input.touches) {
         if (touch.phase == TouchPhase.Began && touch.position.x > Screen.width / 2) {
           isTouch = true;
+          touchId = touch.fingerId;
+
           initialTouchPosition = NormalizeTouchPosition(touch.position);
         }
 
-        if ((touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) && isTouch && touch.position.x > Screen.width / 2) {
+        if ((touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) && isTouch && touch.position.x > Screen.width / 2 && touch.fingerId == touchId) {
           Vector2 touchDelta = NormalizeTouchPosition(touch.position) - initialTouchPosition;
           MakeForce(touchDelta);
           initialTouchPosition = NormalizeTouchPosition(touch.position);
         }
 
-        if (touch.phase == TouchPhase.Ended) {
+        if (touch.phase == TouchPhase.Ended && touch.fingerId == touchId) {
           isTouch = false;
           mouseX = 0;
           mouseY = 0;
@@ -51,7 +56,7 @@ public class PlayerTouchRotation : MonoBehaviour {
     camera.Rotate(Vector3.left, mouseY);
   }
 
-    Vector2 NormalizeTouchPosition(Vector2 touchPosition) {
+  Vector2 NormalizeTouchPosition(Vector2 touchPosition) {
     float normalizedX = touchPosition.x / Screen.width;
     float normalizedY = touchPosition.y / Screen.height;
     return new Vector2(normalizedX, normalizedY);

@@ -164,7 +164,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11
+  m_fontSize: 15.25
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -465,7 +465,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12.7
+  m_fontSize: 16.5
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -575,8 +575,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -225, y: -1.2686768}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchoredPosition: {x: -180, y: -1.2686768}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5774513586399514881
 CanvasRenderer:
@@ -1444,7 +1444,7 @@ GameObject:
   - component: {fileID: 5262707720877583376}
   m_Layer: 2
   m_Name: Radar
-  m_TagString: Untagged
+  m_TagString: Radar
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1632,6 +1632,7 @@ MonoBehaviour:
   Radar_BUTT_Rotation: {fileID: 953297074121093248}
   Radar_BUTT_Tilt: {fileID: 2338272989369235384}
   Radar_BUTT_WhereIAm: {fileID: 4051367634910400916}
+  Radar_TEXT_PressR: {fileID: 4830609741393377448}
 --- !u!1 &2924298275773269075
 GameObject:
   m_ObjectHideFlags: 0
@@ -2141,16 +2142,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4873858186468481284}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2830189285102269430}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.37375003, y: 0.69131047}
-  m_AnchorMax: {x: 0.625, y: 0.795}
-  m_AnchoredPosition: {x: 0.1666565, y: 1.1000061}
-  m_SizeDelta: {x: -1, y: 3}
+  m_AnchorMin: {x: 0.25375003, y: 0.72048235}
+  m_AnchorMax: {x: 0.7425, y: 0.795}
+  m_AnchoredPosition: {x: -1.6932983, y: 1.5777969}
+  m_SizeDelta: {x: 1.1856, y: 2.0444002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7300187087722697134
 CanvasRenderer:
@@ -2207,7 +2208,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.25
+  m_fontSize: 31.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2268,7 +2269,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1122392350041043127
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3002,8 +3003,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 217.90013, y: -1.268753}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchoredPosition: {x: 180, y: -1.268753}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5179220624748898154
 CanvasRenderer:
@@ -3380,7 +3381,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1982424210057365289
 RectTransform:
   m_ObjectHideFlags: 0

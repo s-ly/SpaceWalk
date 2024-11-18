@@ -15,6 +15,7 @@ public class PlayerTouchMove : MonoBehaviour {
   public bool isTouch = false;
   public float forceSide = 0;
   public float forceFront = 0;
+  int touchId = -1;
 
   Rigidbody rigPlayer;
   player scriptPlayer;
@@ -32,19 +33,24 @@ public class PlayerTouchMove : MonoBehaviour {
   void Update() {
     // Проверяем, есть ли касания
     if (Input.touchCount > 0) {
+
+
+
+
       foreach (Touch touch in Input.touches) {
         // Проверяем, началось ли касание и находится ли оно в левой половине экрана
         if (touch.phase == TouchPhase.Began && touch.position.x < Screen.width / 2) {
           isTouch = true;
+          touchId = touch.fingerId;
 
           // Запоминаем начальную позицию касания
           initialTouchPosition = NormalizeTouchPosition(touch.position);
           // Выводим сообщение в консоль с координатами начала касания
-          Debug.Log("Пользователь коснулся экрана в точке: " + initialTouchPosition);
+          // Debug.Log("Пользователь коснулся экрана в точке: " + initialTouchPosition);
         }
 
         // Проверяем, перемещается ли палец и isTouch
-        if ((touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) && isTouch && touch.position.x < Screen.width / 2) {
+        if ((touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) && isTouch && touch.position.x < Screen.width / 2 && touch.fingerId == touchId) {
           // Нормализуем текущую позицию касания
           Vector2 normalizedPosition = NormalizeTouchPosition(touch.position);
 
@@ -52,14 +58,14 @@ public class PlayerTouchMove : MonoBehaviour {
           Vector2 absoluteDelta = normalizedPosition - initialTouchPosition;
 
           // Выводим сообщение в консоль с координатами текущего положения и абсолютным смещением
-          Debug.Log("Абсолютное смещение: " + absoluteDelta + ". Текущая нормализованная позиция: " + normalizedPosition);
+          // Debug.Log("Абсолютное смещение: " + absoluteDelta + ". Текущая нормализованная позиция: " + normalizedPosition);
 
           MakeForce(absoluteDelta);
           PlayerAnimation(true);
         }
 
         // палец убран
-        if (touch.phase == TouchPhase.Ended && touch.position.x < Screen.width / 2) {
+        if (touch.phase == TouchPhase.Ended && touch.position.x < Screen.width / 2 && touch.fingerId == touchId) {
           forceSide = 0;
           forceFront = 0;
           isTouch = false;

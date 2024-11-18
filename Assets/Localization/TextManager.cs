@@ -65,6 +65,7 @@ public class TextsData {
   public string Radar_BUTT_Tilt;
   public string Radar_BUTT_WhereIAm;
   public string Radar_CurrentGoal;
+  public string Radar_PressR;
 
   public string Restart;
   public string GameOver;
@@ -153,6 +154,7 @@ public class TextManager : MonoBehaviour {
       textsData.Radar_BUTT_Tilt = LD_RUS.Radar_BUTT_Tilt;
       textsData.Radar_BUTT_WhereIAm = LD_RUS.Radar_BUTT_WhereIAm;
       textsData.Radar_CurrentGoal = LD_RUS.Radar_CurrentGoal;
+      textsData.Radar_PressR = LD_RUS.Radar_PressR;
 
       textsData.Restart = LD_RUS.Restart;
       textsData.GameOver = LD_RUS.GameOver;
@@ -218,6 +220,7 @@ public class TextManager : MonoBehaviour {
       textsData.Radar_BUTT_Tilt = LD_ENG.Radar_BUTT_Tilt;
       textsData.Radar_BUTT_WhereIAm = LD_ENG.Radar_BUTT_WhereIAm;
       textsData.Radar_CurrentGoal = LD_ENG.Radar_CurrentGoal;
+      textsData.Radar_PressR = LD_ENG.Radar_PressR;
 
       textsData.Restart = LD_ENG.Restart;
       textsData.GameOver = LD_ENG.GameOver;

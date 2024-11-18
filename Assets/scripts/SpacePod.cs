@@ -22,6 +22,7 @@ public class SpacePod : MonoBehaviour {
   private StoreManager scriptStoreManager;
   private TechnicalContainerManager SCRIPT_TechnicalContainerManager;
   PlayerControl scriptPlayerControl;
+  player scriptPlayer;
 
 
 
@@ -36,6 +37,7 @@ public class SpacePod : MonoBehaviour {
 
     GameObject playerObj = GameObject.FindWithTag("Player");
     scriptPlayerControl = playerObj.GetComponent<PlayerControl>();
+    scriptPlayer = playerObj.GetComponent<player>();
     PlayerExitBase();
   }
 
@@ -53,6 +55,7 @@ public class SpacePod : MonoBehaviour {
       ButtnStoreMission.SetActive(true);
       scriptPlayerControl.MouseCursorLock(false);
       script_GameManager.Check_GameState("PlayerEnterSpacePod"); // Проверка состояния игры
+      scriptPlayer.actionZone = true;
     }
   }
 
@@ -61,6 +64,7 @@ public class SpacePod : MonoBehaviour {
       if (scriptPlayerControl.CursorModeLock) {
         scriptPlayerControl.MouseCursorLock(false);
       }
+      scriptPlayer.actionZone = true;
     }
   }
 
@@ -69,6 +73,7 @@ public class SpacePod : MonoBehaviour {
     if (other.gameObject.CompareTag("Player")) {
       PlayerExitBase();
       scriptPlayerControl.MouseCursorLock(true);
+      scriptPlayer.actionZone = false;
     }
   }
 
