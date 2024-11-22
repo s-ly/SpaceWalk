@@ -106,6 +106,9 @@ public class GameManager : MonoBehaviour {
   EnergyBattery SRC_EnergyBattery_2;
   EnergyBattery SRC_EnergyBattery_3;
 
+  bool skipDialogue = false; // пропустить диалог после 10 уровня
+  // bool winActivate = false;
+
   // Start is called before the first frame update
   void Start() {
     scriptPlayerControl = Player.GetComponent<PlayerControl>();
@@ -129,7 +132,6 @@ public class GameManager : MonoBehaviour {
     SRC_EnergyBattery_3 = EnergyBattery_3.GetComponent<EnergyBattery>();
 
 
-
     Dialog_Menu.SetActive(false);
     OpenDialogMission();
     BAG_Player(false, false, false); // у игрока в сумке ничего нет
@@ -149,6 +151,8 @@ public class GameManager : MonoBehaviour {
 
   // Update is called once per frame
   void Update() {
+    Control();
+
     // после смерти держим экран немного
     if (TimerDeath > 0 && DeathTriger) {
       TimerDeath = TimerDeath - Time.deltaTime;
@@ -320,12 +324,26 @@ public class GameManager : MonoBehaviour {
             GameState = 11;
             ProgressManager.Instance.YandexDataOBJ.GameState = GameState; // Сохранение данных между уровнями
             BAG_Player(false, false, false); // у игрока в сумке ничего нет
-            YouWin(); // конец игры
+            arrowManager.ArrowControl(GameState);
+            OpenDialogMission();
+            // skipDialogue = true;
+            // Check_GameState("Win");
           }
-          //TriggerActivation();
 #if UNITY_WEBGL
           script_Yandex.Button_Save();
 #endif
+          break;
+        }
+      case "Win": {
+          if (GameState == 11) {
+            Debug.Log("FINAL");
+            arrowManager.ArrowControl(GameState);
+            // if (!skipDialogue) OpenDialogMission();
+            OpenDialogMission();
+            // skipDialogue = true;
+            // YouWin(); // конец игры
+            // WinActivate();
+          }
           break;
         }
     }
@@ -334,6 +352,7 @@ public class GameManager : MonoBehaviour {
 
   // Показывает Диалог
   public void OpenDialogMission() {
+
     string Radar_CurrentGoal = TextManager.Inst_TextData.textsData.Radar_CurrentGoal;
 
     if (GameState == 0) {
@@ -413,6 +432,7 @@ public class GameManager : MonoBehaviour {
 
     Time.timeScale = 0; // Пауза
     scriptPlayerControl.MouseCursorLock(false);
+
   }
 
   // Закрывает Диалог
@@ -429,6 +449,11 @@ public class GameManager : MonoBehaviour {
     }
     Time.timeScale = 1; // Убираем паузу
     scriptPlayerControl.MouseCursorLock(true);
+
+    if (GameState == 11) {
+      // Check_GameState("Win");
+      WinActivate();
+    }
   }
 
   public void LoadLevel() {
@@ -462,6 +487,12 @@ public class GameManager : MonoBehaviour {
     animatorPlayer.SetTrigger("Death"); // тригер анимации смерти
     scripc_player.enabled = false; // отключаю скрипт игрока
     DeathTriger = true; // запуск таймера перезагрузки
+  }
+
+  // активирует возможность завершить игру победой
+  public void WinActivate() {
+    // winActivate = true;
+    YouWin();
   }
 
   // Игрок победил
@@ -563,6 +594,12 @@ public class GameManager : MonoBehaviour {
     if (numBattery == 2) DestroyBatteryNum_2 = true;
     if (numBattery == 3) DestroyBatteryNum_3 = true;
     if (DestroyBatteryNum_1 && DestroyBatteryNum_2 && DestroyBatteryNum_3) DestroyBatteryAll = true;
+  }
+
+  void Control() {
+    if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.Pause) || Input.GetKeyDown(KeyCode.P)) {
+      OpenDialog_menu();
+    }
   }
 
 }

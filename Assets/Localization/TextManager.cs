@@ -95,136 +95,136 @@ public class TextManager : MonoBehaviour {
 
   public void LoadLocal(string local) {
     if (local == "RUS") {
-      textsData.local = LD_RUS.local;
-      textsData.main_Load = LD_RUS.main_Load;
-      textsData.main_GameName = LD_RUS.main_GameName;
-      textsData.main_ButtonStart = LD_RUS.main_ButtonStart;
-      textsData.main_ButtonContinue = LD_RUS.main_ButtonContinue;
-      textsData.main_UserID = LD_RUS.main_UserID;
+      textsData.local = LD_RUS.get_local();
+      textsData.main_Load = LD_RUS.get_main_Load();
+      textsData.main_GameName = LD_RUS.get_main_GameName();
+      textsData.main_ButtonStart = LD_RUS.get_main_ButtonStart();
+      textsData.main_ButtonContinue = LD_RUS.get_main_ButtonContinue();
+      textsData.main_UserID = LD_RUS.get_main_UserID();
 
-      textsData.main_PlDatStr_GamP = LD_RUS.main_PlDatStr_GamP;
-      textsData.main_PlDatStr_Crys = LD_RUS.main_PlDatStr_Crys;
-      textsData.main_PlDatStr_MaOx = LD_RUS.main_PlDatStr_MaOx;
-      textsData.main_PlDatStr_Tech = LD_RUS.main_PlDatStr_Tech;
-      textsData.main_PlDatStr_CurT = LD_RUS.main_PlDatStr_CurT;
-      textsData.main_PlDatStr_WeRT = LD_RUS.main_PlDatStr_WeRT;
-      textsData.main_PlDatStr_PSpe = LD_RUS.main_PlDatStr_PSpe;
-      textsData.main_PlDatStr_Phea = LD_RUS.main_PlDatStr_Phea;
-      textsData.main_PlDatStr_MaFu = LD_RUS.main_PlDatStr_MaFu;
-      textsData.main_PlDatStr_PrFi = LD_RUS.main_PlDatStr_PrFi;
+      textsData.main_PlDatStr_GamP = LD_RUS.get_main_PlDatStr_GamP();
+      textsData.main_PlDatStr_Crys = LD_RUS.get_main_PlDatStr_Crys();
+      textsData.main_PlDatStr_MaOx = LD_RUS.get_main_PlDatStr_MaOx();
+      textsData.main_PlDatStr_Tech = LD_RUS.get_main_PlDatStr_Tech();
+      textsData.main_PlDatStr_CurT = LD_RUS.get_main_PlDatStr_CurT();
+      textsData.main_PlDatStr_WeRT = LD_RUS.get_main_PlDatStr_WeRT();
+      textsData.main_PlDatStr_PSpe = LD_RUS.get_main_PlDatStr_PSpe();
+      textsData.main_PlDatStr_Phea = LD_RUS.get_main_PlDatStr_Phea();
+      textsData.main_PlDatStr_MaFu = LD_RUS.get_main_PlDatStr_MaFu();
+      textsData.main_PlDatStr_PrFi = LD_RUS.get_main_PlDatStr_PrFi();
 
-      textsData.MissionDialog_00 = LD_RUS.MissionDialog_00;
-      textsData.MissionDialog_01 = LD_RUS.MissionDialog_01;
-      textsData.MissionDialog_02 = LD_RUS.MissionDialog_02;
-      textsData.MissionDialog_03 = LD_RUS.MissionDialog_03;
-      textsData.MissionDialog_04 = LD_RUS.MissionDialog_04;
-      textsData.MissionDialog_05 = LD_RUS.MissionDialog_05;
-      textsData.MissionDialog_06 = LD_RUS.MissionDialog_06;
-      textsData.MissionDialog_07 = LD_RUS.MissionDialog_07;
-      textsData.MissionDialog_08 = LD_RUS.MissionDialog_08;
-      textsData.MissionDialog_09 = LD_RUS.MissionDialog_09;
-      textsData.MissionDialog_10 = LD_RUS.MissionDialog_10;
-      textsData.MissionDialog_11 = LD_RUS.MissionDialog_11;
+      textsData.MissionDialog_00 = LD_RUS.get_MissionDialog_00();
+      textsData.MissionDialog_01 = LD_RUS.get_MissionDialog_01();
+      textsData.MissionDialog_02 = LD_RUS.get_MissionDialog_02();
+      textsData.MissionDialog_03 = LD_RUS.get_MissionDialog_03();
+      textsData.MissionDialog_04 = LD_RUS.get_MissionDialog_04();
+      textsData.MissionDialog_05 = LD_RUS.get_MissionDialog_05();
+      textsData.MissionDialog_06 = LD_RUS.get_MissionDialog_06();
+      textsData.MissionDialog_07 = LD_RUS.get_MissionDialog_07();
+      textsData.MissionDialog_08 = LD_RUS.get_MissionDialog_08();
+      textsData.MissionDialog_09 = LD_RUS.get_MissionDialog_09();
+      textsData.MissionDialog_10 = LD_RUS.get_MissionDialog_10();
+      textsData.MissionDialog_11 = LD_RUS.get_MissionDialog_11();
 
-      textsData.button_CurrentTask = LD_RUS.button_CurrentTask;
-      textsData.button_Shop = LD_RUS.button_Shop;
-      textsData.button_Menu = LD_RUS.button_Menu;
-      textsData.NewTask = LD_RUS.NewTask;
+      textsData.button_CurrentTask = LD_RUS.get_button_CurrentTask();
+      textsData.button_Shop = LD_RUS.get_button_Shop();
+      textsData.button_Menu = LD_RUS.get_button_Menu();
+      textsData.NewTask = LD_RUS.get_NewTask();
 
-      textsData.fps = LD_RUS.fps;
+      textsData.fps = LD_RUS.get_fps();
 
-      textsData.PlayMenu_Pause = LD_RUS.PlayMenu_Pause;
-      textsData.PlayMenu_GraphicsQuality = LD_RUS.PlayMenu_GraphicsQuality;
-      textsData.PlayMenu_BUTT_QualityLow = LD_RUS.PlayMenu_BUTT_QualityLow;
-      textsData.PlayMenu_BUTT_QualityNormal = LD_RUS.PlayMenu_BUTT_QualityNormal;
-      textsData.PlayMenu_BUTT_QualityHi = LD_RUS.PlayMenu_BUTT_QualityHi;
-      textsData.PlayMenu_BUTT_MainMenu = LD_RUS.PlayMenu_BUTT_MainMenu;
-      textsData.PlayMenu_BUTT_Close = LD_RUS.PlayMenu_BUTT_Close;
+      textsData.PlayMenu_Pause = LD_RUS.get_PlayMenu_Pause();
+      textsData.PlayMenu_GraphicsQuality = LD_RUS.get_PlayMenu_GraphicsQuality();
+      textsData.PlayMenu_BUTT_QualityLow = LD_RUS.get_PlayMenu_BUTT_QualityLow();
+      textsData.PlayMenu_BUTT_QualityNormal = LD_RUS.get_PlayMenu_BUTT_QualityNormal();
+      textsData.PlayMenu_BUTT_QualityHi = LD_RUS.get_PlayMenu_BUTT_QualityHi();
+      textsData.PlayMenu_BUTT_MainMenu = LD_RUS.get_PlayMenu_BUTT_MainMenu();
+      textsData.PlayMenu_BUTT_Close = LD_RUS.get_PlayMenu_BUTT_Close();
 
-      textsData.Store_RechargeTime = LD_RUS.Store_RechargeTime;
-      textsData.Store_Sec = LD_RUS.Store_Sec;
-      textsData.Store_CurrentFieldLevel = LD_RUS.Store_CurrentFieldLevel;
-      textsData.Store_Maximum4 = LD_RUS.Store_Maximum4;
-      textsData.Store_WeaponUpgrade = LD_RUS.Store_WeaponUpgrade;
-      textsData.Store_FieldUpgrade = LD_RUS.Store_FieldUpgrade;
-      textsData.Store_BUTT_Buy = LD_RUS.Store_BUTT_Buy;
+      textsData.Store_RechargeTime = LD_RUS.get_Store_RechargeTime();
+      textsData.Store_Sec = LD_RUS.get_Store_Sec();
+      textsData.Store_CurrentFieldLevel = LD_RUS.get_Store_CurrentFieldLevel();
+      textsData.Store_Maximum4 = LD_RUS.get_Store_Maximum4();
+      textsData.Store_WeaponUpgrade = LD_RUS.get_Store_WeaponUpgrade();
+      textsData.Store_FieldUpgrade = LD_RUS.get_Store_FieldUpgrade();
+      textsData.Store_BUTT_Buy = LD_RUS.get_Store_BUTT_Buy();
 
-      textsData.Radar_BUTT_Goal = LD_RUS.Radar_BUTT_Goal;
-      textsData.Radar_BUTT_Rotation = LD_RUS.Radar_BUTT_Rotation;
-      textsData.Radar_BUTT_Tilt = LD_RUS.Radar_BUTT_Tilt;
-      textsData.Radar_BUTT_WhereIAm = LD_RUS.Radar_BUTT_WhereIAm;
-      textsData.Radar_CurrentGoal = LD_RUS.Radar_CurrentGoal;
-      textsData.Radar_PressR = LD_RUS.Radar_PressR;
+      textsData.Radar_BUTT_Goal = LD_RUS.get_Radar_BUTT_Goal();
+      textsData.Radar_BUTT_Rotation = LD_RUS.get_Radar_BUTT_Rotation();
+      textsData.Radar_BUTT_Tilt = LD_RUS.get_Radar_BUTT_Tilt();
+      textsData.Radar_BUTT_WhereIAm = LD_RUS.get_Radar_BUTT_WhereIAm();
+      textsData.Radar_CurrentGoal = LD_RUS.get_Radar_CurrentGoal();
+      textsData.Radar_PressR = LD_RUS.get_Radar_PressR();
 
-      textsData.Restart = LD_RUS.Restart;
-      textsData.GameOver = LD_RUS.GameOver;
-      textsData.Victory = LD_RUS.Victory;
+      textsData.Restart = LD_RUS.get_Restart();
+      textsData.GameOver = LD_RUS.get_GameOver();
+      textsData.Victory = LD_RUS.get_Victory();
     }
     if (local == "ENG") {
-      textsData.local = LD_ENG.local;
-      textsData.main_Load = LD_ENG.main_Load;
-      textsData.main_GameName = LD_ENG.main_GameName;
-      textsData.main_ButtonStart = LD_ENG.main_ButtonStart;
-      textsData.main_ButtonContinue = LD_ENG.main_ButtonContinue;
-      textsData.main_UserID = LD_ENG.main_UserID;
+      textsData.local = LD_ENG.get_local();
+      textsData.main_Load = LD_ENG.get_main_Load();
+      textsData.main_GameName = LD_ENG.get_main_GameName();
+      textsData.main_ButtonStart = LD_ENG.get_main_ButtonStart();
+      textsData.main_ButtonContinue = LD_ENG.get_main_ButtonContinue();
+      textsData.main_UserID = LD_ENG.get_main_UserID();
 
-      textsData.main_PlDatStr_GamP = LD_ENG.main_PlDatStr_GamP;
-      textsData.main_PlDatStr_Crys = LD_ENG.main_PlDatStr_Crys;
-      textsData.main_PlDatStr_MaOx = LD_ENG.main_PlDatStr_MaOx;
-      textsData.main_PlDatStr_Tech = LD_ENG.main_PlDatStr_Tech;
-      textsData.main_PlDatStr_CurT = LD_ENG.main_PlDatStr_CurT;
-      textsData.main_PlDatStr_WeRT = LD_ENG.main_PlDatStr_WeRT;
-      textsData.main_PlDatStr_PSpe = LD_ENG.main_PlDatStr_PSpe;
-      textsData.main_PlDatStr_Phea = LD_ENG.main_PlDatStr_Phea;
-      textsData.main_PlDatStr_MaFu = LD_ENG.main_PlDatStr_MaFu;
-      textsData.main_PlDatStr_PrFi = LD_ENG.main_PlDatStr_PrFi;
+      textsData.main_PlDatStr_GamP = LD_ENG.get_main_PlDatStr_GamP();
+      textsData.main_PlDatStr_Crys = LD_ENG.get_main_PlDatStr_Crys();
+      textsData.main_PlDatStr_MaOx = LD_ENG.get_main_PlDatStr_MaOx();
+      textsData.main_PlDatStr_Tech = LD_ENG.get_main_PlDatStr_Tech();
+      textsData.main_PlDatStr_CurT = LD_ENG.get_main_PlDatStr_CurT();
+      textsData.main_PlDatStr_WeRT = LD_ENG.get_main_PlDatStr_WeRT();
+      textsData.main_PlDatStr_PSpe = LD_ENG.get_main_PlDatStr_PSpe();
+      textsData.main_PlDatStr_Phea = LD_ENG.get_main_PlDatStr_Phea();
+      textsData.main_PlDatStr_MaFu = LD_ENG.get_main_PlDatStr_MaFu();
+      textsData.main_PlDatStr_PrFi = LD_ENG.get_main_PlDatStr_PrFi();
 
-      textsData.MissionDialog_00 = LD_ENG.MissionDialog_00;
-      textsData.MissionDialog_01 = LD_ENG.MissionDialog_01;
-      textsData.MissionDialog_02 = LD_ENG.MissionDialog_02;
-      textsData.MissionDialog_03 = LD_ENG.MissionDialog_03;
-      textsData.MissionDialog_04 = LD_ENG.MissionDialog_04;
-      textsData.MissionDialog_05 = LD_ENG.MissionDialog_05;
-      textsData.MissionDialog_06 = LD_ENG.MissionDialog_06;
-      textsData.MissionDialog_07 = LD_ENG.MissionDialog_07;
-      textsData.MissionDialog_08 = LD_ENG.MissionDialog_08;
-      textsData.MissionDialog_09 = LD_ENG.MissionDialog_09;
-      textsData.MissionDialog_10 = LD_ENG.MissionDialog_10;
-      textsData.MissionDialog_11 = LD_ENG.MissionDialog_11;
+      textsData.MissionDialog_00 = LD_ENG.get_MissionDialog_00();
+      textsData.MissionDialog_01 = LD_ENG.get_MissionDialog_01();
+      textsData.MissionDialog_02 = LD_ENG.get_MissionDialog_02();
+      textsData.MissionDialog_03 = LD_ENG.get_MissionDialog_03();
+      textsData.MissionDialog_04 = LD_ENG.get_MissionDialog_04();
+      textsData.MissionDialog_05 = LD_ENG.get_MissionDialog_05();
+      textsData.MissionDialog_06 = LD_ENG.get_MissionDialog_06();
+      textsData.MissionDialog_07 = LD_ENG.get_MissionDialog_07();
+      textsData.MissionDialog_08 = LD_ENG.get_MissionDialog_08();
+      textsData.MissionDialog_09 = LD_ENG.get_MissionDialog_09();
+      textsData.MissionDialog_10 = LD_ENG.get_MissionDialog_10();
+      textsData.MissionDialog_11 = LD_ENG.get_MissionDialog_11();
 
-      textsData.button_CurrentTask = LD_ENG.button_CurrentTask;
-      textsData.button_Shop = LD_ENG.button_Shop;
-      textsData.button_Menu = LD_ENG.button_Menu;
-      textsData.NewTask = LD_ENG.NewTask;
+      textsData.button_CurrentTask = LD_ENG.get_button_CurrentTask();
+      textsData.button_Shop = LD_ENG.get_button_Shop();
+      textsData.button_Menu = LD_ENG.get_button_Menu();
+      textsData.NewTask = LD_ENG.get_NewTask();
 
-      textsData.fps = LD_ENG.fps;
+      textsData.fps = LD_ENG.get_fps();
 
-      textsData.PlayMenu_Pause = LD_ENG.PlayMenu_Pause;
-      textsData.PlayMenu_GraphicsQuality = LD_ENG.PlayMenu_GraphicsQuality;
-      textsData.PlayMenu_BUTT_QualityLow = LD_ENG.PlayMenu_BUTT_QualityLow;
-      textsData.PlayMenu_BUTT_QualityNormal = LD_ENG.PlayMenu_BUTT_QualityNormal;
-      textsData.PlayMenu_BUTT_QualityHi = LD_ENG.PlayMenu_BUTT_QualityHi;
-      textsData.PlayMenu_BUTT_MainMenu = LD_ENG.PlayMenu_BUTT_MainMenu;
-      textsData.PlayMenu_BUTT_Close = LD_ENG.PlayMenu_BUTT_Close;
+      textsData.PlayMenu_Pause = LD_ENG.get_PlayMenu_Pause();
+      textsData.PlayMenu_GraphicsQuality = LD_ENG.get_PlayMenu_GraphicsQuality();
+      textsData.PlayMenu_BUTT_QualityLow = LD_ENG.get_PlayMenu_BUTT_QualityLow();
+      textsData.PlayMenu_BUTT_QualityNormal = LD_ENG.get_PlayMenu_BUTT_QualityNormal();
+      textsData.PlayMenu_BUTT_QualityHi = LD_ENG.get_PlayMenu_BUTT_QualityHi();
+      textsData.PlayMenu_BUTT_MainMenu = LD_ENG.get_PlayMenu_BUTT_MainMenu();
+      textsData.PlayMenu_BUTT_Close = LD_ENG.get_PlayMenu_BUTT_Close();
 
-      textsData.Store_RechargeTime = LD_ENG.Store_RechargeTime;
-      textsData.Store_Sec = LD_ENG.Store_Sec;
-      textsData.Store_CurrentFieldLevel = LD_ENG.Store_CurrentFieldLevel;
-      textsData.Store_Maximum4 = LD_ENG.Store_Maximum4;
-      textsData.Store_WeaponUpgrade = LD_ENG.Store_WeaponUpgrade;
-      textsData.Store_FieldUpgrade = LD_ENG.Store_FieldUpgrade;
-      textsData.Store_BUTT_Buy = LD_ENG.Store_BUTT_Buy;
+      textsData.Store_RechargeTime = LD_ENG.get_Store_RechargeTime();
+      textsData.Store_Sec = LD_ENG.get_Store_Sec();
+      textsData.Store_CurrentFieldLevel = LD_ENG.get_Store_CurrentFieldLevel();
+      textsData.Store_Maximum4 = LD_ENG.get_Store_Maximum4();
+      textsData.Store_WeaponUpgrade = LD_ENG.get_Store_WeaponUpgrade();
+      textsData.Store_FieldUpgrade = LD_ENG.get_Store_FieldUpgrade();
+      textsData.Store_BUTT_Buy = LD_ENG.get_Store_BUTT_Buy();
 
-      textsData.Radar_BUTT_Goal = LD_ENG.Radar_BUTT_Goal;
-      textsData.Radar_BUTT_Rotation = LD_ENG.Radar_BUTT_Rotation;
-      textsData.Radar_BUTT_Tilt = LD_ENG.Radar_BUTT_Tilt;
-      textsData.Radar_BUTT_WhereIAm = LD_ENG.Radar_BUTT_WhereIAm;
-      textsData.Radar_CurrentGoal = LD_ENG.Radar_CurrentGoal;
-      textsData.Radar_PressR = LD_ENG.Radar_PressR;
+      textsData.Radar_BUTT_Goal = LD_ENG.get_Radar_BUTT_Goal();
+      textsData.Radar_BUTT_Rotation = LD_ENG.get_Radar_BUTT_Rotation();
+      textsData.Radar_BUTT_Tilt = LD_ENG.get_Radar_BUTT_Tilt();
+      textsData.Radar_BUTT_WhereIAm = LD_ENG.get_Radar_BUTT_WhereIAm();
+      textsData.Radar_CurrentGoal = LD_ENG.get_Radar_CurrentGoal();
+      textsData.Radar_PressR = LD_ENG.get_Radar_PressR();
 
-      textsData.Restart = LD_ENG.Restart;
-      textsData.GameOver = LD_ENG.GameOver;
-      textsData.Victory = LD_ENG.Victory;
+      textsData.Restart = LD_ENG.get_Restart();
+      textsData.GameOver = LD_ENG.get_GameOver();
+      textsData.Victory = LD_ENG.get_Victory();
     }
   }
 }

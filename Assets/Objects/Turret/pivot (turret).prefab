@@ -446,7 +446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceFlag: 0
-  minDistance: 23.5
+  minDistance: 23.6
   GizmosOn: 1
 --- !u!54 &3532090335350029161
 Rigidbody:

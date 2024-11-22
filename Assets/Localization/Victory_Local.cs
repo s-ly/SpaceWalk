@@ -7,6 +7,7 @@ public class Victory_Local : MonoBehaviour {
   public TextMeshProUGUI Victory;
 
   void Start() {
+    Cursor.lockState = CursorLockMode.None;
     CheckLocal();
   }
 

@@ -129,6 +129,10 @@ public class MainMenu : MonoBehaviour {
     ProgressManager.Instance.YandexDataOBJ.GameState = 9;
     PlayerDataShowInMainMenu();
   }
+  public void DEV_BUTTON_state_10() {
+    ProgressManager.Instance.YandexDataOBJ.GameState = 10;
+    PlayerDataShowInMainMenu();
+  }
   public void DEV_BUTTON_state_11() {
     ProgressManager.Instance.YandexDataOBJ.GameState = 11;
     PlayerDataShowInMainMenu();

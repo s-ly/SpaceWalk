@@ -9,6 +9,7 @@ public class GameOver_Local : MonoBehaviour {
   public TextMeshProUGUI main_Load;
 
   void Start() {
+    Cursor.lockState = CursorLockMode.None;
     CheckLocal();
   }
 

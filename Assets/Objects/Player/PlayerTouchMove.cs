@@ -11,6 +11,7 @@ public class PlayerTouchMove : MonoBehaviour {
   Vector2 initialTouchPosition; // Начальная позиция касания
   float sensitivity = 25f; // чувствительность
   float playerSpeed = 22f;
+  float playerSpeedAdd = 1f;
 
   public bool isTouch = false;
   public float forceSide = 0;
@@ -96,12 +97,14 @@ public class PlayerTouchMove : MonoBehaviour {
   void Init() {
     rigPlayer = GetComponent<Rigidbody>();
     scriptPlayer = GetComponent<player>();
+    playerSpeedAdd = ProgressManager.Instance.YandexDataOBJ.DATA_player_speed;
+    // player_speed = ProgressManager.Instance.YandexDataOBJ.DATA_player_speed;
   }
 
   void AddPlayerForce() {
     if (isTouch) {
-      rigPlayer.AddForce(transform.forward * playerSpeed * forceFront);
-      rigPlayer.AddForce(transform.right * playerSpeed * forceSide);
+      rigPlayer.AddForce(transform.forward * playerSpeed * forceFront * playerSpeedAdd);
+      rigPlayer.AddForce(transform.right * playerSpeed * forceSide * playerSpeedAdd);
     }
   }
 
