@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -11,7 +11,7 @@ public class oxygen : MonoBehaviour
     public float oxygenTimeTemp;
     private bool trigerOxygen = false;
 
-    // менеджер игры
+    // РјРµРЅРµРґР¶РµСЂ РёРіСЂС‹
     [SerializeField] private GameObject GameManager; 
     private GameManager script_GameManager;
 
@@ -20,12 +20,12 @@ public class oxygen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Загрузка данных о кислороде из межуровнего хранилища 
+        // Р—Р°РіСЂСѓР·РєР° РґР°РЅРЅС‹С… Рѕ РєРёСЃР»РѕСЂРѕРґРµ РёР· РјРµР¶СѓСЂРѕРІРЅРµРіРѕ С…СЂР°РЅРёР»РёС‰Р° 
         oxygenTime = ProgressManager.Instance.YandexDataOBJ.Oxygen;
 
         oxygenTimeTemp = oxygenTime;        
         UpdateUIOxygen();
-        script_GameManager = GameManager.GetComponent<GameManager>(); // менеджер игры
+        script_GameManager = GameManager.GetComponent<GameManager>(); // РјРµРЅРµРґР¶РµСЂ РёРіСЂС‹
     }
 
     // Update is called once per frame
@@ -34,13 +34,13 @@ public class oxygen : MonoBehaviour
         if (trigerOxygen)
         {
             oxygenTime = oxygenTime - Time.deltaTime;
-            if (oxygenTime < 0) oxygenTime = 0; // что-бы не уходить в минус
+            if (oxygenTime < 0) oxygenTime = 0; // С‡С‚Рѕ-Р±С‹ РЅРµ СѓС…РѕРґРёС‚СЊ РІ РјРёРЅСѓСЃ
             UpdateUIOxygen();
 
             if (oxygenTime == 0)
             {
-                //ProgressManager.Instance.Oxygen = oxygenTimeTemp; // Сохранение данных между уровнями
-                script_GameManager.GameOwer(); // Загрузка GAME OVER                
+                //ProgressManager.Instance.Oxygen = oxygenTimeTemp; // РЎРѕС…СЂР°РЅРµРЅРёРµ РґР°РЅРЅС‹С… РјРµР¶РґСѓ СѓСЂРѕРІРЅСЏРјРё
+                script_GameManager.GameOwer(); // Р—Р°РіСЂСѓР·РєР° GAME OVER                
             }
         }
     }
@@ -66,7 +66,7 @@ public class oxygen : MonoBehaviour
     }
     public void oxygenAdd() {
         sound_oxy.Play(); // sound
-        int oxy_balon_size = 10; // емкость балона
+        int oxy_balon_size = 10; // РµРјРєРѕСЃС‚СЊ Р±Р°Р»РѕРЅР°
         for (int i = 0; i < oxy_balon_size; i++) {
             if (oxygenTime < oxygenTimeTemp) {
                 oxygenTime++;

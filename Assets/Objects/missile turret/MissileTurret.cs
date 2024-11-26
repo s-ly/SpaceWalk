@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using System.Runtime.InteropServices;
 
 public class MissileTurret : MonoBehaviour {
   [SerializeField] TextMeshProUGUI textDebug;
@@ -14,12 +15,18 @@ public class MissileTurret : MonoBehaviour {
   [SerializeField] GameObject _canvas;
   [SerializeField] GameObject CanvasHealth;
   [SerializeField] GameObject _explosion; // взрыв
+  [SerializeField] GameObject Bullet; //префаб пули
+  [SerializeField] GameObject GeneratorRocket; //префаб пули
+  GameObject cloneRocket; // объект новой ракеты
+
 
   // работа с дистанцией
   DistanceDetectorGlobal SCRIPT_dist;
   bool distanceFlag = false;
 
   Camera mainCamera;
+  bool recharge = false; // процесс перезарядки
+  bool charged = false; // заряжен
 
   ///////////////////// КОЛХОЗ!!!
   // мы не должны перекладывать ответсьвеннойть на переход игрока в режим боя,
@@ -33,6 +40,7 @@ public class MissileTurret : MonoBehaviour {
   public enum StateFSM {
     Start,
     Active,
+    Attack,
     Destroyed
   }
 
@@ -91,6 +99,7 @@ public class MissileTurret : MonoBehaviour {
     DirectionTower();
     DirectionTrunkOn();
     UIPosition();
+    AttackActivator();
   }
 
   void CanvasUpdate() {
@@ -120,8 +129,7 @@ public class MissileTurret : MonoBehaviour {
     if (SCRIPT_dist.distanceFlag && !distanceFlag) {
       distanceFlag = true;
       fsm(EventFSM.DistanceTrue);
-    }
-    else if (!SCRIPT_dist.distanceFlag && distanceFlag) {
+    } else if (!SCRIPT_dist.distanceFlag && distanceFlag) {
       distanceFlag = false;
       fsm(EventFSM.DistanceFalse);
     }
@@ -139,6 +147,33 @@ public class MissileTurret : MonoBehaviour {
     _canvas.transform.LookAt(_camera.transform);
     float y = _canvas.transform.localEulerAngles.y;
     _canvas.transform.localEulerAngles = new Vector3(0, y, 0);
+  }
+
+  void AttackActivator() {
+    if (_state == StateFSM.Active) {
+      if (charged && !recharge) {
+        Attack();
+        charged = false;
+      }
+      if (!charged && !recharge) {
+        StartCoroutine(TimerCoroutine(0.5f));
+      }
+    }
+  }
+
+
+  // таймер перезарядки
+  IEnumerator TimerCoroutine(float delay) {
+    recharge = true; // началась перезарядка    
+    yield return new WaitForSeconds(delay); // Ждем заданное время
+    recharge = false; // перезарядка завершилась
+    charged = true;
+  }
+
+  void Attack() {
+    Debug.Log("РАКЕТНАЯ АТАКА");
+    cloneRocket = Instantiate(Bullet, GeneratorRocket.transform.position, GeneratorRocket.transform.rotation);
+    Destroy(cloneRocket, 10f);
   }
 
 
