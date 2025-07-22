@@ -18,6 +18,8 @@ TagManager:
   - ExplodetEnemy
   - DeviceInfo
   - Radar
+  - Ground
+  - PlayerHead
   layers:
   - Default
   - TransparentFX

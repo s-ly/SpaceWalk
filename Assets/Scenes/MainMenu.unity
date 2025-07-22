@@ -577,7 +577,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.4
+  m_fontSize: 28.8
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2100,7 +2100,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14.3
+  m_fontSize: 14.5
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3419,7 +3419,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0.8.9.q dev
+  m_text: 0.8.9.w dev-2025.07.18
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4c6bb5ea021435c46bc8ca5ab893e0f0, type: 2}
   m_sharedMaterial: {fileID: 681354975341750395, guid: 4c6bb5ea021435c46bc8ca5ab893e0f0, type: 2}
@@ -4148,7 +4148,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.08581279}
   m_AnchorMax: {x: 1, y: 0.31746545}
-  m_AnchoredPosition: {x: 0, y: -9.605942}
+  m_AnchoredPosition: {x: 0, y: -9.605957}
   m_SizeDelta: {x: 0, y: -45.976}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1013908687
@@ -4198,7 +4198,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.35
+  m_fontSize: 28
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4930,7 +4930,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41.25
+  m_fontSize: 41.65
   m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6796,7 +6796,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.7
+  m_fontSize: 26.1
   m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 1

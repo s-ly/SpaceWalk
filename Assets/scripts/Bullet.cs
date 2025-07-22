@@ -1,4 +1,4 @@
-// пуля
+п»ї// РїСѓР»СЏ
 
 using System.Collections;
 using System.Collections.Generic;
@@ -7,8 +7,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speedBullet;
-    [SerializeField] private GameObject Explosion_Bullet; // взрыв пули
-    private GameObject clone_Explosion_Bullet; // клон взрыва пули
+    [SerializeField] private GameObject Explosion_Bullet; // РІР·СЂС‹РІ РїСѓР»Рё
+    private GameObject clone_Explosion_Bullet; // РєР»РѕРЅ РІР·СЂС‹РІР° РїСѓР»Рё
     //[SerializeField] private healthManager scriptHealthManager;
 
     // Start is called before the first frame update
@@ -25,20 +25,20 @@ public class Bullet : MonoBehaviour
         //transform.position += new Vector3(0, 0, 0);
     }
 
-    // Пуля куда-то попала
+    // РџСѓР»СЏ РєСѓРґР°-С‚Рѕ РїРѕРїР°Р»Р°
     private void OnTriggerEnter(Collider other)
     {
 
-        // Пуля попала в игрока
+        // РџСѓР»СЏ РїРѕРїР°Р»Р° РІ РёРіСЂРѕРєР°
         if (other.gameObject.CompareTag("Player"))
         {  
-            // в скрипте healthManager вызываем метод урона
+            // РІ СЃРєСЂРёРїС‚Рµ healthManager РІС‹Р·С‹РІР°РµРј РјРµС‚РѕРґ СѓСЂРѕРЅР°
             FindObjectOfType<healthManager>().Damage();
 
-            // взрыв пули
+            // РІР·СЂС‹РІ РїСѓР»Рё
             clone_Explosion_Bullet = Instantiate(Explosion_Bullet, transform.position, transform.rotation);
             clone_Explosion_Bullet.transform.localScale *= 0.5f;
-            Destroy(clone_Explosion_Bullet, 2f); // уничтожение через 2 сек
+            Destroy(clone_Explosion_Bullet, 2f); // СѓРЅРёС‡С‚РѕР¶РµРЅРёРµ С‡РµСЂРµР· 2 СЃРµРє
 
             Destroy(gameObject);
         }
