@@ -577,7 +577,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31.4
+  m_fontSize: 32.35
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2100,7 +2100,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15.75
+  m_fontSize: 16.25
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3419,7 +3419,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: version  0.8.9.e  2025.07.24  dev
+  m_text: version   0.9   2025.07.27   dev
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4c6bb5ea021435c46bc8ca5ab893e0f0, type: 2}
   m_sharedMaterial: {fileID: 681354975341750395, guid: 4c6bb5ea021435c46bc8ca5ab893e0f0, type: 2}
@@ -4198,7 +4198,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.75
+  m_fontSize: 34.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4402,6 +4402,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 1102282858546922143, guid: faf9cece83527444cbd8734000d337a9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1297633788805726414, guid: faf9cece83527444cbd8734000d337a9, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -4446,6 +4450,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1462794784797008714, guid: faf9cece83527444cbd8734000d337a9, type: 3}
+      propertyPath: m_Name
+      value: moon
+      objectReference: {fileID: 0}
+    - target: {fileID: 1462794784797008714, guid: faf9cece83527444cbd8734000d337a9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1909207579014068288, guid: faf9cece83527444cbd8734000d337a9, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -4453,6 +4465,10 @@ PrefabInstance:
     - target: {fileID: 2097217847848000283, guid: faf9cece83527444cbd8734000d337a9, type: 3}
       propertyPath: m_Name
       value: ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 3936152980382279253, guid: faf9cece83527444cbd8734000d337a9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4930,7 +4946,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44.55
+  m_fontSize: 45.55
   m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6796,7 +6812,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.85
+  m_fontSize: 29.85
   m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 1
